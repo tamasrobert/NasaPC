@@ -5,7 +5,6 @@
     aria-controls="primary-navbar" aria-expanded="false">
         <span class=""></span></button>
 
-        <!-- find out why I can't use JavaScript, 34:47  -->
 
     <nav>
         <ul id="primary-navbar" data-visible="false" 
@@ -24,13 +23,25 @@ export default {
     data(){
         return{
             menu: [
-                {title:'Home', to:'/'},
-                {title:'Home', to:'/'},
-                {title:'Home', to:'/'},
-                {title:'Home', to:'/'},
-                {title:'Home', to:'/'}
-                //Menues are to be changed as the project
-                //progresses on or deleted if neccessary
+                {title:'Home', to:'/', dropdowns: [
+                    {ddTitle:'Dropdown', to:'/'},
+                    {ddTitle:'Dropdown', to:'/'},
+                    {ddTitle:'Dropdown', to:'/'}
+                ]},
+                {title:'Home', to:'/', dropdowns: []},
+                {title:'Home', to:'/', dropdowns: [
+                    {ddTitle:'Dropdown', to:'/'},
+                    {ddTitle:'Dropdown', to:'/'},
+                    {ddTitle:'Dropdown', to:'/'}
+                ]},
+                {title:'Home', to:'/', dropdowns: []},
+                {title:'Home', to:'/', dropdowns: [
+                    {ddTitle:'Dropdown', to:'/'},
+                    {ddTitle:'Dropdown', to:'/'},
+                    {ddTitle:'Dropdown', to:'/'}
+                ]}
+                //https://www.youtube.com/watch?v=vb_u7mj84Tc
+                //Watch this...this is what I want, and the code too
             ]
         }
     },

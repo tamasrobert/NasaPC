@@ -3,7 +3,3 @@
     display: flex;
     gap: var(--gap,1rem);
 }
-
-body {
-    background: gray;
-}
