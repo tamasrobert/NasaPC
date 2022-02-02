@@ -5,6 +5,16 @@
     background: hsl(0, 0%, 0% / 0.75);
 }
 
+.secondary-navbar {
+    list-style: none;
+    padding: 2rem;
+    margin: 0;
+    background: hsl(0, 0%, 0% / 0.75);
+    transform: translateY(10px);
+    transition: all 0.2s ease;
+    visibility: hidden;
+}
+
 .mobile-nav-toggle {
     display: none;
 }
@@ -25,6 +35,11 @@
         --gap: 2em;
         /* padding-inline: clamp(3rem, 10vw, 10rem); */
         
+    }
+    .navbar-link-hasChild:hover > .secondary-navbar {
+        transform: translateY(0px);
+        transition: all 0.2s ease;
+        visibility: visible;
     }
 }
 

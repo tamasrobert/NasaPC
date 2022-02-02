@@ -12,6 +12,20 @@
             <li class="" v-for="(menuitem,i) in menu" :key="i">
                 <router-link class="navbar-link" :to="menuitem.to">{{menuitem.title}}</router-link>
             </li>
+            <li class="navbar-link-hasChild">
+                <router-link class="navbar-link" to="/">asdasdads</router-link>
+                <ul class="secondary-navbar">
+                    <li>
+                        <router-link class="navbar-link" to="/">asdasdads</router-link>
+                    </li>
+                    <li>
+                        <router-link class="navbar-link" to="/">asdasdads</router-link>
+                    </li>
+                    <li>
+                        <router-link class="navbar-link" to="/">asdasdads</router-link>
+                    </li>
+                </ul>
+            </li>
         </ul>
     </nav>
   </div>
