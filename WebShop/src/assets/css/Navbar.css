@@ -7,7 +7,7 @@
 
 .secondary-navbar {
     list-style: none;
-    padding: 2rem;
+    padding: 0;
     margin: 0;
     background: hsl(0, 0%, 0% / 0.75);
     transform: translateY(10px);
@@ -17,6 +17,10 @@
 
 .mobile-nav-toggle {
     display: none;
+}
+
+.navbar-item {
+
 }
 
 .navbar-link {
@@ -37,6 +41,8 @@
         
     }
     .navbar-link-hasChild:hover > .secondary-navbar {
+        margin: 0;
+        padding: 0;
         transform: translateY(0px);
         transition: all 0.2s ease;
         visibility: visible;
@@ -46,7 +52,7 @@
 
 @media (max-width: 35em) {
     .primary-navbar {
-        --gap: 2em;
+        --gap: 1.5em;
 
         position: fixed;
         z-index: 1000;

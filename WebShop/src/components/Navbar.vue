@@ -9,23 +9,21 @@
     <nav>
         <ul id="primary-navbar" data-visible="false" 
         class="primary-navbar flex">
-            <li class="" v-for="(menuitem,i) in menu" :key="i">
-                <router-link class="navbar-link" :to="menuitem.to">{{menuitem.title}}</router-link>
-            </li>
-            <li class="navbar-link-hasChild">
-                <router-link class="navbar-link" to="/">asdasdads</router-link>
-                <ul class="secondary-navbar">
-                    <li>
-                        <router-link class="navbar-link" to="/">asdasdads</router-link>
+            <div v-for="(menuitem,i) in menu" :key="i">
+                <li class="navbar-item" v-if="!menuitem.dropdowns">
+                    <router-link class="navbar-link" :to="menuitem.to">{{menuitem.title}}</router-link>
+                </li>
+
+
+                    <li class="navbar-link-hasChild" v-else>
+                        <router-link class="navbar-link" :to="menuitem.to">{{menuitem.title}}</router-link>
+                        <ul class="secondary-navbar">
+                            <li class="navbar-item" v-for="(drmenuitem,j) in menuitem.dropdowns" :key="j">
+                                <router-link class="navbar-link" :to="drmenuitem.to">{{drmenuitem.ddTitle}}</router-link>
+                            </li>
+                        </ul>
                     </li>
-                    <li>
-                        <router-link class="navbar-link" to="/">asdasdads</router-link>
-                    </li>
-                    <li>
-                        <router-link class="navbar-link" to="/">asdasdads</router-link>
-                    </li>
-                </ul>
-            </li>
+            </div>
         </ul>
     </nav>
   </div>
@@ -37,19 +35,19 @@ export default {
     data(){
         return{
             menu: [
-                {title:'Home', to:'/', dropdowns: [
+                {title:'Home1', to:'/', dropdowns: [
                     {ddTitle:'Dropdown', to:'/'},
                     {ddTitle:'Dropdown', to:'/'},
                     {ddTitle:'Dropdown', to:'/'}
                 ]},
-                {title:'Home', to:'/', dropdowns: []},
-                {title:'Home', to:'/', dropdowns: [
+                {title:'Home2', to:'/'},
+                {title:'Home3', to:'/', dropdowns: [
                     {ddTitle:'Dropdown', to:'/'},
                     {ddTitle:'Dropdown', to:'/'},
                     {ddTitle:'Dropdown', to:'/'}
                 ]},
-                {title:'Home', to:'/', dropdowns: []},
-                {title:'Home', to:'/', dropdowns: [
+                {title:'Home4', to:'/'},
+                {title:'Home5', to:'/', dropdowns: [
                     {ddTitle:'Dropdown', to:'/'},
                     {ddTitle:'Dropdown', to:'/'},
                     {ddTitle:'Dropdown', to:'/'}
