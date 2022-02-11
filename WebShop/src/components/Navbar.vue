@@ -15,7 +15,7 @@
                 </li>
 
 
-                    <li class="navbar-link-hasChild" v-else>
+                    <li class="navbar-item navbar-link-hasChild"  dropdown-data-visible = "false" v-else>
                         <router-link class="navbar-link" :to="menuitem.to">{{menuitem.title}}</router-link>
                         <ul class="secondary-navbar">
                             <li class="navbar-item" v-for="(drmenuitem,j) in menuitem.dropdowns" :key="j">
@@ -70,8 +70,6 @@ export default {
                 primaryNav.setAttribute("data-visible", false)
                 navToggle.setAttribute("aria-expanded", "false")
             }
-
-            
         }
     }
 }
