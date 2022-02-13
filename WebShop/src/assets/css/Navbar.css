@@ -88,6 +88,11 @@
         max-height: 0;
         overflow: hidden;
     }
+    .navbar-link-hasChild[dropdown-data-visible = "true"] > .secondary-navbar{
+        max-height: fit-content;
+        
+    }
+
 
     .mobile-nav-toggle {
         display: block;

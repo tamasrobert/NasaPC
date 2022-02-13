@@ -15,7 +15,7 @@
                 </li>
 
 
-                    <li class="navbar-item navbar-link-hasChild"  dropdown-data-visible = "false" v-else>
+                    <li class="navbar-item navbar-link-hasChild" @click="toggleDropdowns"  dropdown-data-visible = "false" v-else>
                         <router-link class="navbar-link" :to="menuitem.to">{{menuitem.title}}</router-link>
                         <ul class="secondary-navbar">
                             <li class="navbar-item" v-for="(drmenuitem,j) in menuitem.dropdowns" :key="j">
@@ -51,9 +51,7 @@ export default {
                     {ddTitle:'Dropdown', to:'/'},
                     {ddTitle:'Dropdown', to:'/'},
                     {ddTitle:'Dropdown', to:'/'}
-                ]}
-                //https://www.youtube.com/watch?v=vb_u7mj84Tc
-                //Watch this...this is what I want, and the code too
+                ]},
             ]
         }
     },
@@ -70,8 +68,17 @@ export default {
                 primaryNav.setAttribute("data-visible", false)
                 navToggle.setAttribute("aria-expanded", "false")
             }
+        },
+        toggleDropdowns() {
+            if (this.getAttribute("dropdown-data-visible") === "false") {
+                this.setAttribute("dropdown-data-visible", "true")
+            }
+            else
+            {
+                this.setAttribute("dropdown-data-visible", "false")
+            }
         }
-    }
+     }
 }
 </script>
 
