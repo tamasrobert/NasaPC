@@ -15,7 +15,7 @@
                 </li>
 
 
-                    <li class="navbar-item navbar-link-hasChild" @click="toggleDropdowns"  dropdown-data-visible = "false" v-else>
+                    <li class="navbar-item navbar-link-hasChild" @click="toggleDropdowns(i)" :dropdown-data-visible = "menuitem.dropdown" v-else>
                         <router-link class="navbar-link" :to="menuitem.to">{{menuitem.title}}</router-link>
                         <ul class="secondary-navbar">
                             <li class="navbar-item" v-for="(drmenuitem,j) in menuitem.dropdowns" :key="j">
@@ -35,19 +35,19 @@ export default {
     data(){
         return{
             menu: [
-                {title:'Home1', to:'/', dropdowns: [
+                {title:'Home1', to:'/', dropdown: false, dropdowns: [
                     {ddTitle:'Dropdown', to:'/'},
                     {ddTitle:'Dropdown', to:'/'},
                     {ddTitle:'Dropdown', to:'/'}
                 ]},
                 {title:'Home2', to:'/'},
-                {title:'Home3', to:'/', dropdowns: [
+                {title:'Home3', to:'/', dropdown: false, dropdowns: [
                     {ddTitle:'Dropdown', to:'/'},
                     {ddTitle:'Dropdown', to:'/'},
                     {ddTitle:'Dropdown', to:'/'}
                 ]},
                 {title:'Home4', to:'/'},
-                {title:'Home5', to:'/', dropdowns: [
+                {title:'Home5', to:'/', dropdown: false, dropdowns: [
                     {ddTitle:'Dropdown', to:'/'},
                     {ddTitle:'Dropdown', to:'/'},
                     {ddTitle:'Dropdown', to:'/'}
@@ -69,14 +69,21 @@ export default {
                 navToggle.setAttribute("aria-expanded", "false")
             }
         },
-        toggleDropdowns() {
-            if (this.getAttribute("dropdown-data-visible") === "false") {
-                this.setAttribute("dropdown-data-visible", "true")
+        toggleDropdowns(i) {
+            
+            if (this.menu[i].dropdown) {
+                this.menu[i].dropdown = false
             }
             else
             {
-                this.setAttribute("dropdown-data-visible", "false")
+                this.menu.forEach(n => {
+                if (n.dropdown == true) {
+                    n.dropdown = false
+                }
+                })
+                this.menu[i].dropdown = true
             }
+            
         }
      }
 }
