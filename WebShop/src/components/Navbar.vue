@@ -3,12 +3,13 @@
 
     <button class="mobile-nav-toggle" @click="toggleNavBar"
     aria-controls="primary-navbar" aria-expanded="false">
-        <span class=""></span></button>
+        </button>
 
 
     <nav>
         <ul id="primary-navbar" data-visible="false" 
         class="primary-navbar flex">
+            <h1>NASA<span class="badge bg-secondary">PC</span></h1>
             <div v-for="(menuitem,i) in menu" :key="i">
                 <li class="navbar-item" v-if="!menuitem.dropdowns">
                     <router-link class="navbar-link" :to="menuitem.to">{{menuitem.title}}</router-link>

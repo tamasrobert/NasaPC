@@ -1,4 +1,10 @@
-
+.body {
+    background-image: url('../image/space-background-image.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+    min-height: 1500px;
+}
 .flex {
     display: flex;
     gap: var(--gap,1rem);

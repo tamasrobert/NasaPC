@@ -9,10 +9,14 @@
     display: none;
 }
 
-
+.navbar-item {
+    color: white;
+    font-weight: bold;
+}
 
 .navbar-link {
-    color: black;
+    color: white;
+    font-weight: bold;
 }
 
 @supports (backdrop-filter: blur(1rem)) {
@@ -103,17 +107,22 @@
         width: 2rem;
         aspect-ratio: 1;
         border: 0;
-        background-color: transparent;
+        background-color: #adb5bdc4;
         background-image: url("../svg/list.svg");
         background-repeat: no-repeat;
         background-size: cover;
+        border-radius: 5px;
+        width: 3rem;
     }
 
     .mobile-nav-toggle[aria-expanded="true"] {
         background-color: transparent;
-        background-image: url("../svg/x-circle-fill.svg");
+        background-color: #adb5bdc4;
+        background-image: url("../svg/x-lg.svg");
         background-repeat: no-repeat;
         background-size: cover;
+        border-radius: 5px;
+        width: 3rem;
     }
 }
 
