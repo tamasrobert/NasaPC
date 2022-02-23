@@ -9,14 +9,38 @@
     display: none;
 }
 
+.nasapc-NASA {
+    color: white;
+    background-color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: xx-large;
+    padding-right: 0;
+    margin-right: 0.2em;
+}
+
+.nasapc-PC {
+    color: white;
+    background-color: #adb5bdc4; ;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: xx-large;
+}
+
 .navbar-item {
     color: white;
     font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    font-size: large;
+    margin-top: 0.6em;
 }
 
 .navbar-link {
     color: white;
     font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    font-size: large;
+    margin-top: 0.6em;
 }
 
 @supports (backdrop-filter: blur(1rem)) {
@@ -75,11 +99,19 @@
     .primary-navbar[data-visible="true"] {
         transform: translateX(0%);
     }
+    .nasapc-NASA {
+        font-size: x-large;
+    }
+    
+    .nasapc-PC {
+        font-size: x-large;
+    }
     .navbar-item {
         width: 6rem;
         align-self: center;
         text-align: center;
         align-content: center;
+        margin-top: 0;
     }
     .secondary-navbar {
         list-style: none;

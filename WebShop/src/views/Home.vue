@@ -1,12 +1,19 @@
 <template>
-  <div>
-    This is the home page
+  <div class="body">
+    <Navbar/>
+    <Footer/>
   </div>
 </template>
 
 <script>
+import Navbar from '../components/Navbar.vue'
+import Footer from '../components/Footer.vue'
 export default {
-    name: 'Home'
+  name: 'Home',
+  components: {
+    Navbar,
+    Footer
+  }
 
 }
 </script>
