@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './assets/css/style.css'
 import './assets/css/Navbar.css'
 import './assets/css/Footer.css'
+import './assets/css/Text.css'
 
 
 

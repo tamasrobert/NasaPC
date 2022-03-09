@@ -1,4 +1,5 @@
 .body {
+    background-color: black;
     background-image: url('../image/1234.jpg');
     background-repeat: no-repeat;
     background-size: cover;
