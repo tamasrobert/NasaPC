@@ -16,14 +16,13 @@
                             <div style="border-top: 2px solid white; padding:5px">
                                 <p>{{product.productDescription}}</p>
                             </div>
-                            <div class="d-flex" style="height:auto; bottom:0">
-                                <div class="justify-content-start bottom-0" style="width:50%">
-                                    <button class="btn m-1">Add to cart</button>
-                                </div>
-                                <div class="bottom-0" style="width:50%">
-                                    <button class="btn">Delete</button>
-                                    <button class="btn">Delete</button>
-                                </div>
+                            <div style="position: absolute; bottom: 0;">
+                                
+                                    <button class="btn bg-primary" style="margin:10px">Add to cart</button>
+                                    
+                                    <button class="btn bg-danger" style="margin-left: 65px; margin-right:5px">Delete</button>
+                                    <button class="btn bg-danger">Delete</button>
+                              
                             </div>
                         
                     </div>
