@@ -37,3 +37,15 @@
 {
     box-shadow: 0px 4px 4px 0px white;
 }
+
+
+
+.standardFormSettings > div {
+    max-width: 20rem;
+}
+.standardFormSettings > div > label {
+    color: white;
+}
+.standardFormSettings > div > textarea {
+    min-height: 10rem;
+}

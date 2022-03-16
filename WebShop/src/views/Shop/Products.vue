@@ -20,8 +20,8 @@
                                 
                                     <button class="btn bg-primary" style="margin:10px">Add to cart</button>
                                     
-                                    <button class="btn bg-danger" style="margin-left: 65px; margin-right:5px">Delete</button>
-                                    <button class="btn bg-danger">Delete</button>
+                                    <button class="btn bg-info" style="margin-left: 140px; margin-right:5px">Details</button>
+         
                               
                             </div>
                         
