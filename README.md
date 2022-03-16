@@ -1,10 +1,7 @@
 # WebShopProject
 Vizsgaremek
 
-▐▐▐▐▐▐▐▐▐▐▐▐▐▐
-▐▐ Frontend ▐▐
-▐▐▐▐▐▐▐▐▐▐▐▐▐▐
-
+▐ Frontend ▐
 
 A Weboldal elindításához a következőkre van szükség:
 
@@ -20,9 +17,9 @@ A Weboldal elindításához a következőkre van szükség:
 
 -- 4 A Weboldal a http://localhost:8080/ -on fut jelenleg.
 
-▐▐▐▐▐▐▐▐▐▐▐▐▐
-▐▐ Backend ▐▐
-▐▐▐▐▐▐▐▐▐▐▐▐▐
+▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃▃
+
+▐ Backend ▐
 
 A backend elindításához a következőkre van szükség:
 -- 1 Győződjön meg róla hogy a Node.js telepítve van.
