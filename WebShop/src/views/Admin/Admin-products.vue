@@ -1,13 +1,12 @@
 <template>
-  <div class="body">
     <Navbar/>
         <main>
-            <div class="container" v-if="products.length > 0">
+            <div class="container " v-if="products.length > 0">
                 
                 <div class="row">
                     
                     <div class=" col-3 productCardSettings " v-for="(product,i) in products" :key="i">
-                        <img src="https://picsum.photos/346/300" alt="https://picsum.photos/325/300">
+                        <img :src="product.productImage" :alt="product.productImage">
                         <div class="flex justify-content-between" style="margin: 12px;">
                             <h5>{{product.productName}}</h5>
                             <h5>{{product.productPrice}} FT</h5>
@@ -32,7 +31,6 @@
             </div>
         </main>
     <Footer/>
-  </div>
 </template>
 
 <script>

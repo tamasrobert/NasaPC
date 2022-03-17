@@ -1,5 +1,4 @@
 <template>
-  <div class="body">
     <Navbar/>
         <main>
             <div class="container" v-if="cartItems.length > 0">
@@ -11,7 +10,7 @@
 
                 <div class="row">
                     <div class=" col-3 productCardSettings " v-for="(item,i) in cartItems" :key="i">
-                        <img src="https://picsum.photos/346/300" alt="https://picsum.photos/325/300">
+                        <img :src="item.cartItemImage">
                         <div class="flex justify-content-between" style="margin: 12px;">
                             <h5>{{item.cartItemName}}</h5>
                             <h5>{{item.cartItemPrice}} FT</h5>
@@ -43,7 +42,6 @@
 
         </main>
     <Footer/>
-  </div>
 </template>
 
 <script>

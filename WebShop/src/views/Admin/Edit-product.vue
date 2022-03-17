@@ -1,10 +1,9 @@
 <template>
-  <div class="body">
     <Navbar/>
         <main>
             <div class="row">
                     <!-- Form starts here! -->
-                    <form class="col-6 standardFormSettings">
+                    <form class="col-6 standardFormSettings m-5">
                         <div class="mb-3 ">
                             <label class="form-label">Name:</label>
                             <input type="text" class="form-control" v-model="productName">
@@ -26,7 +25,7 @@
                     <!-- Form ends here! -->
                     <!-- Card view starts here! -->
                     <div class=" col-6 productCardSettings ">
-                        <img src="https://picsum.photos/346/300" alt="https://picsum.photos/325/300">
+                        <img :src="productImage" :alt="productImage">
                         <div class="flex justify-content-between" style="margin: 12px;">
                             <h5>{{productName}}</h5>
                             <h5>{{productPrice}} FT</h5>
@@ -49,7 +48,6 @@
             </div>
         </main>
     <Footer/>
-  </div>
 </template>
 
 <script>
