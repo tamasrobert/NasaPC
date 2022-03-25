@@ -22,6 +22,7 @@ A Weboldal elindításához a következőkre van szükség:
 █ Backend █
 
 A backend elindításához a következőkre van szükség:
+
 -- 1 Győződjön meg róla hogy a Node.js telepítve van.
         -> https://nodejs.org/en/
         
