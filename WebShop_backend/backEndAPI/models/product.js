@@ -9,4 +9,4 @@ const productSchema = new Schema({
     path: String,
 });
 
-module.exports = mongoose.model('Product', productSchema, products);
+module.exports = mongoose.model('Product', productSchema, 'products');
