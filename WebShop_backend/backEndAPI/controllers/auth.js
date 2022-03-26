@@ -24,9 +24,8 @@ exports.register = (req, res, next) => {
                         var user = new User();
                         user.email = email;
                         user.password = password;
-
-                        //User.insertOne({email, password, activatorToken})
                         user.activatorToken = activatorToken;
+
                         user.save()
                             .then((response2) => {
 
@@ -52,6 +51,37 @@ exports.register = (req, res, next) => {
                 })
         } else {
             res.statusMessage = "Hiba! nincsenek feldolgozható adatok!";
+            return res.sendStatus(400).end();
+        }
+    } catch(e) {
+        res.statusCode(500);
+    }
+};
+
+exports.verifyRegistration = (req, res, next) => {
+    try {
+        if(req.params.token) {
+            let token = req.params.token;
+            User.findOne({'activatorToken': token})
+                .then(async (response) => {
+                    if(response) {
+                        User.updateOne({'activatorToken': token}, {$unset: {'activatorToken':""}})
+                            .then(() => {
+                                return res.send("A felhasználói fiók sikeresen aktiválva!");
+                            })
+                            .catch((error) => {
+                                return res.send(error);
+                            })
+                    } else {
+                        res.statusMessage = "Hiba: Már aktivált felhasználó, vagy érvénytelen token.";
+                        return res.sendStatus(400).end();
+                    }
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        } else {
+            res.statusMessage = "Hiba: Nincs aktiválási token!";
             return res.sendStatus(400).end();
         }
     } catch(e) {

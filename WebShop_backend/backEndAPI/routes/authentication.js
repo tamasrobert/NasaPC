@@ -7,4 +7,7 @@ const authController = require('../controllers/auth');
 // register a new user
 router.post('/api/register', authController.register);
 
+// verify registration
+router.post('/api/verify-account/:token', authController.verifyRegistration);
+
 module.exports = router;

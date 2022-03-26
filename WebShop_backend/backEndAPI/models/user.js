@@ -12,7 +12,8 @@ const userSchema = new Schema({
     required: true,
   },
   admin: Boolean,
-  session: String
+  session: String,
+  activatorToken: String
 });
 
 module.exports = mongoose.model('User', userSchema, 'users');
