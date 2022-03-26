@@ -24,7 +24,10 @@ exports.register = (req, res, next) => {
                             .then((response2) => {
 
                                 transport.sendMail({
-
+                                    from: 'tamas.robert1@students.jedlik.eu',
+                                    to: email,
+                                    subject: 'Webshop - Felhasználó aktiválása',
+                                    html: '<h3>Felhasználói fiókod aktiválása</h3><br><p>Kattints a linkre a jelszó az aktiváláshoz: http://localhost:8080/activate/' + activatorToken + ' </p>'
                                 });
 
                                 return res.send(response2);
