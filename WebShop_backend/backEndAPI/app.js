@@ -14,9 +14,6 @@ const cookieParser = require("cookie-parser");
 // .env variables - .\WebShopProject\WebShop_backend\backEndAPI\.env
 require("dotenv").config();
 
-// models
-//const User = require('./models/user');
-
 // middlewares -> base
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -34,11 +31,17 @@ const paypalClient = new paypal.core.PayPalHttpClient(
   )
 )
 
+// routes
+const adminRoutes = require('./routes/admin');
+const authenticationRoutes = require('./routes/authentication');
+const productsRoutes = require('./routes/products');
+const orderRoutes = require('./routes/orders');
+
 // middlewares -> routes
-//app.use(adminRoutes);
-//app.use(authenticationRoutes);
-//app.use(productsRoutes);
-//app.use(orderRoutes);
+app.use(adminRoutes);
+app.use(authenticationRoutes);
+app.use(productsRoutes);
+app.use(orderRoutes);
 
 // mongodb base
 const CONNECTION_STRING = process.env.CONNECTION_STRING;
@@ -71,10 +74,6 @@ app.use((req, res, next) => {
     else { res.locals.isAdmin = false }
     next()
 })
-
-//app.use('/admin', adminRoutes);
-//app.use(shopRoutes);
-//app.use(authRoutes);
 
 app.get('/api/echo/:message', (req,res) => {
     console.log("echo: " + req.params.message);
