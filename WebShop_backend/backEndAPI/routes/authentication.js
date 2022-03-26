@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+// import authentication controller
+const authController = require('../controllers/auth');
+
+// register a new user
+router.post('/api/register', authController.register);
 
 module.exports = router;
