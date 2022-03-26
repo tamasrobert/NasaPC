@@ -1,9 +1,12 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+// import order controller
+const orderController = require('../controllers/order.js');
+
+// get all orders -> post method used, as front-end sends
+// CORS information
+// include cookies and authentication headers in XHR(XMLHttpRequest).
+router.get('/api/orders', orderController.getOrders);
 
 module.exports = router;
