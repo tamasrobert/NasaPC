@@ -67,14 +67,6 @@ const CONNECTION_STRING = process.env.CONNECTION_STRING;
 
 // middlewares
 
-
-app.use((req, res, next) => {
-    res.locals.isAuthenticated = req.session.isLoggedIn
-    if (req.session.user) { res.locals.isAdmin = req.session.user.isAdmin }
-    else { res.locals.isAdmin = false }
-    next()
-})
-
 app.get('/api/echo/:message', (req,res) => {
     console.log("echo: " + req.params.message);
     res.send(req.params.message);
