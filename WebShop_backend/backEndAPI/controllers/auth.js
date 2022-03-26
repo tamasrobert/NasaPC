@@ -2,7 +2,7 @@ const User = require('../models/user');
 const nodemailer = require('nodemailer');
 const nodemailerSendgrid = require('nodemailer-sendgrid');
 const bcrypt = require('bcrypt');
-//const makeid = require('../util/makeid.js');
+const makeid = require('../util/makeid.js');
 require("dotenv").config();
 
 const transport = nodemailer.createTransport(
@@ -15,12 +15,19 @@ exports.register = (req, res, next) => {
     try {
         if(req.body.email && req.body.password) {
             let email = req.body.email;
-            db.collection('users').findOne({email})
+            User.findOne({email})
                 .then(async (response) => {
                     if(!response) {
                         let password = await bcrypt.hash(req.body.password, 5);
                         const activatorToken = makeid(32);
-                        db.collection('users').insertOne({email, password, activatorToken})
+
+                        var user = new User();
+                        user.email = email;
+                        user.password = password;
+
+                        //User.insertOne({email, password, activatorToken})
+                        user.activatorToken = activatorToken;
+                        user.save()
                             .then((response2) => {
 
                                 transport.sendMail({
