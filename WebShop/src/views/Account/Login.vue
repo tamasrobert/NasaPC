@@ -1,37 +1,36 @@
 <template>
   <Navbar/>
-    <div class="container">
-        <form class="col-6 standardFormSettings m-5">
+    <div class="container row">
+        
+        <div class="col-3"></div>
 
-            <div class="row">
-                <div class="mb-3 col-6">
-                    <label class="form-label">First Name:</label>
-                    <input type="text" class="form-control" v-model="FirstName">
-                </div>
-                <div class="mb-3 col-6">
-                    <label class="form-label">Last Name:</label>
-                    <input type="text" class="form-control" v-model="LastName">
-                </div>
-            </div>
+
+
+        <form class="col-6 standardFormSettings m-5">
             
             <div class="mb-3 ">
                 <label class="form-label">Email:</label>
                 <input type="email" class="form-control" v-model="Email">
             </div>
-            <div class="mb-3 ">
-                <label class="form-label">Phone number:</label>
-                <input type="number" class="form-control" v-model="PhoneNumber">
-            </div>
+            
             <div class="mb-3 ">
                 <label class="form-label">Password:</label>
                 <input type="text" class="form-control" v-model="Password">
             </div>
-            <div class="mb-3 ">
-                <label class="form-label">Repeate Password:</label>
-                <input type="text" class="form-control" v-model="PasswordAgain">
+
+            <div class="row">
+                <div class="col-6">
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+                <div class="col-6">
+                    <button type="submit" class="btn btn-primary">Forgot password</button>
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary">Signup</button>
         </form>
+
+
+
+         <div class="col-3"></div>
 
 
 
@@ -53,12 +52,8 @@ export default {
     },
     data() {
         return {
-            FirstName: "",
-            LastName: "",
             Email: "",
-            PhoneNumber: "",
-            Password: "",
-            PasswordAgain: ""
+            Password: ""
 
         }
     }
