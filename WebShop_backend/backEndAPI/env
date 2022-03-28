@@ -1,0 +1,8 @@
+CONNECTION_STRING=mongodb+srv://jedlik:jedlik@cluster0.yno10.mongodb.net/webshop?retryWrites=true&w=majority
+BACKEND_PORT=3000
+FRONTEND_PORT=8080
+
+SENDGRID_API_KEY=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
+
+PAYPAL_CLIENT_ID=AYF6syarI-jJYtvPCqiEfnqGsQ81B10LQ2zKgmy5e5yKQqjvMHjX0lmNs0-O1mftHB5k69caxD5olayS
+PAYPAL_CLIENT_SECRET=EIPFbTQJvOlohGwafe9TDbDr8ja6P5tiXFeDUdL4yQ6gWiCoZJXTENqzGzsQAFXLsHZlSOdoTdTjzzfp

@@ -36,6 +36,7 @@
 <script>
 import Navbar from '../../components/Navbar.vue'
 import Footer from '../../components/Footer.vue'
+// import Dataservice from '../../services/dataservice.js'
 export default {
   name: 'Products',
   components: {
@@ -58,8 +59,12 @@ export default {
                 {productName: "11OneProduct", productPrice: "1500", productDescription: "A very good product!", productImage: "https://picsum.photos/200/300"},
                 {productName: "12OneProduct", productPrice: "1500", productDescription: "A very good product!", productImage: "https://picsum.photos/200/300"}
             ]
-      }
-  }
+            // products: []
+        }
+    },
+    // mounted() {
+    //     Dataservice.getAllProducts().then(ress => this.products = ress).catch()
+    // }
 
 }
 </script>
