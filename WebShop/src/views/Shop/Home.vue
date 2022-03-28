@@ -1,6 +1,7 @@
 <template>
+  <Navbar/>
   <div class="container">
-    <Navbar/>
+   
     <Carousel/>
     <h1 style="color: white">This is the main page!</h1>
     <HotSalesHomePage/>

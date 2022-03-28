@@ -2,7 +2,7 @@ import {createRouter,createWebHistory} from 'vue-router'
 
 import Home from '../views/Shop/Home.vue'
 import Products from '../views/Shop/Products.vue'
-import Cart from '../views/Shop/Cart.vue'
+import Cart from '../views/Account/Cart.vue'
 
 import AddProduct from '../views/Admin/Add-product.vue'
 import EditProduct from '../views/Admin/Edit-product.vue'
