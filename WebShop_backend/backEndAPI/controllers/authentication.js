@@ -11,7 +11,7 @@ const transport = nodemailer.createTransport(
     })
   );
 
-exports.register = (req, res, next) => {
+exports.register = (req, res) => {
     try {
         if(req.body.email && req.body.password) {
             let email = req.body.email;
@@ -58,7 +58,7 @@ exports.register = (req, res, next) => {
     }
 };
 
-exports.verifyRegistration = (req, res, next) => {
+exports.verifyRegistration = (req, res) => {
     try {
         if(req.params.token) {
             let token = req.params.token;
@@ -89,7 +89,7 @@ exports.verifyRegistration = (req, res, next) => {
     }
 };
 
-exports.getSession = (req, res, next) => {
+exports.getSession = (req, res) => {
     const session = req.cookies['LOCAL_KEY'];
     if(!session) {
         res.statusMessage = "No session key found";
@@ -115,4 +115,8 @@ exports.getSession = (req, res, next) => {
         .catch(() => {
             
         })
+}
+
+exports.login = (req, res) => {
+
 }

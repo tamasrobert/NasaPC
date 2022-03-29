@@ -1,13 +1,13 @@
 const Product = require('../models/product');
 
-exports.getProducts = (req, res, next) => {
+exports.getAllProducts = (req, res, next) => {
   Product
   .find()
   .then(products => {res.send(JSON.stringify(products))})
   .catch((error) => {res.send(JSON.stringify(error))})
 };
 
-exports.getProduct = (req, res, next) => {
+exports.getProductById = (req, res, next) => {
   let _id = req.params.productId;
   Product
   .findOne(_id)

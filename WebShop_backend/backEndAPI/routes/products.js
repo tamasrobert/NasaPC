@@ -5,9 +5,9 @@ var router = express.Router();
 const productController = require('../controllers/product.js');
 
 // get all products
-router.get('/api/products', productController.getProducts);
+router.get('/api/products', productController.getAllProducts);
 
-// search for a specific product
-router.get('/api/product/:porductId', productController.getProduct);
+// search for a specific product by Id
+router.get('/api/product/:porductId', productController.getProductById);
 
 module.exports = router;
