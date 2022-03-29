@@ -93,13 +93,13 @@ exports.getSession = (req, res) => {
     const session = req.cookies['LOCAL_KEY'];
     if(!session) {
         res.statusMessage = "No session key found";
-        return res.sendStatus(406);
+        return res.sendStatus(401);
     }
     User.findOne({session})
         .then((response) => {
             if(!response) {
                 res.statusMessage = "No session key found";
-                return res.sendStatus(406);
+                return res.sendStatus(401);
             }
             res.statusMessage = "Sikeres hitelesítés";
             var data = {
@@ -118,5 +118,53 @@ exports.getSession = (req, res) => {
 }
 
 exports.login = (req, res) => {
+    try {
+        if(req.body.email && req.body.password) {
+            let email = req.body.email;
+            User.findOne({email})
+                .then(async (response) => {
+                    if(response) {
+                        if(response.activatorToken) {
+                            res.statusMessage = "A fiók nincsen aktiválva!";
+                            return res.sendStatus(400).end();
+                        }
 
+                        const user = await bcrypt.compare(req.body.password, response.password);
+                        if(user) {
+                            const session = makeid(32);
+                            res.cookie('LOCAL_KEY', session);
+                            User.updateOne({email}, {$set: {session}})
+                                .then(() => {  })
+                                .catch((error) => {
+                                    console.log(error);
+                                })
+
+                            res.statusMessage = "Sikeres bejelentkezés";
+                            var data = {
+                                email: response.email
+                            }
+                            if(response.admin) {
+                                data = [{...data, admin: true}];
+                            } else {
+                                data = [{...data, admin: false}];
+                            }
+                            return res.send({...data})
+                        } else {
+                            res.statusMessage = "Hibás jelszó";
+                            return res.sendStatus(400).end();
+                        }
+                    }
+                })
+                .catch(() => {
+                    res.statusMessage = "A felhasználó nem létezik";
+                    return res.sendStatus(400).end();
+                })
+            
+        } else {
+            res.statusMessage = "Helytelen adatbevitel!";
+            return res.sendStatus(400).end();
+        }
+    } catch(e) {
+        res.statusCode(500);
+    }
 }

@@ -14,7 +14,6 @@ router.post('/api/verify-account/:token', authController.verifyRegistration);
 router.get('/api/session', authController.getSession);
 
 // login
-router.post('api/login', authController.login)
-
+router.post('/api/login', authController.login)
 
 module.exports = router;
