@@ -3,7 +3,7 @@
         <main>
             <div class="row m-5">
                     <!-- Form starts here! -->
-                    <form class="col-6 standardFormSettings">
+                    <form class="col-xs-12 col-lg-6 standardFormSettings">
                         <div class="mb-3 ">
                             <label class="form-label">Name:</label>
                             <input type="text" class="form-control" v-model="productName">
@@ -14,37 +14,45 @@
                         </div>
                         <div class="mb-3 ">
                             <label class="form-label">Image:</label>
-                            <input type="text" class="form-control" v-model="productImage">
+                            <input type="text" class="form-control" v-model="img">
+                        </div>
+                        <div class="mb-3 ">
+                            <label class="form-label">Category:</label>
+                            <select class="form-control" v-model="productCategory">
+                                <option v-for="(category,i) in categories" :key='i'>{{category.name}}</option>
+                            </select>
                         </div>
                         <div class="mb-3 ">
                             <label class="form-label">Description:</label>
-                            <textarea class="form-control" v-model="productDescription"/>
+                            <Editor v-model="productDescription" editorStyle="height: 320px">
+                                <template #toolbar>
+                                    <span class="ql-formats">
+                                        <button class="ql-bold"></button>
+                                        <button class="ql-italic"></button>
+                                        <button class="ql-underline"></button>
+                                    </span>
+                                </template>
+                            </Editor>
                         </div>
-                        <button type="submit" class="btn btn-primary">Create</button>
+                        <Button label="Primary" @click="test()"/>
                     </form>
                     <!-- Form ends here! -->
-                    <!-- Card view starts here! -->
-                    <div class=" col-6 productCardSettings ">
-                        <img :src="productImage" :alt="productImage">
-                        <div class="flex justify-content-between" style="margin: 12px;">
-                            <h5>{{productName}}</h5>
-                            <h5>{{productPrice}} FT</h5>
-                        </div>
-                        
-                            <div style="border-top: 2px solid white; padding:5px">
-                                <p>{{productDescription}}</p>
-                            </div>
-                            <div style="position: absolute; bottom: 0;">
-                                
-                                    
-                                    <button class="btn bg-primary" style="margin:10px">Add to cart</button>
-                                    
-                                    <button class="btn bg-info" style="margin-left: 140px; margin-right:5px">Details</button>
-                              
-                            </div>
-                        
+
+
+                    <!-- Cropper starts here! -->
+                    <div class="col-xs-12 col-lg-6">
+
+                        <cropper
+                            class="cropper"
+                            :src="img"
+                            :stencil-props="{
+                                aspectRatio: 10/12
+                            }"
+                            @change="change"
+                        />
+
                     </div>
-                    <!-- Card view ends here! -->
+                   
             </div>
         </main>
     <Footer/>
@@ -53,19 +61,43 @@
 <script>
 import Navbar from '../../components/Navbar.vue'
 import Footer from '../../components/Footer.vue'
+import { Cropper } from 'vue-advanced-cropper'
+import 'vue-advanced-cropper/dist/style.css'
+import Button from 'primevue/button';
+import Editor from 'primevue/editor';
+
 export default {
   name: 'Add-Product',
   components: {
     Navbar,
-    Footer
+    Cropper,
+    Footer,
+    Button,
+    Editor
   },
   data(){
       return {
           productName:"asd",
           productPrice:" 123",
           productDescription:"Description placeholder",
-          productImage:"https://picsum.photos/346/300"
-
+          img: 'https://images.unsplash.com/photo-1600984575359-310ae7b6bdf2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80',
+          productCategory: "",
+          categories: [
+                    {name:'Motherboard'},
+                    {name:'CPU'},
+                    {name:'GPU'},
+                    {name:'Memory'},
+                    {name:'Drive'},
+                    {name:'Power Supply Unit'},
+                    {name:'Case'},
+                    {name:'Other'},
+          ]
+      }
+  },
+  methods: {
+      test() {
+          console.log(this.productDescription)
+          console.log(this.productCategory)
       }
   }
 
@@ -73,5 +105,10 @@ export default {
 </script>
 
 <style>
+.cropper {
+	height: 600px;
+	width: 600px;
+	background: #DDD;
+}
 
 </style>
