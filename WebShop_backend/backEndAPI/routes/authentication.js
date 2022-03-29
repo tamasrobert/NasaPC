@@ -16,4 +16,7 @@ router.get('/api/session', authController.getSession);
 // login
 router.post('/api/login', authController.login)
 
+// logout
+router.get('/api/logout', authController.logout)
+
 module.exports = router;

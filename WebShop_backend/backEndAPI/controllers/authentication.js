@@ -168,3 +168,29 @@ exports.login = (req, res) => {
         res.statusCode(500);
     }
 }
+
+exports.logout = (req, res) => {
+    const session = req.cookies['LOCAL_KEY'];
+    if(session) {
+        User.findOne({session})
+            .then((response) => {
+                if(response) {
+                    User.updateOne({session}, {$unset: {session}})
+                        .then(() => {
+                            res.clearCookie('LOCAL_KEY');
+                            res.statusMessage = "Successful logout";
+                            return res.sendStatus(200).end();
+                        })
+                        .catch((error) => {
+                            return res.send(error);
+                        })
+                }
+            })
+            .catch((error) => {
+                res.send(error);
+            })
+    } else {
+        res.statusMessage = "No session key found";
+        res.sendStatus(401);
+    }
+}
