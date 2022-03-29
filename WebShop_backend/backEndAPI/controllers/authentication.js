@@ -88,3 +88,31 @@ exports.verifyRegistration = (req, res, next) => {
         res.statusCode(500);
     }
 };
+
+exports.getSession = (req, res, next) => {
+    const session = req.cookies['LOCAL_KEY'];
+    if(!session) {
+        res.statusMessage = "No session key found";
+        return res.sendStatus(406);
+    }
+    User.findOne({session})
+        .then((response) => {
+            if(!response) {
+                res.statusMessage = "No session key found";
+                return res.sendStatus(406);
+            }
+            res.statusMessage = "Sikeres hitelesítés";
+            var data = {
+                email: response.email
+            }
+            if(response.admin) {
+                data = [{...data, admin: true}];
+            } else {
+                data = [{...data, admin: false}];
+            }
+            return res.send({...data})
+        })
+        .catch(() => {
+            
+        })
+}

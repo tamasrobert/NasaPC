@@ -1,6 +1,6 @@
 <template>
     <div class="form-demo">
-        <Dialog v-model:visible="showMessage" :breakpoints="{ '960px': '80vw' }" :style="{ width: '30vw' }" position="top">
+        <!-- <Dialog v-model:visible="showMessage" :breakpoints="{ '960px': '80vw' }" :style="{ width: '30vw' }" position="top">
             <div class="flex align-items-center flex-column pt-6 px-3">
                 <i class="pi pi-check-circle" :style="{fontSize: '5rem', color: 'var(--green-500)' }"></i>
                 <h5>Registration Successful!</h5>
@@ -13,7 +13,7 @@
                     <Button label="OK" @click="toggleDialog" class="p-button-text" />
                 </div>
             </template>
-        </Dialog>
+        </Dialog> -->
 
         <div class="flex justify-content-center">
             <div class="card">
@@ -88,7 +88,7 @@
 // import Navbar from '../../components/Navbar.vue'
 // import Footer from '../../components/Footer.vue'
 import { email, required } from "@vuelidate/validators"
-import { useVuelidate } from "@vuelidate/core"
+//import { useVuelidate } from "@vuelidate/core"
 import Button from 'primevue/button'
 import Checkbox from 'primevue/checkbox'
 import Calendar from 'primevue/calendar'
@@ -125,7 +125,7 @@ export default {
         }
     },
     created() {
-        this.countryService = new CountryService();
+        //this.countryService = new CountryService();
     },
     mounted() {
         this.countryService.getCountries().then(data => this.countries = data);

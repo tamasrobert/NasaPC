@@ -65,8 +65,7 @@ const CONNECTION_STRING = process.env.CONNECTION_STRING;
 // });
 
 
-// middlewares
-
+// middlewares -> PayPal
 app.get('/api/echo/:message', (req,res) => {
     console.log("echo: " + req.params.message);
     res.send(req.params.message);
