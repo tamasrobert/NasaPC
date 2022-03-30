@@ -78,7 +78,7 @@ export default {
                 {title:'Account', dropdown: false, dropdowns: [
                     {ddTitle:'WishList', to:'/'},
                     {ddTitle:'Cart', to:'/cart'},
-                    {ddTitle:'Settings', to:'/'},
+                    {ddTitle:'Settings', to:'/account/settings'},
                     {ddTitle:'Log out', to:'/'}
                     ]},
                 {title:'Login', to:'/login'},

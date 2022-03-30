@@ -1,8 +1,8 @@
 <template>
     <Navbar/>
     <div class="row formAndInfobox">
-
-        <div class="col-xs-12 col-lg-6 ">
+        
+        <div class="col-xs-12 col-lg-6" style="margin-bottom: 2em">
             <div class="form-demo">
                 
 
@@ -70,9 +70,34 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-lg-6 ">
 
+
+
+
+        <div class="col-xs-12 col-lg-6 ">
+            <h4>Create and account and enjoy the following perks:</h4>
+            <ul>
+                <li>
+                    <p>Get notifications about the new discounts, so you won't miss out on any awesome deal we have.</p>
+                </li>
+                <li>
+                    <p>Make a whislist and we will make sure inform you about your dream product.</p>
+                </li>
+                <li>
+                    <p>Collect loyality points and turn them in for extra bonuses.</p>
+                </li>
+                <li>
+                    <p>Make purchases faster by saving your billing information.</p>
+                </li>
+                <li>
+                    <p>Get the maximum experience out of your stay here.</p>
+                </li>
+            </ul>
         </div>
+
+
+
+
     </div>
     <Footer/>
 </template>
@@ -116,7 +141,7 @@ export default {
 <style lang="scss" scoped>
 .form-demo {
     .card {
-        min-width: 450px;
+        min-width: 300px;
 
         form {
             margin-top: 2rem;
@@ -134,7 +159,7 @@ export default {
     }
 }
 .formAndInfobox {
-    margin: 2%;
+    margin: 5%;
 }
 
 </style>
