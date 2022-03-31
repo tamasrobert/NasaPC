@@ -9,7 +9,7 @@
     <nav>
         <ul id="primary-navbar" data-visible="false" 
         class="primary-navbar flex">
-            <h1><span class="badge nasapc-NASA">NASA</span><span class="badge nasapc-PC">PC</span></h1>
+            <Logo/>
 
             <!-- <div v-for="(menuitem,i) in menu" :key="i">
                 <li class="navbar-item" v-if="!menuitem.dropdowns">
@@ -58,8 +58,12 @@
 </template>
 
 <script>
+import Logo from './Logo.vue'
 export default {
     name: 'Navbar',
+    components: {
+        Logo
+    },
     data(){
         return{
             menu: [
