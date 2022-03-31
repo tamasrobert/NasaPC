@@ -31,7 +31,6 @@ exports.register = (req, res) => {
                                     subject: 'Webshop - Felhasználó aktiválása',
                                     html: '<h3>Felhasználói fiókod aktiválása</h3><br><p>Kattints a linkre a jelszó az aktiváláshoz: http://localhost:8080/activate/' + activatorToken + ' </p>'
                                 });
-
                                 return res.send(response2);
                             })
                             .catch((error) => {
@@ -62,8 +61,8 @@ exports.verifyRegistration = (req, res) => {
                 .then(async (response) => {
                     if(response) {
                         User.updateOne({'activatorToken': token}, {$unset: {'activatorToken':""}})
-                            .then(() => {
-                                return res.send("A felhasználói fiók sikeresen aktiválva!");
+                            .then((result) => {
+                                return res.send({"Siker":"A felhasználói fiók sikeresen aktiválva!"});
                             })
                             .catch((error) => {
                                 return res.send(error);
@@ -117,9 +116,12 @@ exports.login = (req, res) => {
     try {
         if(req.body.email && req.body.password) {
             let email = req.body.email;
+
             User.findOne({email})
                 .then(async (response) => {
+
                     if(response) {
+
                         if(response.activatorToken) {
                             res.statusMessage = "A fiók nincsen aktiválva!";
                             return res.sendStatus(400).end();
@@ -149,6 +151,10 @@ exports.login = (req, res) => {
                             res.statusMessage = "Hibás jelszó";
                             return res.sendStatus(400).end();
                         }
+                    }
+                    else {
+                        res.statusMessage = "A felhasználó nem létezik";
+                        return res.sendStatus(400).end();
                     }
                 })
                 .catch(() => {
