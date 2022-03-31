@@ -5,11 +5,7 @@ const bcrypt = require('bcrypt');
 const makeid = require('../util/makeid.js');
 require("dotenv").config();
 
-const transport = nodemailer.createTransport(
-    nodemailerSendgrid({
-        apiKey: process.env.SENDGRID_API_KEY
-    })
-  );
+const transport = nodemailer.createTransport(nodemailerSendgrid({apiKey: process.env.SENDGRID_API_KEY}));
 
 exports.register = (req, res) => {
     try {
