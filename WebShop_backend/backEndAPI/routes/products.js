@@ -8,6 +8,6 @@ const productController = require('../controllers/product.js');
 router.get('/api/products', productController.getAllProducts);
 
 // search for a specific product by Id
-router.get('/api/product/:porductId', productController.getProductById);
+router.get('/api/product/:productId', productController.getProductById);
 
 module.exports = router;
