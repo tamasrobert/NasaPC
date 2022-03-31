@@ -11,6 +11,7 @@ import Admin_Product from '../views/Admin/Admin-products.vue'
 import Login from '../views/Account/Login.vue'
 import Signup from '../views/Account/Signup.vue'
 import AccountSettings from '../views/Account/Account-settings.vue'
+import WishList from '../views/Account/WishList.vue'
 
 const routes = [
     {path: '/', component: Home},
@@ -24,6 +25,8 @@ const routes = [
     {path: '/login', component: Login},
     {path: '/signup', component: Signup},
     {path: '/account/settings', component: AccountSettings},
+    {path: '/account/wishlist', component: WishList},
+    
     
 ]
 

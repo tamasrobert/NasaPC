@@ -76,42 +76,13 @@ export default {
                     ]},
                 {title:'About us', to:'/'},
                 {title:'Account', dropdown: false, dropdowns: [
-                    {ddTitle:'WishList', to:'/'},
+                    {ddTitle:'WishList', to:'/account/wishlist'},
                     {ddTitle:'Cart', to:'/cart'},
                     {ddTitle:'Settings', to:'/account/settings'},
                     {ddTitle:'Log out', to:'/'}
                     ]},
                 {title:'Login', to:'/login'},
                 {title:'Signup', to:'/signup'},
-                // {title:'Home1', to:'/', dropdown: false, dropdowns: [
-                //     {ddTitle:'Dropdown1', to:'/'},
-                //     {ddTitle:'Dropdown1', to:'/'},
-                //     {ddTitle:'Dropdown1', to:'/'},
-                //     {ddTitle:'Dropdown1', to:'/'},
-                //     {ddTitle:'Dropdown1', to:'/'},
-                //     {ddTitle:'Dropdown1', to:'/'},
-                //     {ddTitle:'Dropdown1', to:'/'}
-                // ]},
-                // {title:'Home2', to:'/'},
-                // {title:'Home3', to:'/', dropdown: false, dropdowns: [
-                //     {ddTitle:'Dropdown2', to:'/'},
-                //     {ddTitle:'Dropdown2', to:'/'},
-                //     {ddTitle:'Dropdown2', to:'/'}
-                // ]},
-                // {title:'Home4', to:'/'},
-                // {title:'Home5', to:'/', dropdown: false, dropdowns: [
-                //     {ddTitle:'Dropdown3', to:'/'},
-                //     {ddTitle:'Dropdown3', to:'/'},
-                //     {ddTitle:'Dropdown3', to:'/'},
-                //     {ddTitle:'Dropdown3', to:'/'},
-                //     {ddTitle:'Dropdown3', to:'/'},
-                //     {ddTitle:'Dropdown3', to:'/'},
-                //     {ddTitle:'Dropdown3', to:'/'},
-                //     {ddTitle:'Dropdown3', to:'/'},
-                //     {ddTitle:'Dropdown3', to:'/'},
-                //     {ddTitle:'Dropdown3', to:'/'},
-                //     {ddTitle:'Dropdown3', to:'/'}
-                // ]},
             ]
         }
     },
