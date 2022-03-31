@@ -24,21 +24,27 @@ exports.addProductNoImage = (req, res) => {
         .catch((error) => {res.send(error)})
 }
 
-// needs fixing, busboy doesn't seem to work
 exports.addProduct = (req, res) => {
     const session = req.cookies['LOCAL_KEY'];
     if(!session) return res.sendStatus(401);
     User.findOne({session, 'admin':true})
         .then((response) => {
             if(!response) return res.sendStatus(401);
-            var name = '';
-            var description = '';
-            var price = '';
-            var category = '';
-            // var generatedFileName = makeid(6) + ".jpg";
-            //if (!req.is('multipart/form-data')) {return res.sendStatus(415)};
+
+            var name = req.body.name;
+            var description = req.body.description;
+            var price = req.body.price;
+            var category = req.body.category;
+            var path = req.body.path;
             
-            return res.sendStatus(201);
+            var product = new Product();
+            product.name = name;
+            product.description = description;
+            product.price = price;
+            product.category = category;
+            product.path = path;
+
+            product.save().then(response=>{return res.status(201).send(response)});
         })
         .catch((error) => {
             res.send(error);
@@ -56,14 +62,14 @@ exports.deleteProduct = (req, res) => {
                 .then((product) => {
                     Product.deleteOne({_id})
                         .then((result) => {
-                            if(product.path != 'NoImage.png') {
-                                fs.unlink('public/images/products/' + product.path, (err) => {
-                                    if (err) console.log(err);
-                                });
-                                fs.unlink("../../WebShop/public/images/products/" + product.path, (err) => {
-                                    if (err) console.log(err);
-                                });
-                            }
+                            // if(product.path != 'NoImage.png') {
+                            //     fs.unlink('public/images/products/' + product.path, (err) => {
+                            //         if (err) console.log(err);
+                            //     });
+                            //     fs.unlink("../../WebShop/public/images/products/" + product.path, (err) => {
+                            //         if (err) console.log(err);
+                            //     });
+                            // }
                             return res.json({ "Message": 'Deleted' });
                             
                         })
