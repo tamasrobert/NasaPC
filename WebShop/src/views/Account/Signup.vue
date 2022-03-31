@@ -119,6 +119,7 @@ import Calendar from 'primevue/calendar'
 import Password from 'primevue/password'
 import InputText from 'primevue/inputtext'
 
+
 export default {
     name: 'Signup',
     components: {
