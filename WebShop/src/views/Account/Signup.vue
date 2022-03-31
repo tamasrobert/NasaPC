@@ -11,7 +11,8 @@
                         <h5 class="text-center">Register</h5>
                         <form class="p-fluid">
                             <div class="field">
-                                <div class="p-float-label">
+                                <div class="p-float-label p-input-icon-right">
+                                    <i class="pi pi-user"></i>
                                     <InputText id="name" v-model="UserName" />
                                     <label for="name" >Name*</label>
                                 </div>
@@ -46,7 +47,12 @@
                                     </Password>
                                     <label for="password">Password*</label>
                                 </div>
-                            
+                            </div>
+                            <div class="field">
+                              <span class="p-float-label">
+                                  <InputText id="inputtext" type="text" v-model="UserPasswordAgain" />
+                                  <label for="inputtext">Password Again*</label>
+                              </span>
                             </div>
                             <div class="field">
                                 <div class="p-float-label">

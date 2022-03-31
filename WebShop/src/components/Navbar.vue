@@ -85,6 +85,11 @@ export default {
                     {ddTitle:'Settings', to:'/account/settings'},
                     {ddTitle:'Log out', to:'/'}
                     ]},
+                {title:'Admin', dropdown: false, dropdowns: [
+                    {ddTitle:'Add-product', to:'/admin/add-product'},
+                    {ddTitle:'Edit-product', to:'/admin/edit-product'},
+                    {ddTitle:'Products', to:'/admin/products'}
+                    ]},
                 {title:'Login', to:'/login'},
                 {title:'Signup', to:'/signup'},
             ]

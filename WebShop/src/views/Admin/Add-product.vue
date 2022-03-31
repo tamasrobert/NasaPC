@@ -2,8 +2,10 @@
     <Navbar/>
         <main>
             <div class="row m-5">
+                <h1 class="mt-5 mb-5" style="text-align:center">Admin panel: Add Product</h1>
                     <!-- Form starts here! -->
-                    <form class="col-xs-12 col-lg-6 standardFormSettings">
+                     <div class="col-2"></div>
+                    <form class="col-xs-12 col-lg-4 standardFormSettings">
                         <div class="mb-3 ">
                             <label class="form-label">Name:</label>
                             <input type="text" class="form-control" v-model="productName">
