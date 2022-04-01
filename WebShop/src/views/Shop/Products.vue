@@ -35,7 +35,7 @@
 <script>
 import Navbar from '../../components/Navbar.vue'
 import Footer from '../../components/Footer.vue'
-import Dataservice from '../../services/dataservice.js'
+import Dataservice from '../../services/DataService.js'
 export default {
   name: 'Products',
   components: {

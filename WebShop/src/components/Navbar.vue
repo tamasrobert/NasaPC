@@ -10,7 +10,7 @@
     <nav>
         <ul id="primary-navbar" data-visible="false" 
         class="primary-navbar flex">
-            <!-- <Logo/> -->
+            <Logo/>
 
             <!-- <div v-for="(menuitem,i) in menu" :key="i">
                 <li class="navbar-item" v-if="!menuitem.dropdowns">
@@ -60,11 +60,11 @@
 </template>
 
 <script>
-// import Logo from './Logo.vue'
+import Logo from './Logo.vue'
 export default {
     name: 'Navbar',
     components: {
-        // Logo
+        Logo
     },
     data(){
         return{

@@ -1,11 +1,11 @@
 <template>
-    <!-- <Navbar/> -->
-        <main>
+    <main>
+        <Navbar/>
             <div class="row m-5">
                 <h1 class="mt-5 mb-5" style="text-align:center">Admin panel: Add Product</h1>
                     <!-- Form starts here! -->
                      <div class="col-2"></div>
-                    <form class="col-xs-12 col-lg-4 standardFormSettings" method="post" @submit.prevent="addProduct">
+                    <form class="col-xs-12 col-lg-4 standardFormSettings" method="post" @submit="addProduct">
                         <div class="mb-3 ">
                             <label class="form-label">Name:</label>
                             <input type="text" class="form-control" v-model="newProductData.name">
@@ -54,15 +54,15 @@
                         />
 
                     </div>
-                   
+
             </div>
-        </main>
-    <!-- <Footer/> -->
+        <Footer/>
+    </main>
 </template>
 
 <script>
-// import Navbar from '../../components/Navbar.vue'
-// import Footer from '../../components/Footer.vue'
+import Navbar from '../../components/Navbar.vue'
+import Footer from '../../components/Footer.vue'
 import { Cropper } from 'vue-advanced-cropper'
 import 'vue-advanced-cropper/dist/style.css'
 import Button from 'primevue/button';
@@ -72,9 +72,9 @@ import AdminDataService from '../../services/AdminDataService.js'
 export default {
   name: 'Add-Product',
   components: {
-    // Navbar,
+    Navbar,
     Cropper,
-    // Footer,
+    Footer,
     Button,
     Editor
   },
@@ -101,7 +101,7 @@ export default {
   },
   methods: {
       addProduct() {
-          AdminDataService.addProductNoImage(newProductData).then(() => {
+          AdminDataService.addProductNoImage(this.newProductData).then(() => {
               this.$router.push("/admin/products");
           })
       }

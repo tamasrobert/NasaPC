@@ -10,7 +10,7 @@
                     <div class="flex justify-content-center">
                         <div class="card">
                             <h5 class="text-center">Register</h5>
-                            <form class="p-fluid" method="post" @submit.prevent="SignupNewUser">
+                            <form class="p-fluid" method="post" @submit="SignupNewUser">
                                 <div class="field">
                                     <div class="p-float-label p-input-icon-right">
                                         <i class="pi pi-user"></i>
