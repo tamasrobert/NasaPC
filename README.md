@@ -58,7 +58,7 @@ A backend elindításához a következőkre van szükség:
 -- 4. Nyisson egy parancssort az útvonalra (adminisztrátor jog szükséges lehet)
 
 -- 5. Adja ki a "mongorestore NasaPC <dump mappa útvonala>" parancsot
-      (lehetséges dump útvonal: C:\Users\tamas.robert1\Downloads\webshop)
+        (lehetséges dump útvonal: C:\Users\tamas.robert1\Downloads\webshop)
       
 -- 6. Siker esetén ellenőrizze az adatok/kollekciók meglétét (pl. MongoDB Compass)
         
