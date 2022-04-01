@@ -7,22 +7,13 @@ export default {
     getAllProducts(){
         return Axios.get('/products')
         .then(resp => {
-            console.log(resp)
+            return resp.data
         })
         .catch(err => {
             console.log(err)
         })
     }
-    // getUserById(id){
-    //     return Axios.get(`/user/${id}`)
-    //     .then(res=>{
-    //         return resp.data;
-    //     })
-    //     .catch()
-    // }
-    // ,
-    // saveUser(user){
-    //     return Axios.post('/users',user)
-    //     .then(()=>{})
-    // }
+
+    
+
 }

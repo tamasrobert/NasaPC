@@ -1,5 +1,5 @@
 <template>
-    <Navbar/>
+    <!-- <Navbar/> -->
         <main>
             <div class="row m-5">
                 <h1 class="mt-5 mb-5" style="text-align:center">Admin panel: Add Product</h1>
@@ -57,12 +57,12 @@
                    
             </div>
         </main>
-    <Footer/>
+    <!-- <Footer/> -->
 </template>
 
 <script>
-import Navbar from '../../components/Navbar.vue'
-import Footer from '../../components/Footer.vue'
+// import Navbar from '../../components/Navbar.vue'
+// import Footer from '../../components/Footer.vue'
 import { Cropper } from 'vue-advanced-cropper'
 import 'vue-advanced-cropper/dist/style.css'
 import Button from 'primevue/button';
@@ -71,9 +71,9 @@ import Editor from 'primevue/editor';
 export default {
   name: 'Add-Product',
   components: {
-    Navbar,
+    // Navbar,
     Cropper,
-    Footer,
+    // Footer,
     Button,
     Editor
   },

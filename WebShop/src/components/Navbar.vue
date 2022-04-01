@@ -1,4 +1,5 @@
 <template>
+<div>
   <div>
 
     <button class="mobile-nav-toggle" @click="toggleNavBar"
@@ -9,7 +10,7 @@
     <nav>
         <ul id="primary-navbar" data-visible="false" 
         class="primary-navbar flex">
-            <Logo/>
+            <!-- <Logo/> -->
 
             <!-- <div v-for="(menuitem,i) in menu" :key="i">
                 <li class="navbar-item" v-if="!menuitem.dropdowns">
@@ -55,28 +56,22 @@
     </div>
 
   </div>
+</div>
 </template>
 
 <script>
-import Logo from './Logo.vue'
+// import Logo from './Logo.vue'
 export default {
     name: 'Navbar',
     components: {
-        Logo
+        // Logo
     },
     data(){
         return{
             menu: [
                 {title:'Home', to:'/'},
                 {title:'Products', dropdown: false, dropdowns: [
-                    {ddTitle:'Motherboard', to:'/products'},
-                    {ddTitle:'CPU', to:'/products'},
-                    {ddTitle:'GPU', to:'/products'},
-                    {ddTitle:'Memory', to:'/products'},
-                    {ddTitle:'Drive', to:'/'},
-                    {ddTitle:'Power Supply Unit', to:'/'},
-                    {ddTitle:'Case', to:'/'},
-                    {ddTitle:'Other', to:'/'},
+                    {ddTitle:'poroduct', to:'/products'}
                     ]},
                 {title:'About us', to:'/'},
                 {title:'Account', dropdown: false, dropdowns: [
