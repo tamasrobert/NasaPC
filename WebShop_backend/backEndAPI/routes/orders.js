@@ -4,9 +4,7 @@ const router = express.Router();
 // import order controller
 const orderController = require('../controllers/order.js');
 
-// get all orders -> post method used, as front-end sends
-// CORS information
-// include cookies and authentication headers in XHR(XMLHttpRequest).
-router.get('/api/orders', orderController.getOrders);
+// place a new order
+router.post('/api/place-order', orderController.placeOrder);
 
 module.exports = router;
