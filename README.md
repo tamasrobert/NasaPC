@@ -48,13 +48,18 @@ A backend elindításához a következőkre van szükség:
 
 -- 1. Győződjön meg róla hogy a MongoDB telepítve van.
         -> https://www.mongodb.com/
+        
 -- 2. Navigáljon az alapértelmezett meghajtóra (alapértelmezetten C:):
         -> Ellenőrizze, hogy létezik "data" nevű mappa, és abban egy "db" nevű mappa
                 -> Amennyiben nem, ezeket kézzel hozza létre
+                
 -- 3. Navigáljon a MongoDB/...bin mappához (lehetséges útvonal: C:\Program Files\MongoDB\Server\4.2\bin)
+
 -- 4. Nyisson egy parancssort az útvonalra (adminisztrátor jog szükséges lehet)
+
 -- 5. Adja ki a "mongorestore NasaPC <dump mappa útvonala>" parancsot
       (lehetséges dump útvonal: C:\Users\tamas.robert1\Downloads\webshop)
+      
 -- 6. Siker esetén ellenőrizze az adatok/kollekciók meglétét (pl. MongoDB Compass)
         
 
