@@ -5,28 +5,28 @@
                 <h1 class="mt-5 mb-5" style="text-align:center">Admin panel: Add Product</h1>
                     <!-- Form starts here! -->
                      <div class="col-2"></div>
-                    <form class="col-xs-12 col-lg-4 standardFormSettings">
+                    <form class="col-xs-12 col-lg-4 standardFormSettings" method="post" @submit.prevent="addProduct">
                         <div class="mb-3 ">
                             <label class="form-label">Name:</label>
-                            <input type="text" class="form-control" v-model="productName">
+                            <input type="text" class="form-control" v-model="newProductData.name">
                         </div>
                         <div class="mb-3 ">
                             <label class="form-label">Price:</label>
-                            <input type="number" class="form-control" v-model="productPrice">
+                            <input type="number" class="form-control" v-model="newProductData.price">
                         </div>
                         <div class="mb-3 ">
                             <label class="form-label">Image:</label>
-                            <input type="text" class="form-control" v-model="img">
+                            <input type="text" class="form-control" v-model="newProductData.path">
                         </div>
                         <div class="mb-3 ">
                             <label class="form-label">Category:</label>
-                            <select class="form-control" v-model="productCategory">
+                            <select class="form-control" v-model="newProductData.categories">
                                 <option v-for="(category,i) in categories" :key='i'>{{category.name}}</option>
                             </select>
                         </div>
                         <div class="mb-3 ">
                             <label class="form-label">Description:</label>
-                            <Editor v-model="productDescription" editorStyle="height: 320px">
+                            <Editor v-model="newProductData.description" editorStyle="height: 320px">
                                 <template #toolbar>
                                     <span class="ql-formats">
                                         <button class="ql-bold"></button>
@@ -36,7 +36,7 @@
                                 </template>
                             </Editor>
                         </div>
-                        <Button label="Primary" @click="test()"/>
+                        <Button type="submit" label="Submit"/>
                     </form>
                     <!-- Form ends here! -->
 
@@ -67,6 +67,7 @@ import { Cropper } from 'vue-advanced-cropper'
 import 'vue-advanced-cropper/dist/style.css'
 import Button from 'primevue/button';
 import Editor from 'primevue/editor';
+import AdminDataService from '../../services/AdminDataService.js'
 
 export default {
   name: 'Add-Product',
@@ -79,11 +80,13 @@ export default {
   },
   data(){
       return {
-          productName:"asd",
-          productPrice:" 123",
-          productDescription:"Description placeholder",
-          img: 'https://images.unsplash.com/photo-1600984575359-310ae7b6bdf2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80',
-          productCategory: "",
+          newProductData: {
+            name:"asd",
+            category:"Pick one",
+            price: 555,
+            description: "Description here",
+            path: 'https://images.unsplash.com/photo-1600984575359-310ae7b6bdf2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80'
+          },
           categories: [
                     {name:'Motherboard'},
                     {name:'CPU'},
@@ -97,9 +100,10 @@ export default {
       }
   },
   methods: {
-      test() {
-          console.log(this.productDescription)
-          console.log(this.productCategory)
+      addProduct() {
+          AdminDataService.addProductNoImage(newProductData).then(() => {
+              this.$router.push("/admin/products");
+          })
       }
   }
 

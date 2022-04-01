@@ -1,6 +1,6 @@
 <template>
-    <Navbar/>
         <main>
+             <Navbar/>
             <div class="container " v-if="products.length > 0">
                 
                 <div class="row">
@@ -29,8 +29,8 @@
                 </div>
 
             </div>
+            <Footer/>
         </main>
-    <Footer/>
 </template>
 
 <script>

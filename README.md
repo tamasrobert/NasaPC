@@ -61,6 +61,8 @@ A backend elindításához a következőkre van szükség:
         (lehetséges dump útvonal: C:\Users\tamas.robert1\Downloads\webshop)
       
 -- 6. Siker esetén ellenőrizze az adatok/kollekciók meglétét (pl. MongoDB Compass)
+
+https://www.prisma.io/dataguide/mongodb/setting-up-a-local-mongodb-database
         
 
 
