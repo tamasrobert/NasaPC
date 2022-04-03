@@ -5,7 +5,6 @@ const orderSchema = new Schema({
     id: String,
     userId: {
         type: Schema.Types.ObjectId,
-        required: true,
         ref: 'User'
     },
     created_at: Number,
