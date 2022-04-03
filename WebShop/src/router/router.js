@@ -22,7 +22,7 @@ const routes = [
     {path: '/product/:id', component: ProductDetails},
 
     {path: '/admin/add-product', component: AddProduct},
-    {path: '/admin/edit-product', component: EditProduct},
+    {path: '/admin/edit-product/:id', component: EditProduct},
     {path: '/admin/products', component: Admin_Product},
 
     {path: '/login', component: Login},

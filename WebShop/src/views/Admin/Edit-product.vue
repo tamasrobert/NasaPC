@@ -36,7 +36,7 @@
                                 </template>
                             </Editor>
                         </div>
-                        <Button label="Primary" @click="test()"/>
+                        <Button label="Primary" @click="Edit()"/>
                     </form>
                     <!-- Form ends here! -->
 
@@ -63,6 +63,7 @@
 <script>
 import Navbar from '../../components/Navbar.vue'
 import Footer from '../../components/Footer.vue'
+import AdminDataService from '../../services/AdminDataService.js'
 import { Cropper } from 'vue-advanced-cropper'
 import 'vue-advanced-cropper/dist/style.css'
 import Button from 'primevue/button';
@@ -79,11 +80,13 @@ export default {
   },
   data(){
       return {
-          productName:"asd",
-          productPrice:" 123",
-          productDescription:"Description placeholder",
-          img: 'https://images.unsplash.com/photo-1600984575359-310ae7b6bdf2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80',
-          productCategory: "",
+          product:{
+            name:"asd",
+            price:" 123",
+            description:"Description placeholder",
+            path: 'https://images.unsplash.com/photo-1600984575359-310ae7b6bdf2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=80',
+            category: "",
+          },
           categories: [
                     {name:'Motherboard'},
                     {name:'CPU'},
@@ -97,9 +100,9 @@ export default {
       }
   },
   methods: {
-      test() {
-          console.log(this.productDescription)
-          console.log(this.productCategory)
+      Edit() {
+          AdminDataService.modifyProduct(this.$route.params.id, this.product)
+          .then(() => {this.$route.push('/admin/products')})
       }
   }
 
