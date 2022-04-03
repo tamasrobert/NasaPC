@@ -12,8 +12,17 @@ export default {
         .catch(err => {
             console.log(err)
         })
-    }
+    },
 
+    getProductById(id){
+        return Axios.get('/product/'+id)
+        .then(resp => {
+            return resp.data
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
     
 
 }

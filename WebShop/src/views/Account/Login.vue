@@ -6,16 +6,16 @@
 
 
 
-        <form class="col-6 standardFormSettings m-5">
+        <form class="col-6 standardFormSettings m-5" @submit="Login()">
             
             <div class="mb-3 ">
                 <label class="form-label">Email:</label>
-                <input type="email" class="form-control" v-model="Email">
+                <input type="email" class="form-control" v-model="UserData.email">
             </div>
             
             <div class="mb-3 ">
                 <label class="form-label">Password:</label>
-                <input type="text" class="form-control" v-model="Password">
+                <input type="text" class="form-control" v-model="UserData.password">
             </div>
 
             <div class="row">
@@ -23,7 +23,7 @@
                     <button type="submit" class="btn btn-primary">Login</button>
                 </div>
                 <div class="col-6">
-                    <button type="submit" class="btn btn-primary">Forgot password</button>
+                    <button class="btn btn-primary">Forgot password</button>
                 </div>
             </div>
         </form>
@@ -43,6 +43,7 @@
 <script>
 import Navbar from '../../components/Navbar.vue'
 import Footer from '../../components/Footer.vue'
+import AccountDataService from '../../services/AccountDataService.js'
 
 export default {
     name: 'Login',
@@ -52,10 +53,18 @@ export default {
     },
     data() {
         return {
-            Email: "",
-            Password: ""
+            UserData: {
+                email: "",
+                password: ""
+            }
 
         }
+    },
+    methods: {
+        Login() {
+            AccountDataService.Login(this.UserData).then(() => {}).catch()
+        }
+
     }
 
 }

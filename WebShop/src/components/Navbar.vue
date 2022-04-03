@@ -36,7 +36,12 @@
                 <div v-else>
                     <span class="btn navbar-link">{{menuitem.title}}</span>
                 </div>
+                
             </li>
+            <li class="navbar-item">
+                <router-link class="btn navbar-link" to="/logout">Logout</router-link>
+            </li>
+            
         </ul>
     </nav>
 
@@ -49,6 +54,7 @@
                     <li class="navbar-item" v-for="(drmenuitem,j) in menuitem.dropdowns" :key="j">
                         <router-link class="navbar-link" :to="drmenuitem.to">{{drmenuitem.ddTitle}}</router-link>
                     </li>
+                    
                 </ul>
             </div>
             <div class="col-6"></div>
@@ -135,8 +141,9 @@ export default {
                 this.menu[i].dropdown = true
             }
             
-        }
-     }
+        },
+        
+    }
 }
 </script>
 

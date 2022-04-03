@@ -9,28 +9,29 @@
 
                     <div class="flex justify-content-center">
                         <div class="card">
+                            <h5> Note: Frontend validation is missing</h5>
                             <h5 class="text-center">Register</h5>
                             <form class="p-fluid" method="post" @submit="SignupNewUser">
                                 <div class="field">
                                     <div class="p-float-label p-input-icon-right">
                                         <i class="pi pi-user"></i>
-                                        <InputText id="name" v-model="UserName" />
-                                        <label for="name" >Name*</label>
+                                        <InputText id="name" v-model="UserData.name" />
+                                        <!-- <label for="name" >Name*</label> -->
                                     </div>
                                     <!-- <small v-if="(v$.name.$invalid && submitted) || v$.name.$pending.$response" class="p-error">{{v$.name.required.$message.replace('Value', 'Name')}}</small> -->
                                 </div>
                                 <div class="field">
                                     <div class="p-float-label p-input-icon-right">
                                         <i class="pi pi-envelope" />
-                                        <InputText id="email" v-model="UserEmail"/>
-                                        <label for="email" >Email*</label>
+                                        <InputText id="email" v-model="UserData.email"/>
+                                        <!-- <label for="email" >Email*</label> -->
                                     </div>
                                     
                                 
                                 </div>
                                 <div class="field">
                                     <div class="p-float-label">
-                                        <Password id="password" v-model="UserPassword">
+                                        <Password id="password" v-model="UserData.password">
                                             <template #header>
                                                 <h6>Pick a password</h6>
                                             </template>
@@ -46,19 +47,19 @@
                                                 </ul>
                                             </template>
                                         </Password>
-                                        <label for="password">Password*</label>
+                                        <!-- <label for="password">Password*</label> -->
                                     </div>
                                 </div>
                                 <div class="field">
                                 <span class="p-float-label">
-                                    <InputText id="inputtext" type="text" v-model="UserPasswordAgain" />
-                                    <label for="inputtext">Password Again*</label>
+                                    <InputText id="inputtext" type="text" v-model="UserData.passwordAgain" />
+                                    <!-- <label for="inputtext">Password Again*</label> -->
                                 </span>
                                 </div>
                                 <div class="field">
                                     <div class="p-float-label">
-                                        <Calendar id="date" v-model="UserDate" :showIcon="true" />
-                                        <label for="date">Birthday</label>
+                                        <Calendar id="date" v-model="UserData.date" :showIcon="true" />
+                                        <!-- <label for="date">Birthday</label> -->
                                     </div>
                                 </div>
                                 <!-- <div class="field">
@@ -68,8 +69,8 @@
                                     </div>
                                 </div> -->
                                 <div class="field-checkbox">
-                                    <Checkbox id="accept" name="accept"/>
-                                    <label for="accept">I agree to the terms and conditions*</label>
+                                    <Checkbox/>
+                                    <label>I agree to the terms and conditions*</label>
                                 </div>
                                 <Button type="submit" label="Submit" class="mt-2" />
                             </form>
@@ -120,6 +121,7 @@ import Checkbox from 'primevue/checkbox'
 import Calendar from 'primevue/calendar'
 import Password from 'primevue/password'
 import InputText from 'primevue/inputtext'
+import AccountDataService from '../../services/AccountDataService.js'
 
 
 export default {
@@ -135,16 +137,36 @@ export default {
     },
     data() {
         return {
-            UserName: '',
-            UserEmail: '',
-            UserPassword: '',
-            UserPasswordAgain: '',
-            UserDate: ''
+            UserData: {
+                name: 'Name',
+                email: 'E-mail',
+                password: 'Password',
+                passwordAgain: 'PasswordAgain',
+                date: ''
+            }
         }
     },
+    // validations() {
+    //     return {
+    //         name: {
+    //             required
+    //         },
+    //         email: {
+    //             required,
+    //             email
+    //         },
+    //         password: {
+    //             required
+    //         },
+    //         accept: {
+    //             required
+    //         }
+    //     }
+    // },
     methods:{
         SignupNewUser() {
-            
+            AccountDataService.SignUp(this.UserData).then(() => {}).catch()
+            //ToDo: trigger a message which says to check emals !!!
         }
 
     }

@@ -8,6 +8,7 @@
                     <div class=" col-3 productCardSettings " v-for="(product,i) in products" :key="i">
                         <img src="https://picsum.photos/200/300">
                         <div class="flex justify-content-between" style="margin: 12px;">
+                            <h5>{{product._id}}</h5>
                             <h5>{{product.name}}</h5>
                             <h5>{{product.price}} FT</h5>
                         </div>
