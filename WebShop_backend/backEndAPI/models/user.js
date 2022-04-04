@@ -13,7 +13,8 @@ const userSchema = new Schema({
   },
   admin: Boolean,
   session: String,
-  activatorToken: String
+  activatorToken: String,
+  passwordToken: String
 });
 
 module.exports = mongoose.model('User', userSchema, 'users');
