@@ -13,8 +13,9 @@ exports.addProductNoImage = (req, res) => {
             var price = req.body.price;
             var description = req.body.description;
             var path = "NoImage.png";
+            var discount = req.body.discount;
 
-            Product.create({ name, category, price, description, path })
+            Product.create({ name, category, price, description, path, discount })
                 .then((result) => { return res.send(JSON.stringify(result)) })
                 .catch((error) => { return res.send(JSON.stringify(error)) })
         })
@@ -33,6 +34,7 @@ exports.addProduct = (req, res) => {
             var price = req.body.price;
             var category = req.body.category;
             var path = req.body.path;
+            var discount = req.body.discount;
 
             var product = new Product();
             product.name = name;
@@ -40,6 +42,7 @@ exports.addProduct = (req, res) => {
             product.price = price;
             product.category = category;
             product.path = path;
+            product.discount = discount;
 
             product.save().then(response => { return res.status(201).send(response) });
         })
@@ -59,16 +62,7 @@ exports.deleteProduct = (req, res) => {
                 .then((product) => {
                     Product.deleteOne({ _id })
                         .then((result) => {
-                            // if(product.path != 'NoImage.png') {
-                            //     fs.unlink('public/images/products/' + product.path, (err) => {
-                            //         if (err) console.log(err);
-                            //     });
-                            //     fs.unlink("../../WebShop/public/images/products/" + product.path, (err) => {
-                            //         if (err) console.log(err);
-                            //     });
-                            // }
                             return res.json({ "Message": 'Deleted' });
-
                         })
                         .catch((error) => {
                             return res.sendStatus(404);
@@ -99,6 +93,7 @@ exports.modifyProduct = (req, res) => {
                     var category = req.body.category;
                     var path = req.body.path;
                     var generatedFileName = '';
+                    var discount = req.body.discount;
 
                     if(product.path == 'NoImage.png') {
                         generatedFileName = makeid(6) + ".jpg";
@@ -106,7 +101,7 @@ exports.modifyProduct = (req, res) => {
                         generatedFileName = path;
                     }
 
-                    Product.updateOne({_id}, {$set: {name, category, description, price, 'path': generatedFileName}})
+                    Product.updateOne({_id}, {$set: {name, category, description, price, 'path': generatedFileName, discount}})
                         .then((result) => {
                             Product.findOne({ _id }).then((result=>{res.send(result)}))
                         })
