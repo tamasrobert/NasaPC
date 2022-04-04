@@ -8,9 +8,9 @@ exports.getAllProducts = (req, res) => {
 };
 
 exports.getProductById = (req, res) => {
-  let _id = req.params._id;
+  let id = req.params.productId;
   Product
-  .findOne(_id)
+  .find(id)
   .then(product => {res.send(JSON.stringify(product))})
   .catch((error) => {res.send(JSON.stringify(error))})
 };

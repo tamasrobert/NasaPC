@@ -46,25 +46,6 @@ app.use(orderRoutes);
 // mongodb base
 const CONNECTION_STRING = process.env.CONNECTION_STRING;
 
-// const store = new MongoDBStore({
-//     uri: CONNECTION_STRING,
-//     collection: 'sessions'
-// });
-// mongoose.set('useFindAndModify', false);
-
-// app.use((req, res, next) => {
-//     if (!req.session.user) {
-//         return next();
-//     }
-//     User.findById(req.session.user._id)
-//         .then(user => {
-//             req.user = user;
-//             next();
-//         })
-//         .catch(err => { console.log(err); res.redirect('/login') });
-// });
-
-
 // middlewares -> PayPal
 app.get('/api/echo/:message', (req,res) => {
     console.log("echo: " + req.params.message);
@@ -127,7 +108,7 @@ app.get('/api/echo/:message', (req,res) => {
 // start server -> mongodb connection
 mongoose
     .connect(CONNECTION_STRING, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(result => {
+    .then(()=>{
         app.listen(process.env.BACKEND_PORT, function (error) {
             if (error) throw error
             console.log("Back-end server started on port: " + process.env.BACKEND_PORT)

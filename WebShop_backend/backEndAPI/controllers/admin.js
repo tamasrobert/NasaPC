@@ -1,10 +1,6 @@
 const User = require('../models/user');
 const Product = require('../models/product');
 const makeid = require('../util/makeid.js');
-const busboy = require('busboy');
-const multer = require("multer");
-const mongodb = require('mongodb');
-const mongoose = require('mongoose');
 
 exports.addProductNoImage = (req, res) => {
     const session = req.cookies['LOCAL_KEY'];
