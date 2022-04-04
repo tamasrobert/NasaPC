@@ -19,4 +19,10 @@ router.post('/api/login', authController.login)
 // logout
 router.get('/api/logout', authController.logout)
 
+// request password change
+router.post('/api/request-password-change', authController.requestPasswordChange)
+
+// change password
+//router.post('/api/change-password', authController.changePassword)
+
 module.exports = router;

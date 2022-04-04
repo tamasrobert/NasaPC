@@ -196,3 +196,47 @@ exports.logout = (req, res) => {
         res.sendStatus(401);
     }
 }
+
+exports.requestPasswordChange = (req, res) => {
+    try {
+        if(req.body.email) {
+
+            let email = req.body.email;
+            const generatedToken = makeid(32);
+
+            User.findOne({email})
+                .then((user) => {
+                    if(user) {
+                        User.updateOne({email}, {$set: {'passwordToken': generatedToken}})
+                            .then(() => {
+                              })
+                            .catch((error) => {
+                                console.log(error);
+                            })
+                        
+                        transport.sendMail({
+                            from: 'tamas.robert1@students.jedlik.eu',
+                            to: user.email,
+                            subject: 'Webshop - Jelszó megváltoztatása',
+                            html: '<h3>Új jelszó igénylése</h3><br><p>Kattints a linkre a jelszó megváltoztatásához: http://localhost:8080/change-password/' + generatedToken + ' </p>'
+                        });
+                        res.statusMessage = "Password change request sent";
+                        return res.status(200).end();
+                    } else {
+                        res.statusMessage = "Email does not exist";
+                        return res.sendStatus(400).end();
+                    }
+                })
+                .catch(() => {
+                    res.statusMessage = "Email does not exist";
+                    return res.sendStatus(400).end();
+                })
+            
+        } else {
+            res.statusMessage = "No data were sent";
+            return res.sendStatus(400).end();
+        }
+    } catch(e) {
+        res.statusCode(500);
+    }
+}
