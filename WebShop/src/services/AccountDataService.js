@@ -12,7 +12,7 @@ export default {
     },
 
     Login(UserData) {
-        return Axios.post('login', UserData)
+        return Axios.post('/login', UserData)
         .then(() => {})
         .catch(err => {
             console.log(err)

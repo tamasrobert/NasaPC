@@ -11,7 +11,7 @@
                         <div class="card">
                             <h5> Note: Frontend validation is missing</h5>
                             <h5 class="text-center">Register</h5>
-                            <form class="p-fluid" method="post" @submit="SignupNewUser">
+                            <form class="p-fluid" method="post" @submit.prevent="SignupNewUser">
                                 <div class="field">
                                     <div class="p-float-label p-input-icon-right">
                                         <i class="pi pi-user"></i>
@@ -138,11 +138,11 @@ export default {
     data() {
         return {
             UserData: {
-                name: 'Name',
+                // name: 'Name',
                 email: 'E-mail',
                 password: 'Password',
-                passwordAgain: 'PasswordAgain',
-                date: ''
+                // passwordAgain: 'PasswordAgain',
+                // date: ''
             }
         }
     },

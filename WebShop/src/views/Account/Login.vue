@@ -1,4 +1,5 @@
 <template>
+<main>
   <Navbar/>
     <div class="container row">
         
@@ -35,9 +36,9 @@
 
 
 
-
     </div>
-  <Footer/>
+    <Footer/>
+</main>
 </template>
 
 <script>
