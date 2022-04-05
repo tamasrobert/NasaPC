@@ -14,7 +14,13 @@ const userSchema = new Schema({
   admin: Boolean,
   session: String,
   activatorToken: String,
-  passwordToken: String
+  passwordToken: String,
+  wishList: [
+    {
+        type: Object
+    }
+]
+
 });
 
 module.exports = mongoose.model('User', userSchema, 'users');

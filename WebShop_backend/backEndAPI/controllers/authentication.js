@@ -1,19 +1,20 @@
 const User = require('../models/user');
+const Product = require('../models/product');
 const nodemailer = require('nodemailer');
 const nodemailerSendgrid = require('nodemailer-sendgrid');
 const bcrypt = require('bcrypt');
 const makeid = require('../util/makeid.js');
 require("dotenv").config();
 
-const transport = nodemailer.createTransport(nodemailerSendgrid({apiKey: process.env.SENDGRID_API_KEY}));
+const transport = nodemailer.createTransport(nodemailerSendgrid({ apiKey: process.env.SENDGRID_API_KEY }));
 
 exports.register = (req, res) => {
     try {
-        if(req.body.email && req.body.password) {
+        if (req.body.email && req.body.password) {
             let email = req.body.email;
-            User.findOne({email})
+            User.findOne({ email })
                 .then(async (response) => {
-                    if(!response) {
+                    if (!response) {
                         let password = await bcrypt.hash(req.body.password, 5);
                         const activatorToken = makeid(32);
 
@@ -48,21 +49,21 @@ exports.register = (req, res) => {
             res.statusMessage = "Hiba! nincsenek feldolgozható adatok!";
             return res.sendStatus(400).end();
         }
-    } catch(e) {
+    } catch (e) {
         res.statusCode(500);
     }
 };
 
 exports.verifyRegistration = (req, res) => {
     try {
-        if(req.params.token) {
+        if (req.params.token) {
             let token = req.params.token;
-            User.findOne({'activatorToken': token})
+            User.findOne({ 'activatorToken': token })
                 .then(async (response) => {
-                    if(response) {
-                        User.updateOne({'activatorToken': token}, {$unset: {'activatorToken':""}})
+                    if (response) {
+                        User.updateOne({ 'activatorToken': token }, { $unset: { 'activatorToken': "" } })
                             .then((result) => {
-                                return res.send({"Siker":"A felhasználói fiók sikeresen aktiválva!"});
+                                return res.send({ "Siker": "A felhasználói fiók sikeresen aktiválva!" });
                             })
                             .catch((error) => {
                                 return res.send(error);
@@ -79,20 +80,20 @@ exports.verifyRegistration = (req, res) => {
             res.statusMessage = "Hiba: Nincs aktiválási token!";
             return res.sendStatus(400).end();
         }
-    } catch(e) {
+    } catch (e) {
         res.statusCode(500);
     }
 };
 
 exports.getSession = (req, res) => {
     const session = req.cookies['LOCAL_KEY'];
-    if(!session) {
+    if (!session) {
         res.statusMessage = "No session key found";
         return res.sendStatus(401);
     }
-    User.findOne({session})
+    User.findOne({ session })
         .then((response) => {
-            if(!response) {
+            if (!response) {
                 res.statusMessage = "No session key found";
                 return res.sendStatus(401);
             }
@@ -100,39 +101,39 @@ exports.getSession = (req, res) => {
             var data = {
                 email: response.email
             }
-            if(response.admin) {
-                data = [{...data, admin: true}];
+            if (response.admin) {
+                data = [{ ...data, admin: true }];
             } else {
-                data = [{...data, admin: false}];
+                data = [{ ...data, admin: false }];
             }
-            return res.send({...data})
+            return res.send({ ...data })
         })
         .catch(() => {
-            
+
         })
 }
 
 exports.login = (req, res) => {
     try {
-        if(req.body.email && req.body.password) {
+        if (req.body.email && req.body.password) {
             let email = req.body.email;
 
-            User.findOne({email})
+            User.findOne({ email })
                 .then(async (response) => {
 
-                    if(response) {
+                    if (response) {
 
-                        if(response.activatorToken) {
+                        if (response.activatorToken) {
                             res.statusMessage = "A fiók nincsen aktiválva!";
                             return res.sendStatus(400).end();
                         }
 
                         const user = await bcrypt.compare(req.body.password, response.password);
-                        if(user) {
+                        if (user) {
                             const session = makeid(32);
                             res.cookie('LOCAL_KEY', session);
-                            User.updateOne({email}, {$set: {session}})
-                                .then(() => {  })
+                            User.updateOne({ email }, { $set: { session } })
+                                .then(() => { })
                                 .catch((error) => {
                                     console.log(error);
                                 })
@@ -141,12 +142,12 @@ exports.login = (req, res) => {
                             var data = {
                                 email: response.email
                             }
-                            if(response.admin) {
-                                data = [{...data, admin: true}];
+                            if (response.admin) {
+                                data = [{ ...data, admin: true }];
                             } else {
-                                data = [{...data, admin: false}];
+                                data = [{ ...data, admin: false }];
                             }
-                            return res.send({...data})
+                            return res.send({ ...data })
                         } else {
                             res.statusMessage = "Hibás jelszó";
                             return res.sendStatus(400).end();
@@ -161,23 +162,23 @@ exports.login = (req, res) => {
                     res.statusMessage = "A felhasználó nem létezik";
                     return res.sendStatus(400).end();
                 })
-            
+
         } else {
             res.statusMessage = "Helytelen adatbevitel!";
             return res.sendStatus(400).end();
         }
-    } catch(e) {
+    } catch (e) {
         res.statusCode(500);
     }
 }
 
 exports.logout = (req, res) => {
     const session = req.cookies['LOCAL_KEY'];
-    if(session) {
-        User.findOne({session})
+    if (session) {
+        User.findOne({ session })
             .then((response) => {
-                if(response) {
-                    User.updateOne({session}, {$unset: {session}})
+                if (response) {
+                    User.updateOne({ session }, { $unset: { session } })
                         .then(() => {
                             res.clearCookie('LOCAL_KEY');
                             res.statusMessage = "Successful logout";
@@ -199,17 +200,17 @@ exports.logout = (req, res) => {
 
 exports.requestPasswordChange = (req, res) => {
     try {
-        if(req.body.email) {
+        if (req.body.email) {
 
             let email = req.body.email;
             const generatedToken = makeid(32);
 
-            User.findOne({email})
+            User.findOne({ email })
                 .then((user) => {
-                    if(user) {
-                        User.updateOne({email}, {$set: {"passwordToken": generatedToken}})
+                    if (user) {
+                        User.updateOne({ email }, { $set: { "passwordToken": generatedToken } })
                             .then(() => {
-                              })
+                            })
                             .catch((error) => {
                                 console.log(error);
                             })
@@ -232,25 +233,25 @@ exports.requestPasswordChange = (req, res) => {
                     res.statusMessage = "Email does not exist";
                     return res.sendStatus(400).end();
                 })
-            
+
         } else {
             res.statusMessage = "No data were sent";
             return res.sendStatus(400).end();
         }
-    } catch(e) {
+    } catch (e) {
         res.statusCode(500);
     }
 }
 
 exports.changePassword = (req, res) => {
     try {
-        if(req.body.token && req.body.newPassword) {
+        if (req.body.token && req.body.newPassword) {
             let token = req.body.token;
-            User.findOne({"passwordToken": token})
+            User.findOne({ "passwordToken": token })
                 .then(async (response) => {
-                    if(response) {
+                    if (response) {
                         let password = await bcrypt.hash(req.body.newPassword, 5);
-                        User.updateOne({"passwordToken": token}, {$set: {password}, $unset: {"passwordToken":""}})
+                        User.updateOne({ "passwordToken": token }, { $set: { password }, $unset: { "passwordToken": "" } })
                             .then(() => {
                                 return res.send("Password changed successfully");
                             })
@@ -269,8 +270,39 @@ exports.changePassword = (req, res) => {
             res.statusMessage = "newPassword not set";
             return res.sendStatus(400).end();
         }
-    } catch(e) {
+    } catch (e) {
         res.sendStatus(500);
         console.log(e)
+    }
+}
+
+exports.addToWishList = (req, res) => {
+    const session = req.cookies['LOCAL_KEY'];
+    const _id = req.params.productId;
+    if (session) {
+        User.findOne({ session })
+            .then((response) => {
+                if (response) {
+                    var productWishList = [...response.wishList];
+                    Product.findById(_id)
+                            .then(product=>{
+                                productWishList.push(product);
+                                User.updateOne({ session }, { wishList:productWishList})
+                                    .then(() => {
+                                        return res.sendStatus(200).end();
+                                    })
+                                    .catch((error) => {
+                                        return res.send(error);
+                                    })
+                            })
+                            .catch(err=>console.log(err));
+                }
+            })
+            .catch((error) => {
+                res.send(error);
+            })
+    } else {
+        res.statusMessage = "No session key found";
+        res.sendStatus(401);
     }
 }

@@ -25,4 +25,7 @@ router.post('/api/request-password-change', authController.requestPasswordChange
 // change password
 router.post('/api/change-password', authController.changePassword)
 
+// add to wishList
+router.post('/api/add-to-wishlist/:productId', authController.addToWishList)
+
 module.exports = router;
