@@ -56,7 +56,7 @@ exports.addProduct = (req, res) => {
             product.discount = discount;
 
             product.save().then(response => { return res.status(201).send(response) });
-            
+
         })
         .catch((error) => {
             res.send(error);
@@ -64,27 +64,29 @@ exports.addProduct = (req, res) => {
 }
 
 exports.deleteProduct = (req, res) => {
+
     const session = req.cookies['LOCAL_KEY'];
+
     if (!session) return res.sendStatus(401);
+
     User.findOne({ session, 'admin': true })
         .then((response) => {
+
             if (!response) return res.sendStatus(401);
+
             let _id = req.params.productId;
+
             Product.findOne({ _id })
-                .then((product) => {
+                .then(() => {
+
                     Product.deleteOne({ _id })
-                        .then((result) => {
-                            return res.json({ "Message": 'Deleted' });
-                        })
-                        .catch((error) => {
-                            return res.sendStatus(404);
-                        })
+                        .then(() => { return res.json({ "Message": 'Deleted' }) })
+                        .catch(() => { return res.sendStatus(404) })
+
                 })
-                .catch((error) => {
-                    return res.sendStatus(404)
-                })
+                .catch(() => { return res.sendStatus(404) })
         })
-        .catch((error) => {
+        .catch(() => {
             return res.status(500).send({ "error": "There might be a problem. Please, try again." });
         })
 }
@@ -114,18 +116,18 @@ exports.modifyProduct = (req, res) => {
                     }
 
                     Product.updateOne({ _id }, { $set: { name, category, description, price, 'path': generatedFileName, discount } })
-                        .then((result) => {
+                        .then(() => {
                             Product.findOne({ _id }).then((result => { res.send(result) }))
                         })
-                        .catch((error) => {
+                        .catch(() => {
                             return res.sendStatus(404);
                         })
                 })
-                .catch((error) => {
+                .catch(() => {
                     return res.sendStatus(404);
                 })
         })
-        .catch((error) => {
+        .catch(() => {
             return res.status(500).send({ "error": "There might be a problem. Please, try again." });
         })
 }
