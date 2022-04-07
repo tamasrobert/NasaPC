@@ -66,7 +66,6 @@ exports.addProduct = (req, res) => {
 exports.deleteProduct = (req, res) => {
 
     const session = req.cookies['LOCAL_KEY'];
-
     if (!session) return res.sendStatus(401);
 
     User.findOne({ session, 'admin': true })
@@ -92,12 +91,17 @@ exports.deleteProduct = (req, res) => {
 }
 
 exports.modifyProduct = (req, res) => {
+
     const session = req.cookies['LOCAL_KEY'];
     if (!session) return res.sendStatus(401);
+
     User.findOne({ session, 'admin': true })
         .then((response) => {
+
             if (!response) return res.sendStatus(401);
+
             let _id = req.params.productId;
+
             Product.findOne({ _id })
                 .then((product) => {
 
