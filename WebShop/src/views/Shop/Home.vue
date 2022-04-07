@@ -18,33 +18,42 @@
 
   <div v-for="(promotion,i) in promotions" :key="i">
     <div class="row" style="padding: 5px; background-color: gray;" v-if="i%2==0">
+
       <div class="col-sm-0 col-lg-1"></div>
-      <div class="col-sm-4 col-lg-4">
-        <img class="img-fluid float-start" src="https://picsum.photos/350/350">
+        <div class="col-sm-12 col-lg-10">
+          <div class="row">
+            <div class="col-sm-12 col-lg-6">
+              <img class="img-fluid float-start" src="https://picsum.photos/350/350">
+            </div>
+            <div class="col-sm-12 col-lg-6">
+              <h2 >Lorem valami asdasdasd</h2>
+              <h5 >Lorem valami asdasdasdasdasd  Lorem valami Lorem valami asdasdasdasdasd  v
+                Lorem valami asdasdasdasdasd  Lorem valami asdasdasdasdasd  
+                asdasdasdasdasd  Lorem valami asdasdasdasdasd
+              </h5>
+          </div>
+        </div>
       </div>
-      <div class="col-sm-0 col-lg-1"></div>
-      <div class="col-sm-8 col-lg-6">
-        <h2 >Lorem valami asdasdasd</h2>
-        <h5 >Lorem valami asdasdasdasdasd  Lorem valami Lorem valami asdasdasdasdasd  v
-          Lorem valami asdasdasdasdasd  Lorem valami asdasdasdasdasd  
-          asdasdasdasdasd  Lorem valami asdasdasdasdasd  </h5>
-      </div>
+      
       <div class="cl-sm-0 col-lg-1"></div>
     </div>
 
     <div class="row" style="padding: 5px; background-color: lightgray;" v-else>
       <div class="col-sm-0 col-lg-1"></div>
-      <div class="col-sm-8 col-lg-6">
-        <h2 >Lorem valami asdasdasd</h2>
-        <h5 >Lorem valami asdasdasdasdasd  Lorem valami Lorem valami asdasdasdasdasd  v
-          Lorem valami asdasdasdasdasd  Lorem valami asdasdasdasdasd  
-          asdasdasdasdasd  Lorem valami asdasdasdasdasd  </h5>
+        <div class="col-sm-12 col-lg-10">
+          <div class="row">
+            <div class="col-sm-12 col-lg-6">
+              <h2 >Lorem valami asdasdasd</h2>
+              <h5 >Lorem valami asdasdasdasdasd  Lorem valami Lorem valami asdasdasdasdasd  v
+                Lorem valami asdasdasdasdasd  Lorem valami asdasdasdasdasd  
+                asdasdasdasdasd  Lorem valami asdasdasdasdasd
+              </h5>
+          </div>
+          <div class="col-sm-12 col-lg-6">
+              <img class="img-fluid float-start" src="https://picsum.photos/350/350">
+            </div>
+        </div>
       </div>
-      <div class="col-sm-0 col-lg-1"></div>
-      <div class="col-sm-4 col-lg-4">
-        <img class="img-fluid float-end" src="https://picsum.photos/350/350">
-      </div>
-      <div class="cl-sm-0 col-lg-1"></div>
     </div>
   </div>
 
