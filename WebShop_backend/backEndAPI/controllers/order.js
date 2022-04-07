@@ -31,6 +31,7 @@ function base64_encode(file){
 
 // payment methods translations
 function payment(payment_method) {
+    
     switch(payment_method) {
         case 'online_transfer':
             return 'Online átutalás';

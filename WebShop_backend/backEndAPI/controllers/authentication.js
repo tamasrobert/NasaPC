@@ -11,10 +11,14 @@ const transport = nodemailer.createTransport(nodemailerSendgrid({ apiKey: proces
 exports.register = (req, res) => {
     try {
         if (req.body.email && req.body.password) {
+
             let email = req.body.email;
+
             User.findOne({ email })
                 .then(async (response) => {
+
                     if (!response) {
+
                         let password = await bcrypt.hash(req.body.password, 5);
                         const activatorToken = makeid(32);
 
@@ -57,20 +61,25 @@ exports.register = (req, res) => {
 exports.verifyRegistration = (req, res) => {
     try {
         if (req.params.token) {
+
             let token = req.params.token;
+
             User.findOne({ 'activatorToken': token })
                 .then(async (response) => {
+
                     if (response) {
+
                         User.updateOne({ 'activatorToken': token }, { $unset: { 'activatorToken': "" } })
                             .then((result) => {
                                 return res.send({ "Siker": "A felhasználói fiók sikeresen aktiválva!" });
                             })
-                            .catch((error) => {
-                                return res.send(error);
-                            })
+                            .catch((error) => { return res.send(error) })
+
                     } else {
+
                         res.statusMessage = "Hiba: Már aktivált felhasználó, vagy érvénytelen token.";
                         return res.sendStatus(400).end();
+
                     }
                 })
                 .catch((error) => {
@@ -173,20 +182,25 @@ exports.login = (req, res) => {
 }
 
 exports.logout = (req, res) => {
+
     const session = req.cookies['LOCAL_KEY'];
+
     if (session) {
+
         User.findOne({ session })
             .then((response) => {
+
                 if (response) {
+
                     User.updateOne({ session }, { $unset: { session } })
                         .then(() => {
+
                             res.clearCookie('LOCAL_KEY');
                             res.statusMessage = "Successful logout";
                             return res.sendStatus(200).end();
+
                         })
-                        .catch((error) => {
-                            return res.send(error);
-                        })
+                        .catch((error) => { return res.send(error) })
                 }
             })
             .catch((error) => {
@@ -246,11 +260,16 @@ exports.requestPasswordChange = (req, res) => {
 exports.changePassword = (req, res) => {
     try {
         if (req.body.token && req.body.newPassword) {
+
             let token = req.body.token;
+
             User.findOne({ "passwordToken": token })
                 .then(async (response) => {
+
                     if (response) {
+
                         let password = await bcrypt.hash(req.body.newPassword, 5);
+
                         User.updateOne({ "passwordToken": token }, { $set: { password }, $unset: { "passwordToken": "" } })
                             .then(() => {
                                 return res.send("Password changed successfully");
@@ -258,9 +277,12 @@ exports.changePassword = (req, res) => {
                             .catch((error) => {
                                 return res.send(error);
                             })
+
                     } else {
+
                         res.statusMessage = "Bad token";
                         return res.sendStatus(400).end();
+
                     }
                 })
                 .catch((error) => {
@@ -277,25 +299,30 @@ exports.changePassword = (req, res) => {
 }
 
 exports.addToWishList = (req, res) => {
+
     const session = req.cookies['LOCAL_KEY'];
     const _id = req.params.productId;
+
     if (session) {
+
         User.findOne({ session })
             .then((response) => {
+
                 if (response) {
+
                     var productWishList = [...response.wishList];
+
                     Product.findById(_id)
-                            .then(product=>{
-                                productWishList.push(product);
-                                User.updateOne({ session }, { wishList:productWishList})
-                                    .then(() => {
-                                        return res.sendStatus(200).end();
-                                    })
-                                    .catch((error) => {
-                                        return res.send(error);
-                                    })
-                            })
-                            .catch(err=>console.log(err));
+                        .then(product => {
+
+                            productWishList.push(product);
+
+                            User.updateOne({ session }, { wishList: productWishList })
+                                .then(() => { return res.sendStatus(200).end() })
+                                .catch((error) => { return res.send(error) })
+
+                        })
+                        .catch(err => console.log(err));
                 }
             })
             .catch((error) => {
