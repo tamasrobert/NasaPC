@@ -24,6 +24,6 @@ const orderSchema = new Schema({
             product: { type: Object, required: true },
         }
     ]
-});
+}, { versionKey: false });
 
 module.exports = mongoose.model('Order', orderSchema, 'orders');
