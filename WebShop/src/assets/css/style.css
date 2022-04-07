@@ -49,3 +49,9 @@ body {
 .standardFormSettings > div > textarea {
     min-height: 10rem;
 }
+
+.justSomeColorsForTheSCSS {
+    background-color: gray;
+    
+}
+

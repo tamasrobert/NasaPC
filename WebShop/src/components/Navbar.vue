@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="overflow-hidden">
   <div>
 
     <button class="mobile-nav-toggle" @click="toggleNavBar"
@@ -49,7 +49,7 @@
         <div v-if="!menuitem.dropdowns"></div>
         
         <div id="secondary-navbar" class="bg-primary secondary-navbar row" v-else-if="menuitem.dropdown == true">
-            <div class="col-6">
+            <div >
                 <ul style="list-style:none">
                     <li class="navbar-item" v-for="(drmenuitem,j) in menuitem.dropdowns" :key="j">
                         <router-link class="navbar-link" :to="drmenuitem.to">{{drmenuitem.ddTitle}}</router-link>
@@ -57,7 +57,6 @@
                     
                 </ul>
             </div>
-            <div class="col-6"></div>
         </div>
     </div>
 
@@ -78,13 +77,6 @@ export default {
                 {title:'Home', to:'/'},
                 {title:'Products', dropdown: false, dropdowns: [
                     {ddTitle:'poroduct', to:'/products'}
-                    ]},
-                {title:'About us', to:'/'},
-                {title:'Account', dropdown: false, dropdowns: [
-                    {ddTitle:'WishList', to:'/account/wishlist'},
-                    {ddTitle:'Cart', to:'/cart'},
-                    {ddTitle:'Settings', to:'/account/settings'},
-                    {ddTitle:'Log out', to:'/'}
                     ]},
                 {title:'Admin', dropdown: false, dropdowns: [
                     {ddTitle:'Add-product', to:'/admin/add-product'},

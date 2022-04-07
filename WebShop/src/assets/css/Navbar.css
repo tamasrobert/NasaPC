@@ -88,8 +88,8 @@
         transition: transform 150ms ease-out;
     }
     .secondary-navbar {
-        --gap: 1.5em;
-
+        /* --gap: 1.5em; */
+        
         position: fixed;
         z-index: 999;
         inset: 0 0 0 10%;
