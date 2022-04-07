@@ -11,6 +11,7 @@ exports.getAllProducts = (req, res) => {
 exports.getProductById = (req, res) => {
 
   let id = req.params.productId;
+  
   Product.find(id)
     .then(product => res.json(product))
     .catch((error) => res.json(error))
