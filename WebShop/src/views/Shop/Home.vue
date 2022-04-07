@@ -23,14 +23,11 @@
         <div class="col-sm-12 col-lg-10">
           <div class="row">
             <div class="col-sm-12 col-lg-6">
-              <img class="img-fluid float-start" src="https://picsum.photos/350/350">
+              <img class="img-fluid float-start" :src="promotion.picture">
             </div>
             <div class="col-sm-12 col-lg-6">
-              <h2 >Lorem valami asdasdasd</h2>
-              <h5 >Lorem valami asdasdasdasdasd  Lorem valami Lorem valami asdasdasdasdasd  v
-                Lorem valami asdasdasdasdasd  Lorem valami asdasdasdasdasd  
-                asdasdasdasdasd  Lorem valami asdasdasdasdasd
-              </h5>
+              <h2 >{{promotion.title}}</h2>
+              <h5>{{promotion.text}}</h5>
           </div>
         </div>
       </div>
@@ -43,14 +40,11 @@
         <div class="col-sm-12 col-lg-10">
           <div class="row">
             <div class="col-sm-12 col-lg-6">
-              <h2 >Lorem valami asdasdasd</h2>
-              <h5 >Lorem valami asdasdasdasdasd  Lorem valami Lorem valami asdasdasdasdasd  v
-                Lorem valami asdasdasdasdasd  Lorem valami asdasdasdasdasd  
-                asdasdasdasdasd  Lorem valami asdasdasdasdasd
-              </h5>
+              <h2>{{promotion.title}}</h2>
+              <h5>{{promotion.text}}</h5>
           </div>
           <div class="col-sm-12 col-lg-6">
-              <img class="img-fluid float-start" src="https://picsum.photos/350/350">
+              <img class="img-fluid float-end" :src="promotion.picture">
             </div>
         </div>
       </div>
@@ -83,9 +77,9 @@ export default {
   data(){
     return {
       promotions: [
-        {title:"Lorem valami asdasdasd", text:"Lorem valami asdasdasdasdasd  Lorem valami Lorem valami asdasdasdasdasd vLorem valami asdasdasdasdasd  Lorem valami asdasdasdasdasd  asdasdasdasdasd  Lorem valami asdasdasdasdasd", Picture:"https://picsum.photos/350/350"},
-        {title:"Lorem valami asdasdasd", text:"Lorem valami asdasdasdasdasd  Lorem valami Lorem valami asdasdasdasdasd vLorem valami asdasdasdasdasd  Lorem valami asdasdasdasdasd  asdasdasdasdasd  Lorem valami asdasdasdasdasd", Picture:"https://picsum.photos/350/350"},
-        {title:"Lorem valami asdasdasd", text:"Lorem valami asdasdasdasdasd  Lorem valami Lorem valami asdasdasdasdasd vLorem valami asdasdasdasdasd  Lorem valami asdasdasdasdasd  asdasdasdasdasd  Lorem valami asdasdasdasdasd", Picture:"https://picsum.photos/350/350"},
+        {title:"Lorem valami asdasdasd", text:"Lorem valami asdasdasdasdasd  Lorem valami Lorem valami asdasdasdasdasd vLorem valami asdasdasdasdasd  Lorem valami asdasdasdasdasd  asdasdasdasdasd  Lorem valami asdasdasdasdasd", picture:"https://picsum.photos/350/350"},
+        {title:"Lorem valami asdasdasd", text:"Lorem valami asdasdasdasdasd  Lorem valami Lorem valami asdasdasdasdasd vLorem valami asdasdasdasdasd  Lorem valami asdasdasdasdasd  asdasdasdasdasd  Lorem valami asdasdasdasdasd", picture:"https://picsum.photos/350/350"},
+        {title:"Lorem valami asdasdasd", text:"Lorem valami asdasdasdasdasd  Lorem valami Lorem valami asdasdasdasdasd vLorem valami asdasdasdasdasd  Lorem valami asdasdasdasdasd  asdasdasdasdasd  Lorem valami asdasdasdasdasd", picture:"https://picsum.photos/350/350"},
       ]
     }
   }
