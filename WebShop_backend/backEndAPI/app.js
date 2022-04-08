@@ -34,14 +34,16 @@ const paypalClient = new paypal.core.PayPalHttpClient(
 // routes
 const adminRoutes = require('./routes/admin');
 const authenticationRoutes = require('./routes/authentication');
-const productsRoutes = require('./routes/products');
-const orderRoutes = require('./routes/orders');
+const productRoutes = require('./routes/product');
+const orderRoutes = require('./routes/order');
+const userRoutes = require('./routes/user');
 
 // middlewares -> routes
 app.use(adminRoutes);
 app.use(authenticationRoutes);
-app.use(productsRoutes);
+app.use(productRoutes);
 app.use(orderRoutes);
+app.use(userRoutes);
 
 // mongodb base
 const CONNECTION_STRING = process.env.CONNECTION_STRING;
