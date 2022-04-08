@@ -46,7 +46,7 @@
 
                         <cropper
                             class="cropper"
-                            :src="img"
+                            :src="newProductData.path"
                             :stencil-props="{
                                 aspectRatio: 10/12
                             }"
