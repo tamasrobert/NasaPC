@@ -2,9 +2,6 @@
 const User = require('../models/user');
 const Product = require('../models/product');
 
-// custom id maker
-const makeid = require('../util/makeid.js');
-
 exports.addProductNoImage = (req, res) => {
 
     const session = req.cookies['LOCAL_KEY'];
