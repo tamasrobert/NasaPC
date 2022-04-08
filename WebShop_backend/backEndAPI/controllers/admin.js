@@ -58,9 +58,7 @@ exports.addProduct = (req, res) => {
             product.save().then(response => { return res.status(201).send(response) });
 
         })
-        .catch((error) => {
-            res.send(error);
-        })
+        .catch((error) => {res.send(error)})
 }
 
 exports.deleteProduct = (req, res) => {
@@ -113,19 +111,10 @@ exports.modifyProduct = (req, res) => {
                     var generatedFileName = '';
                     var discount = req.body.discount;
 
-                    if (product.path == 'NoImage.png') {
-                        generatedFileName = makeid(6) + ".jpg";
-                    } else {
-                        generatedFileName = path;
-                    }
+                    Product.updateOne({ _id }, { $set: { name, category, description, price, path, discount } })
+                        .then(() => { Product.findOne({ _id }).then((result => { res.send(result) })) })
+                        .catch(() => { return res.sendStatus(404) })
 
-                    Product.updateOne({ _id }, { $set: { name, category, description, price, 'path': generatedFileName, discount } })
-                        .then(() => {
-                            Product.findOne({ _id }).then((result => { res.send(result) }))
-                        })
-                        .catch(() => {
-                            return res.sendStatus(404);
-                        })
                 })
                 .catch(() => {
                     return res.sendStatus(404);
