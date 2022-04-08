@@ -1,8 +1,17 @@
+// model(s)
 const User = require('../models/user');
+
+// nodemailer to send emails
 const nodemailer = require('nodemailer');
 const nodemailerSendgrid = require('nodemailer-sendgrid');
+
+// password hash
 const bcrypt = require('bcrypt');
+
+// custom id maker for activatorToken
 const makeid = require('../util/makeid.js');
+
+// sendgrid API key
 require("dotenv").config();
 
 const transport = nodemailer.createTransport(nodemailerSendgrid({ apiKey: process.env.SENDGRID_API_KEY }));

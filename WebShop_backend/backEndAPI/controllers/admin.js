@@ -55,7 +55,7 @@ exports.addProduct = (req, res) => {
             product.save().then(response => { return res.status(201).send(response) });
 
         })
-        .catch((error) => {res.send(error)})
+        .catch((error) => { res.send(error) })
 }
 
 exports.deleteProduct = (req, res) => {
@@ -80,9 +80,7 @@ exports.deleteProduct = (req, res) => {
                 })
                 .catch(() => { return res.sendStatus(404) })
         })
-        .catch(() => {
-            return res.status(500).send({ "error": "There might be a problem. Please, try again." });
-        })
+        .catch(() => { return res.status(500) })
 }
 
 exports.modifyProduct = (req, res) => {
