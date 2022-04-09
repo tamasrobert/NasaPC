@@ -8,6 +8,9 @@ const cors = require('cors');
 // mongoose -> schemas
 const mongoose = require('mongoose');
 
+// ensureIndex is deprecated -> moved to createIndex
+mongoose.set('useCreateIndex', true)
+
 // cookie-parser
 const cookieParser = require("cookie-parser");
 
@@ -119,6 +122,5 @@ mongoose
     .catch(err => {
         console.log(err);
     });
-
 
 module.exports = app;
