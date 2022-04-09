@@ -1,76 +1,37 @@
-var express = require('express'); // (npm install --save express)
 
-describe('Our application', function() {
-  var app,
-      date;
+// .env variables - .\WebShopProject\WebShop_backend\backEndAPI\.env
+require("dotenv").config();
 
-  // Timeout for tests that take time
-  this.timeout(5000);
+process.env.CONNECTION_STRING = process.env.CONNECTION_STRING_TEST;
 
-  // Called once before any of the tests in this block begin.
-  before(function(done) {
-    app = express();
-    // Any asynchronous action with a callback.
-    app.listen(5000, function(err) {
-      if (err) { return done(err); }
-      done();
-    });
-  });
+let mongoose = require("mongoose");
+let Product = require('../models/product');
 
-  // Called once before each of the tests in this block.
-  beforeEach(function() {
-    date = new Date();
-  });
+//Require the dev-dependencies
+let chai = require('chai');
+let chaiHttp = require('chai-http');
+let server = require('../app');
+let should = chai.should();
 
-  // Called after all of the tests in this block complete.
-  after(function() {
-    console.log("Our applicationa tests done!");
-  });
-
-  // Called once after each of the tests in this block.
-  afterEach(function() {
-    console.log("The date for that one was", date);
-  });
-
-  it('should understand basic mathematical principles', function() {
-    // We want tests to pass.
-    if (5 == 3) {
-      // Hope we don't get here.
-      throw new Error("Oh no.");
-    }
-  });
-
-  it('should understand basic truths', function() {
-    // We want tests to pass.
-    if (false) {
-      // Hope we don't get here.
-      throw new Error("Oh no.");
-    }
-  });
-
-  describe('(deeper)', function() {
-
-    // Called once before any of the tests in this block begin.
-    before(function() {
-      console.log("Begin going deeper!")
+chai.use(chaiHttp);
+describe('Products', () => {
+    beforeEach((done) => { //Before each test we empty the database
+        Product.deleteMany({}, (err) => { 
+           done();           
+        });        
     });
 
-    it('should perform basic math', function() {
-      // We want tests to pass.
-      if (1+1 != 2) {
-        // Hope we don't get here.
-        throw new Error("Oh no.");
-      }
-    });
-
-    it('should perform basic counting', function() {
-      // We want tests to pass.
-      if ('abc'.length != 3) {
-        // Hope we don't get here.
-        throw new Error("Oh no.");
-      }
-    });
-
+  describe('/GET products', () => {
+      it('it should GET all the products', (done) => {
+        chai.request(server)
+            .get('/api/products')
+            .end((err, res) => {
+                  res.should.have.status(200);
+                  res.body.should.be.a('array');
+                  res.body.length.should.be.eql(0);
+              done();
+            });
+      });
   });
 
 });
