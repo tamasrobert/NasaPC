@@ -128,7 +128,7 @@ exports.getSession = (req, res) => {
         .catch(() => {
 
         })
-}
+};
 
 exports.login = (req, res) => {
     try {
@@ -187,7 +187,7 @@ exports.login = (req, res) => {
     } catch (e) {
         res.statusCode(500);
     }
-}
+};
 
 exports.logout = (req, res) => {
 
@@ -218,4 +218,4 @@ exports.logout = (req, res) => {
         res.statusMessage = "No session key found";
         res.sendStatus(401);
     }
-}
+};
