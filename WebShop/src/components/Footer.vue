@@ -51,9 +51,9 @@
                 <h3 class="mb-5">Used in project</h3>
 
               <div class="row">
-                  <div class="col-12" v-for="(logo,i) in footerLogos" :key="i">
-                    <a :href="logo.url">
-                        <img style="height:50px; width: auto" :src="logo.path" alt="">
+                  <div class="col-12 mb-5" v-for="(logo,i) in footerLogos" :key="i">
+                    <a target="blank" :href="logo.url">
+                        <img style="height:50px; width: auto" v-bind:src="logo.path" alt="">
                     </a>
                   </div>
               </div>
@@ -89,11 +89,11 @@ export default {
     data(){
         return{
             footerLogos: [
-                {path: '../assets/svg/bootstrap-logo-black.svg', url: 'https://getbootstrap.com/'},
-                {path: '../assets/svg/Vue.js-logo.svg', url: 'https://vuejs.org/'},
-                {path: '../assets/svg/primevue-logo.svg', url: 'https://www.primefaces.org/primevue/#/'},
-                {path: '../assets/svg/mongodb-logo.svg', url: 'https://www.mongodb.com/atlas'},
-                {path: '../assets/svg/Visual_Studio_Code-logo.svg', url: 'https://code.visualstudio.com/'},
+                {path: require('../assets/svg/bootstrap-logo-black.svg'), url: 'https://getbootstrap.com/'},
+                {path: require('../assets/svg/Vue.js-logo.svg'), url: 'https://vuejs.org/'},
+                {path: require('../assets/svg/primevue-logo.svg'), url: 'https://www.primefaces.org/primevue/#/'},
+                {path: require('../assets/svg/mongodb-logo.svg'), url: 'https://www.mongodb.com/atlas'},
+                {path: require('../assets/svg/Visual_Studio_Code-logo.svg'), url: 'https://code.visualstudio.com/'},
             ],
             footerProductLinks: [
                 {title: "OneProduct", to: "/products"},
