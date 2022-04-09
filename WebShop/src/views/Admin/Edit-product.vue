@@ -1,6 +1,6 @@
 <template>
-    <Navbar/>
-        <main>
+    <main>
+        <Navbar/>
             <div class="row m-5">
                     <h1 class="mt-5 mb-5" style="text-align:center">Admin panel: Edit Product</h1>
                     <!-- Form starts here! -->
@@ -8,25 +8,25 @@
                     <form class="col-xs-12 col-lg-4 standardFormSettings">
                         <div class="mb-3 ">
                             <label class="form-label">Name:</label>
-                            <input type="text" class="form-control" v-model="productName">
+                            <input type="text" class="form-control" v-model="product.name">
                         </div>
                         <div class="mb-3 ">
                             <label class="form-label">Price:</label>
-                            <input type="number" class="form-control" v-model="productPrice">
+                            <input type="number" class="form-control" v-model="product.price">
                         </div>
                         <div class="mb-3 ">
                             <label class="form-label">Image:</label>
-                            <input type="text" class="form-control" v-model="img">
+                            <input type="text" class="form-control" v-model="product.img">
                         </div>
                         <div class="mb-3 ">
                             <label class="form-label">Category:</label>
-                            <select class="form-control" v-model="productCategory">
+                            <select class="form-control" v-model="product.category">
                                 <option v-for="(category,i) in categories" :key='i'>{{category.name}}</option>
                             </select>
                         </div>
                         <div class="mb-3 ">
                             <label class="form-label">Description:</label>
-                            <Editor v-model="productDescription" editorStyle="height: 320px">
+                            <Editor v-model="product.description" editorStyle="height: 320px">
                                 <template #toolbar>
                                     <span class="ql-formats">
                                         <button class="ql-bold"></button>
@@ -56,8 +56,8 @@
                     </div>
                    
             </div>
-        </main>
-    <Footer/>
+        <Footer/>
+    </main>
 </template>
 
 <script>

@@ -14,6 +14,7 @@ import './assets/css/style.css'
 import './assets/css/Navbar.css'
 import './assets/css/Text.css'
 import './assets/css/Colors.scss'
+import './assets/css/ProductCard.scss'
 
 
 

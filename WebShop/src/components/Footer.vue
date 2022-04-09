@@ -1,63 +1,70 @@
 <template>
     <div class="FooterBackground">
       <div class="row">
-          <div class="col-sm-0 col-lg-1 mt-3"></div>
 
-         <div class="col-sm-12 col-lg-2 mt-3">
 
-            
-            <div class="row">
-                <div class="col-sm-0 col-lg-0"/>
-                <div class="col-sm-4 col-lg-12">
-                    <h3 class="mb-5" style="color:white">Important note:</h3>
-                    <p>This project is the sole property of it's 3 founders, 
-                        with this being the case you are prohabited from useing it's
-                        source code for gaining profit or for turning it in as 
-                        your own.</p>
+
+             <div class="col-xs-1 col-sm-1 col-lg-1 mt-3"/>
+            <div class="col-xs-10 col-sm-10 col-lg-2 mt-3">
+                <div class="row">
+                    <div class="col-sm-4 col-lg-12">
+                        <h3 class="mb-5 overflow-visible" style="color:white">Important note:</h3>
+                        <p>This project is the sole property of it's 3 founders, 
+                            with this being the case you are prohabited from useing it's
+                            source code for gaining profit or for turning it in as 
+                            your own.</p>
+                    </div>
+                    <div class="col-sm-8 col-lg-0"/>
                 </div>
-                <div class="col-sm-8 col-lg-0"/>
             </div>
+            <div class="col-xs-1 col-sm-1 col-lg-1 mt-3"/>
 
 
-         </div>
-         <div class="col-sm-0 col-lg-1 mt-3"/>
 
-          <div class="col-sm-12 col-lg-2 mt-3">
+
+      
+            <div class="col-xs-10 col-sm-10 col-lg-2 mt-3">
               <h3 class="mb-5">Shop</h3>
               
-                  <div class="row">
+                <div class="row">
 
-                      <router-link v-for="(item,i) in footerProductLinks" :key="i"
+                    <router-link v-for="(item,i) in footerProductLinks" :key="i"
                         class=" FooterLinkSettings"
                         :to="item.to">{{item.title}}
-                      </router-link>
+                    </router-link>
 
-                  </div>
-        
-          </div>
-          <div class="col-sm-12 col-lg-2 mt-3">
-              <h3 class="mb-5">Log in now</h3>
-              
-                  <div class="row">
+                </div>
+            </div>
+   
+
+
+           
+            <div class="col-sm-10 col-lg-2 mt-3">
+                <h3 class="mb-5">Log in now</h3>
+                <div class="row">
 
                       <router-link v-for="(item,i) in footerAuthLinks" :key="i"
                         class=" FooterLinkSettings"
                         :to="item.to">{{item.title}}
                       </router-link>
 
-                  </div>
-          </div>
-          <div class="col-sm-12 col-lg-2 mt-3">
+                </div>
+            </div>
+           
+
+
+       
+            <div class="col-xs-10 col-sm-10 col-lg-2 mt-3">
                 <h3 class="mb-5">Used in project</h3>
 
               <div class="row">
-                  <div class="col-12 mb-5" v-for="(logo,i) in footerLogos" :key="i">
+                <div class="col-12 mb-5" v-for="(logo,i) in footerLogos" :key="i">
                     <a target="blank" :href="logo.url">
                         <img style="height:50px; width: auto" v-bind:src="logo.path" alt="">
                     </a>
-                  </div>
-              </div>
-
+                </div>
+            </div>
+            <div class="col-xs-1 col-sm-1 col-lg-0 mt-3"/>
           </div>
 
           

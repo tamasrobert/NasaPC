@@ -1,12 +1,28 @@
 <template>
-   
         <main>
             <Navbar/>
                 
                 <div class="row">
                     
-                    <div class=" col-3 productCardSettings " v-for="(product,i) in products" :key="i">
-                        <img src="https://picsum.photos/200/300">
+                    <div v-for="(product,i) in products" :key="i">
+
+                        <div class="productCardSettings">
+                            <img src="https://picsum.photos/290/300">
+                            <h6 class="name">{{product.name}}</h6>
+                            <button class="add-to-cart">Add to cart</button>
+                            <button class="details">Details</button>
+                            <div class="pricebox"></div>
+                            <h3 class="price">{{product.price}} HUF</h3>
+                        </div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <!-- <img src="https://picsum.photos/200/300">
                         <div class="flex justify-content-between" style="margin: 12px;">
                             <h5>{{product._id}}</h5>
                             <h5>{{product.name}}</h5>
@@ -23,7 +39,7 @@
                                     <button class="btn bg-info" style="margin-left: 140px; margin-right:5px">Details</button>
          
                               
-                            </div>
+                            </div> -->
                         
                     </div>
 
