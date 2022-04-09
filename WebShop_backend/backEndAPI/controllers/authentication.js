@@ -123,7 +123,7 @@ exports.getSession = (req, res) => {
             } else {
                 data = [{ ...data, admin: false }];
             }
-            return res.send({ ...data })
+            return res.json(data)
         })
         .catch(() => {
 
@@ -164,7 +164,7 @@ exports.login = (req, res) => {
                             } else {
                                 data = [{ ...data, admin: false }];
                             }
-                            return res.send({ ...data })
+                            return res.send(data)
                         } else {
                             res.statusMessage = "Hibás jelszó";
                             return res.sendStatus(400).end();

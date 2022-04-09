@@ -4,7 +4,7 @@
   "description": "back-end",
   "main": "app.js",
   "scripts": {
-    "test": "mocha UnitTests/practiceTest.js --timeout 10000 --exit",
+    "test": "mocha UnitTests/test.js --timeout 10000 --exit",
     "start": "nodemon app.js"
   },
   "repository": {
@@ -27,6 +27,7 @@
     "@sendgrid/mail": "^7.6.1",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.0",
     "busboy": "^1.5.0",
     "chai": "^4.3.6",
     "chai-http": "^4.3.0",
@@ -37,18 +38,22 @@
     "csurf": "^1.11.0",
     "dotenv": "^16.0.0",
     "ejs": "^2.6.1",
-    "express": "^4.16.3",
+    "express": "^4.17.3",
     "express-session": "^1.15.6",
+    "lowdb": "^3.0.0",
     "mongodb": "^3.1.6",
     "mongoose": "^5.2.17",
     "multer": "^1.4.4",
     "nodemailer": "^6.7.2",
     "nodemailer-sendgrid": "^1.0.3",
     "nodemailer-sendgrid-transport": "^0.2.0",
-    "popups": "^1.1.3"
+    "popups": "^1.1.3",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.15",
+    "supertest": "^6.2.2",
+    "supertest-session": "^4.1.0",
     "webpack-cli": "^3.3.12"
   }
 }
