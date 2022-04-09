@@ -4,7 +4,7 @@
   "description": "back-end",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha UnitTests/practiceTest.js --timeout 10000 --exit",
     "start": "nodemon app.js"
   },
   "repository": {
@@ -28,6 +28,8 @@
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
     "busboy": "^1.5.0",
+    "chai": "^4.3.6",
+    "chai-http": "^4.3.0",
     "connect-flash": "^0.1.1",
     "connect-mongodb-session": "^3.1.1",
     "cookie-parser": "^1.4.6",
