@@ -63,7 +63,7 @@ export default {
     },
     methods: {
         Login() {
-            AccountDataService.Login(this.UserData).then(() => {}).catch()
+            AccountDataService.Login(this.UserData).then(() => {this.router.push('/home')}).catch()
         }
 
     }
