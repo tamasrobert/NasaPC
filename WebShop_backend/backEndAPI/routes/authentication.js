@@ -8,7 +8,7 @@ const authController = require('../controllers/authentication');
 router.post('/api/register', authController.register);
 
 // verify registration
-router.post('/api/verify-account/:token', authController.verifyRegistration);
+router.get('/api/verify-account/:token', authController.verifyRegistration);
 
 // session check
 router.get('/api/session', authController.getSession);
