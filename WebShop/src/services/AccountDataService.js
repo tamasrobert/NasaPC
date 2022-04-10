@@ -10,6 +10,14 @@ export default {
             console.log(err)
         })
     },
+    
+    ActivateAccount(token) {
+        return Axios.post('/verify-account/'+token)
+        .then(() => {})
+        .catch(err => {
+            console.log(err)
+        })
+    },
 
     Login(UserData) {
         return Axios.post('/login', UserData)

@@ -20,7 +20,7 @@
             <div class="flex justify-content-center">
                 <div class="card">
                     <h5 class="text-center">Register</h5>
-                    <form @submit.prevent="handleSubmit(!v$.$invalid)" class="p-fluid">
+                    <form @submit.prevent="handleSubmit(!v$.$invalid)" class="p-fluid" method="post">
                         <div class="field">
                             <div class="p-float-label">
                                 <InputText id="name" v-model="v$.name.$model" :class="{'p-invalid':v$.name.$invalid && submitted}" />
@@ -83,6 +83,7 @@
 </template>
 
 <script>
+import AccountDataService from '../../services/AccountDataService.js'
 import Navbar from '../../components/Navbar.vue'
 import Footer from '../../components/Footer.vue'
 import { reactive, ref } from 'vue';
@@ -128,7 +129,6 @@ export default {
         const submitted = ref(false);
         const showMessage = ref(false);
         const date = ref();
-        const country = ref();
 
         const v$ = useVuelidate(rules, state);
 
@@ -139,6 +139,8 @@ export default {
                 return;
             }
 
+            AccountDataService.SignUp({"email": state.email, "password": state.password}).then(() => {});
+             
             toggleDialog();
         }
         const toggleDialog = () => {
@@ -157,7 +159,7 @@ export default {
             submitted.value = false;
         }
 
-        return { state, v$, handleSubmit, toggleDialog, submitted, showMessage, date, country }
+        return { state, v$, handleSubmit, toggleDialog, submitted, showMessage, date }
     }
 }
 </script>

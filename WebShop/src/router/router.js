@@ -11,6 +11,7 @@ import Admin_Product from '../views/Admin/Admin-products.vue'
 
 import Login from '../views/Account/Login.vue'
 import Signup from '../views/Account/Signup.vue'
+import ActivateAccount from '../views/Account/ActivateAccount.vue'
 import Logout from '../views/Account/Logout.vue'
 import AccountSettings from '../views/Account/Account-settings.vue'
 import WishList from '../views/Account/WishList.vue'
@@ -27,6 +28,7 @@ const routes = [
 
     {path: '/login', component: Login},
     {path: '/signup', component: Signup},
+    {path: '/activate/:activatorToken', component: ActivateAccount},
     {path: '/logout', component: Logout},
     {path: '/account/settings', component: AccountSettings},
     {path: '/account/wishlist', component: WishList},
