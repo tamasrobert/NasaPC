@@ -1,8 +1,24 @@
 <template>
-        <main>
-            <Navbar/>
+    <main>
+        <Navbar/>
                 
                 <div class="row">
+
+                    <!-- <div class="col-5"></div>
+                    <div class="col-2">
+                        <transition name="fade">
+                            <div v-if="showDetails" class="details_screen">
+                                <img src="https://picsum.photos/290/300">
+                                <h6 class="name">Asd123 name</h6>
+                                <button class="add-to-cart">Add to cart</button>
+                                <button class="close" @click="closeDetailsScreen()">Close</button>
+                                <div class="pricebox"></div>
+                                <h3 class="price">{{}} HUF</h3>
+                            </div>
+                    </transition>
+                    </div>
+                    <div class="col-5"></div> -->
+                    
                     
                     <div v-for="(product,i) in products" :key="i">
 
@@ -10,43 +26,20 @@
                             <img src="https://picsum.photos/290/300">
                             <h6 class="name">{{product.name}}</h6>
                             <button class="add-to-cart">Add to cart</button>
-                            <button class="details">Details</button>
+                            <button class="details" @click="openDetailsScreen()">Details</button>
                             <div class="pricebox"></div>
                             <h3 class="price">{{product.price}} HUF</h3>
                         </div>
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        <!-- <img src="https://picsum.photos/200/300">
-                        <div class="flex justify-content-between" style="margin: 12px;">
-                            <h5>{{product._id}}</h5>
-                            <h5>{{product.name}}</h5>
-                            <h5>{{product.price}} FT</h5>
-                        </div>
-                        
-                            <div style="border-top: 2px solid white; padding:5px">
-                                <p>{{product.description}}</p>
-                            </div>
-                            <div style="position: absolute; bottom: 0;">
-                                
-                                    <button class="btn bg-primary" style="margin:10px">Add to cart</button>
-                                    
-                                    <button class="btn bg-info" style="margin-left: 140px; margin-right:5px">Details</button>
-         
-                              
-                            </div> -->
-                        
+ 
                     </div>
 
                 </div>
 
+
+                
+
         <Footer/>
-        </main>
+    </main>
 </template>
 
 <script>
@@ -75,11 +68,34 @@ export default {
             //     {productName: "11OneProduct", productPrice: "1500", productDescription: "A very good product!", productImage: "https://picsum.photos/200/300"},
             //     {productName: "12OneProduct", productPrice: "1500", productDescription: "A very good product!", productImage: "https://picsum.photos/200/300"}
             // ]
-            products: []
+            products: [],
+            showDetails: false,
+            detailedProduct: {
+                // _id: "",
+                // name: "",
+                // description: "",
+                // price: "",
+                // category: "",
+                // path: ""
+            }
         }
     },
     mounted() {
         Dataservice.getAllProducts().then(ress => this.products = ress).catch()
+    },
+    methods: {
+        openDetailsScreen() {
+            // this.product_details = {'_id': product._id,
+            //  'name': product.name,
+            //   'description': product.description,
+            //    'price': product.price,
+            //     'path': product.path,
+            //      'category': product.category}
+            this.showDetails = true;
+        },
+        closeDetailsScreen() {
+            this.showDetails = false
+        }
     }
 
 }
