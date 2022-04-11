@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import ToastService from 'primevue/toastservice';
 import App from './App.vue'
 import router from './router/router.js'
 import PrimeVue from 'primevue/config';
@@ -20,4 +21,4 @@ import './assets/css/ProductCard.scss'
 
 
 
-createApp(App).use(router).use(PrimeVue).component('Dialog', Dialog).mount('#app')
+createApp(App).use(router).use(PrimeVue).use(ToastService).component('Dialog', Dialog).mount('#app')
