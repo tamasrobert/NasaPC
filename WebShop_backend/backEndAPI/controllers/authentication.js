@@ -41,8 +41,8 @@ exports.register = (req, res) => {
                                 transport.sendMail({
                                     from: 'tamas.robert1@students.jedlik.eu',
                                     to: email,
-                                    subject: 'Webshop - Felhasználó aktiválása',
-                                    html: '<h3>Felhasználói fiókod aktiválása</h3><br><p>Kattints a linkre a jelszó az aktiváláshoz: http://localhost:8080/activate/' + activatorToken + ' </p>'
+                                    subject: 'NasaPC - Account activation',
+                                    html: '<h3>Account activation</h3><br><p>Click on this link to activate your account: http://localhost:8080/activate/' + activatorToken + ' </p>'
                                 });
                                 return res.send(response2);
                             })
@@ -50,16 +50,14 @@ exports.register = (req, res) => {
                                 return res.send(error);
                             })
                     } else {
-                        res.statusMessage = "Foglalt felhasználónév!";
-                        return res.sendStatus(400).end();
+                        return res.status(400).json({ "error": "Email is already in use!" });
                     }
                 })
                 .catch((error) => {
                     console.log(error)
                 })
         } else {
-            res.statusMessage = "Hiba! nincsenek feldolgozható adatok!";
-            return res.sendStatus(400).end();
+            return res.status(400).json({ "error": "Bad input!" });
         }
     } catch (e) {
         res.statusCode(500);
@@ -79,15 +77,12 @@ exports.verifyRegistration = (req, res) => {
 
                         User.updateOne({ 'activatorToken': token }, { $unset: { 'activatorToken': "" } })
                             .then((result) => {
-                                return res.send({ "Siker": "A felhasználói fiók sikeresen aktiválva!" });
+                                return res.status(200).json({ "error": "Account activated!" });
                             })
                             .catch((error) => { return res.send(error) })
 
                     } else {
-
-                        res.statusMessage = "Hiba: Már aktivált felhasználó, vagy érvénytelen token.";
-                        return res.sendStatus(400).end();
-
+                        return res.status(400).json({ "error": "User already activated or bad token!" });
                     }
                 })
                 .catch((error) => {
@@ -105,16 +100,13 @@ exports.verifyRegistration = (req, res) => {
 exports.getSession = (req, res) => {
     const session = req.cookies['LOCAL_KEY'];
     if (!session) {
-        res.statusMessage = "No session key found";
-        return res.sendStatus(401);
+        return res.status(401).json({ "error": "No session key found" });
     }
     User.findOne({ session })
         .then((response) => {
             if (!response) {
-                res.statusMessage = "No session key found";
-                return res.sendStatus(401);
+                return res.status(401).json({ "error": "No session key found" });
             }
-            res.statusMessage = "Sikeres hitelesítés";
             var data = {
                 email: response.email
             }
@@ -125,8 +117,8 @@ exports.getSession = (req, res) => {
             }
             return res.json(data)
         })
-        .catch(() => {
-
+        .catch((err) => {
+            console.log(err)
         })
 };
 
@@ -141,8 +133,7 @@ exports.login = (req, res) => {
                     if (response) {
 
                         if (response.activatorToken) {
-                            res.statusMessage = "A fiók nincsen aktiválva!";
-                            return res.sendStatus(400).end();
+                            return res.status(400).json({ "error": "Account is not activated" });
                         }
 
                         const user = await bcrypt.compare(req.body.password, response.password);
@@ -155,7 +146,6 @@ exports.login = (req, res) => {
                                     console.log(error);
                                 })
 
-                            res.statusMessage = "Sikeres bejelentkezés";
                             var data = {
                                 email: response.email
                             }
@@ -166,22 +156,19 @@ exports.login = (req, res) => {
                             }
                             return res.send(data)
                         } else {
-                            res.statusMessage = "Hibás jelszó";
-                            return res.sendStatus(400).end();
+                            return res.status(400).json({ "error": "Password incorrect!" });
                         }
                     }
                     else {
-                        return res.status(400).json({"error":"valami"});
+                        return res.status(400).json({ "error": "Email does not exist!" });
                     }
                 })
                 .catch(() => {
-                    res.statusMessage = "A felhasználó nem létezik";
-                    return res.sendStatus(400).end();
+                    return res.status(400).json({ "error": "Email does not exist!" });
                 })
 
         } else {
-            res.statusMessage = "Helytelen adatbevitel!";
-            return res.sendStatus(400).end();
+            return res.status(400).json({ "error": "Bad input!" });
         }
     } catch (e) {
         res.statusCode(500);
@@ -203,18 +190,14 @@ exports.logout = (req, res) => {
                         .then(() => {
 
                             res.clearCookie('LOCAL_KEY');
-                            res.statusMessage = "Successful logout";
-                            return res.sendStatus(200).end();
+                            return res.status(200).json({ "message": "Successful logout." });
 
                         })
                         .catch((error) => { return res.send(error) })
                 }
             })
-            .catch((error) => {
-                res.send(error);
-            })
+            .catch((error) => { res.send(error) })
     } else {
-        res.statusMessage = "No session key found";
-        res.sendStatus(401);
+        res.status(401).json({ "error": "No session key found!" });
     }
 };
