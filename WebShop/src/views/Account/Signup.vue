@@ -139,7 +139,7 @@ export default {
                 return;
             }
 
-            AccountDataService.SignUp({"email": state.email, "password": state.password}).then(() => {});
+            AccountDataService.SignUp({"email": state.email, "password": state.password}).then(() => {}).catch(err => { console.log(err.data)});
              
             toggleDialog();
         }

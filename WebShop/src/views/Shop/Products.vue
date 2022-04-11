@@ -4,7 +4,7 @@
                 
                 <div class="row">
 
-                    <!-- <div class="col-5"></div>
+                    <div class="col-5"></div>
                     <div class="col-2">
                         <transition name="fade">
                             <div v-if="showDetails" class="details_screen">
@@ -17,7 +17,7 @@
                             </div>
                     </transition>
                     </div>
-                    <div class="col-5"></div> -->
+                    <div class="col-5"></div>
                     
                     
                     <div v-for="(product,i) in products" :key="i">

@@ -171,8 +171,7 @@ exports.login = (req, res) => {
                         }
                     }
                     else {
-                        res.statusMessage = "A felhasználó nem létezik";
-                        return res.sendStatus(400).end();
+                        return res.status(400).json({"error":"valami"});
                     }
                 })
                 .catch(() => {

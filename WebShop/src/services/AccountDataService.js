@@ -2,7 +2,11 @@ import  Axios  from "axios";
 
 Axios.defaults.baseURL='http://localhost:3000/api';
 
+
+
 export default {
+    error:"asdasdasdasd",
+
     SignUp(UserData) {
         return Axios.post('/register', UserData)
         .then(() => {})
@@ -12,7 +16,7 @@ export default {
     },
     
     ActivateAccount(token) {
-        return Axios.post('/verify-account/'+token)
+        return Axios.get('/verify-account/'+token)
         .then(() => {})
         .catch(err => {
             console.log(err)
@@ -22,8 +26,9 @@ export default {
     Login(UserData) {
         return Axios.post('/login', UserData)
         .then(() => {})
-        .catch(err => {
+        .catch((err) => {
             console.log(err)
+            return Promise.reject(err) //  this.error = "anyaaaaaaaad"
         })
     },
 

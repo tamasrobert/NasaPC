@@ -45,12 +45,13 @@ export default {
             showMessage: true
         }
     },
-    mounted(token) {
-        AccountDataService.ActivateAccount(token).then(() => {}).catch(() => {})
+    mounted() {
+        AccountDataService.ActivateAccount(this.token)
+       .catch(err => {console.log(err.data,this.token)})
     },
     methods: {
         toggleDialog() {
-            this.$route.push('/login')
+            this.$router.push('/login')
         }
     }
 

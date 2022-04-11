@@ -6,8 +6,7 @@
         <div class="col-3"></div>
 
 
-
-        <form class="col-6 standardFormSettings m-5" @submit="Login()">
+        <form class="col-6 standardFormSettings m-5" method="post" @submit.prevent="Login">
             
             <div class="mb-3 ">
                 <label class="form-label">Email:</label>
@@ -56,17 +55,23 @@ export default {
         return {
             UserData: {
                 email: "",
-                password: ""
+                password: "",
             }
 
         }
     },
     methods: {
         Login() {
-            AccountDataService.Login(this.UserData).then(() => {this.router.push('/home')}).catch()
-        }
+            AccountDataService.Login(this.UserData)
+                .then(()=>{
 
-    }
+                })
+                .catch(err => {
+                    console.log(err.response.data)
+                })
+            
+        }
+    },
 
 }
 </script>
