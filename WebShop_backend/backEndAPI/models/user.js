@@ -12,6 +12,7 @@ const userSchema = new Schema({
     required: true,
   },
   admin: Boolean,
+  courier: Boolean,
   session: String,
   activatorToken: String,
   passwordToken: String,

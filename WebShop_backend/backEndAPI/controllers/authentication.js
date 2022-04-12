@@ -112,8 +112,12 @@ exports.getSession = (req, res) => {
             }
             if (response.admin) {
                 data = [{ ...data, admin: true }];
-            } else {
-                data = [{ ...data, admin: false }];
+            }
+            else if (response.courier && response.admin==false) {
+                data = [{ ...data, admin:false, courier: true }];
+            }
+            else {
+                data = [{ ...data, admin: false, courier: false }];
             }
             return res.json(data)
         })
@@ -151,8 +155,12 @@ exports.login = (req, res) => {
                             }
                             if (response.admin) {
                                 data = [{ ...data, admin: true }];
-                            } else {
-                                data = [{ ...data, admin: false }];
+                            }
+                            else if (response.courier && response.admin==false) {
+                                data = [{ ...data, admin:false, courier: true }];
+                            }
+                            else {
+                                data = [{ ...data, admin: false, courier: false }];
                             }
                             return res.send(data)
                         } else {
