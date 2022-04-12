@@ -1,80 +1,341 @@
 <template>
-        <main>
-             <Navbar/>
-            <div class="container " v-if="products.length > 0">
-                
-                <div class="row">
-                    
-                    <div class=" col-3 productCardSettings " v-for="(product,i) in products" :key="i">
-                        <img :src="product.productImage" :alt="product.productImage">
-                        <div class="flex justify-content-between" style="margin: 12px;">
-                            <h5>{{product.productName}}</h5>
-                            <h5>{{product.productPrice}} FT</h5>
-                        </div>
-                        
-                            <div style="border-top: 2px solid white; padding:5px">
-                                <p>{{product.productDescription}}</p>
-                            </div>
-                            <div style="position: absolute; bottom: 0;">
-                                
-                                    <router-link to="/admin/edit-product/{{}}" class="btn bg-primary" style="margin:10px">Edit</router-link>
-                                    
-                                    <button class="btn bg-warning" style="margin-left: 65px; margin-right:5px">Disable</button>
-                                    <button class="btn bg-danger" @click="DeleteThisProduct(product._id)">Delete</button>
-                              
-                            </div>
-                        
-                    </div>
+    <main>
+        <Navbar/>
+        <div class="m-3">
+            <div class="card">
+                <Toolbar class="mb-4">
+                    <template #start>
+                        <Button label="New" icon="pi pi-plus" class="p-button-success mr-2" @click="openNew" />
+                        <Button label="Delete" icon="pi pi-trash" class="p-button-danger" @click="confirmDeleteSelected" :disabled="!selectedProducts || !selectedProducts.length" />
+                    </template>
 
+                    <template #end>
+                        <FileUpload mode="basic" accept="image/*" :maxFileSize="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block" />
+                        <Button label="Export" icon="pi pi-upload" class="p-button-help" @click="exportCSV($event)"  />
+                    </template>
+                </Toolbar>
+
+                <DataTable ref="dt" :value="products" v-model:selection="selectedProducts" dataKey="id" 
+                    :paginator="true" :rows="10" :filters="filters"
+                    paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" :rowsPerPageOptions="[5,10,25]"
+                    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products" responsiveLayout="scroll">
+                    <template #header>
+                        <div class="table-header flex flex-column md:flex-row md:justiify-content-between">
+                            <h5 class="mb-2 md:m-0 p-as-md-center">Manage Products</h5>
+                            <span class="p-input-icon-left">
+                                <i class="pi pi-search" />
+                                <InputText v-model="filters['global'].value" placeholder="Search..." />
+                            </span>
+                        </div>
+                    </template>
+
+                    <Column selectionMode="multiple" style="width: 3rem" :exportable="false"></Column>
+                    <Column field="_id" header="_id" :sortable="false" style="min-width:12rem"></Column>
+                    <Column field="name" header="Name" :sortable="true" style="min-width:16rem"></Column>
+                    <Column header="Image">
+                        <template #body="slotProps">
+                            <img src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" :alt="slotProps.data.image" class="product-image" />
+                        </template>
+                    </Column>
+                    <Column field="price" header="Price" :sortable="true" style="min-width:8rem">
+                        <template #body="slotProps">
+                            {{slotProps.data.price}}
+                        </template>
+                    </Column>
+                    <Column field="category" header="Category" :sortable="true" style="min-width:10rem"></Column>
+                    <Column field="rating" header="Reviews" :sortable="true" style="min-width:12rem">
+                        <template #body="slotProps">
+                        <Rating :modelValue="slotProps.data.rating" :readonly="true" :cancel="false" />
+                        </template>
+                    </Column>
+                    <Column field="inventoryStatus" header="Status" :sortable="true" style="min-width:12rem">
+                        <template #body="slotProps">
+                            <span :class="'product-badge status-' + (slotProps.data.inventoryStatus ? slotProps.data.inventoryStatus.toLowerCase() : '')">{{slotProps.data.inventoryStatus}}</span>
+                        </template>
+                    </Column>
+                    <Column :exportable="false" style="min-width:8rem">
+                        <template #body="slotProps">
+                            <Button icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" @click="editProduct(slotProps.data)" />
+                            <Button icon="pi pi-trash" class="p-button-rounded p-button-warning" @click="confirmDeleteProduct(slotProps.data)" />
+                        </template>
+                    </Column>
+                </DataTable>
+            </div>
+
+            <Dialog v-model:visible="productDialog" :style="{width: '450px'}" header="Product Details" :modal="true" class="p-fluid">
+                <img src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" :alt="product.image" class="product-image" v-if="product.image" />
+                <div class="field">
+                    <label for="name">Name</label>
+                    <InputText id="name" v-model.trim="product.name" required="true" autofocus :class="{'p-invalid': submitted && !product.name}" />
+                    <small class="p-error" v-if="submitted && !product.name">Name is required.</small>
+                </div>
+                <div class="field">
+                    <label for="description">Description</label>
+                    <Textarea id="description" v-model="product.description" required="true" rows="3" cols="20" />
                 </div>
 
-            </div>
-            <Footer/>
-        </main>
+                <div class="field">
+                    <label for="inventoryStatus" class="mb-3">Inventory Status</label>
+                    <Dropdown id="inventoryStatus" v-model="product.inventoryStatus" :options="statuses" optionLabel="label" placeholder="Select a Status">
+                        <template #value="slotProps">
+                            <div v-if="slotProps.value && slotProps.value.value">
+                                <span :class="'product-badge status-' +slotProps.value.value">{{slotProps.value.label}}</span>
+                            </div>
+                            <div v-else-if="slotProps.value && !slotProps.value.value">
+                                <span :class="'product-badge status-' +slotProps.value.toLowerCase()">{{slotProps.value}}</span>
+                            </div>
+                            <span v-else>
+                                {{slotProps.placeholder}}
+                            </span>
+                        </template>
+                    </Dropdown>
+                </div>
+
+                <div class="field">
+                    <label class="mb-3">Category</label>
+                    <div class="formgrid grid">
+                        <div class="field-radiobutton col-6">
+                            <RadioButton id="category1" name="category" value="Accessories" v-model="product.category" />
+                            <label for="category1">Accessories</label>
+                        </div>
+                        <div class="field-radiobutton col-6">
+                            <RadioButton id="category2" name="category" value="Clothing" v-model="product.category" />
+                            <label for="category2">Clothing</label>
+                        </div>
+                        <div class="field-radiobutton col-6">
+                            <RadioButton id="category3" name="category" value="Electronics" v-model="product.category" />
+                            <label for="category3">Electronics</label>
+                        </div>
+                        <div class="field-radiobutton col-6">
+                            <RadioButton id="category4" name="category" value="Fitness" v-model="product.category" />
+                            <label for="category4">Fitness</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <label for="price">Price</label>
+                        <InputNumber id="price" v-model="product.price" mode="currency" currency="USD" locale="en-US" />
+                    </div>
+                    <div class="field col">
+                        <label for="quantity">Quantity</label>
+                        <InputNumber id="quantity" v-model="product.quantity" integeronly />
+                    </div>
+                </div>
+                <template #footer>
+                    <Button label="Cancel" icon="pi pi-times" class="p-button-text" @click="hideDialog"/>
+                    <Button label="Save" icon="pi pi-check" class="p-button-text" @click="saveProduct" />
+                </template>
+            </Dialog>
+
+            <Dialog v-model:visible="deleteProductDialog" :style="{width: '450px'}" header="Confirm" :modal="true">
+                <div class="confirmation-content">
+                    <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem" />
+                    <span v-if="product">Are you sure you want to delete <b>{{product.name}}</b>?</span>
+                </div>
+                <template #footer>
+                    <Button label="No" icon="pi pi-times" class="p-button-text" @click="deleteProductDialog = false"/>
+                    <Button label="Yes" icon="pi pi-check" class="p-button-text" @click="deleteProduct" />
+                </template>
+            </Dialog>
+
+            <Dialog v-model:visible="deleteProductsDialog" :style="{width: '450px'}" header="Confirm" :modal="true">
+                <div class="confirmation-content">
+                    <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem" />
+                    <span v-if="product">Are you sure you want to delete the selected products?</span>
+                </div>
+                <template #footer>
+                    <Button label="No" icon="pi pi-times" class="p-button-text" @click="deleteProductsDialog = false"/>
+                    <Button label="Yes" icon="pi pi-check" class="p-button-text" @click="deleteSelectedProducts" />
+                </template>
+            </Dialog>
+        </div>
+        <Footer/>
+    </main>
 </template>
 
 <script>
 import Navbar from '../../components/Navbar.vue'
 import Footer from '../../components/Footer.vue'
-import DataService from '../../services/DataService.js'
 import AdminDataService from '../../services/AdminDataService.js'
-export default {
-  name: 'Admin-products',
-  components: {
-    Navbar,
-    Footer
-  },
-  data(){
-        return {
-            // products: [
-            //     {productName: "1OneProduct", productPrice: "1500", productDescription: "A very good product!", productImage: "https://picsum.photos/200/300"},
-            //     {productName: "2OneProduct123123121", productPrice: "1500", productDescription: "A very good product! I promise! I promise! I promise! I promise! I promise! I promise! I promise! I promise! I promise!", productImage: "https://picsum.photos/200/300"},
-            //     {productName: "3OneProduct", productPrice: "1500", productDescription: "A very good product!", productImage: "https://picsum.photos/200/300"},
-            //     {productName: "4OneProduct", productPrice: "1500", productDescription: "A very good product!", productImage: "https://picsum.photos/200/300"},
-            //     {productName: "5OneProduct", productPrice: "1500", productDescription: "A very good product!", productImage: "https://picsum.photos/200/300"},
-            //     {productName: "6OneProduct", productPrice: "1500", productDescription: "A very good product!", productImage: "https://picsum.photos/200/300"},
-            //     {productName: "7OneProduct", productPrice: "1500", productDescription: "A very good product!", productImage: "https://picsum.photos/200/300"},
-            //     {productName: "8OneProduct", productPrice: "1500", productDescription: "A very good product!", productImage: "https://picsum.photos/200/300"},
-            //     {productName: "9OneProduct", productPrice: "1500", productDescription: "A very good product!", productImage: "https://picsum.photos/200/300"},
-            //     {productName: "10OneProduct", productPrice: "1500", productDescription: "A very good product!", productImage: "https://picsum.photos/200/300"},
-            //     {productName: "11OneProduct", productPrice: "1500", productDescription: "A very good product!", productImage: "https://picsum.photos/200/300"},
-            //     {productName: "12OneProduct", productPrice: "1500", productDescription: "A very good product!", productImage: "https://picsum.photos/200/300"},
-            // ],
-            products: []
-        }
-    },
-    mounted() {
-        DataService.getAllProducts().then(ress => this.products = ress).catch()
-    },
-    methods: {
-        DeleteThisProduct(id) {
-            AdminDataService(id).then(() => {})
-        }
-    }
+import DataService from '../../services/DataService.js'
+import { ref, onMounted } from 'vue';
+import { FilterMatchMode } from 'primevue/api';
+import { useToast } from 'primevue/usetoast';
+import Dialog from 'primevue/dialog'
+import FileUpload from 'primevue/fileupload'
+import Toolbar from 'primevue/toolbar'
+import InputText from 'primevue/inputtext'
+import InputNumber from 'primevue/inputnumber'
+import Button from 'primevue/button'
+import RadioButton from 'primevue/radiobutton'
+import Dropdown from 'primevue/dropdown'
+import Textarea from 'primevue/textarea'
+import Column from 'primevue/column'
+import Rating from 'primevue/rating'
+import DataTable from 'primevue/datatable'
+// import ProductService from './service/ProductService';
 
+export default {
+    components: {
+        Navbar,
+        Footer,
+        Dialog,
+        Toolbar,
+        Button,
+        InputNumber,
+        InputText,
+        RadioButton,
+        Dropdown,
+        Textarea,
+        Column,
+        Rating,
+        DataTable,
+        FileUpload
+    },
+    setup() {
+        onMounted(() => {
+            DataService.getAllProducts().then(data => products.value = data);
+        })
+
+        const toast = useToast();
+        const dt = ref();
+        const products = ref();
+        const productDialog = ref(false);
+        const deleteProductDialog = ref(false);
+        const deleteProductsDialog = ref(false);
+        const product = ref({});
+        // const productService = ref(new ProductService());
+        const selectedProducts = ref();
+        const filters = ref({
+            'global': {value: null, matchMode: FilterMatchMode.CONTAINS},
+        });
+        const submitted = ref(false);
+        const statuses = ref([
+            {label: 'INSTOCK', value: 'instock'},{label: 'LOWSTOCK', value: 'lowstock'},{label: 'OUTOFSTOCK', value: 'outofstock'}
+        ]);
+
+        
+        const openNew = () => {
+            product.value = {};
+            submitted.value = false;
+            productDialog.value = true;
+        };
+        const hideDialog = () => {
+            productDialog.value = false;
+            submitted.value = false;
+        };
+        const saveProduct = () => {
+            submitted.value = true;
+
+			if (product.value.name.trim()) {
+                if (product.value._id) {
+                    product.value.inventoryStatus = product.value.inventoryStatus.value ? product.value.inventoryStatus.value : product.value.inventoryStatus;
+                    products.value[findIndexById(product.value.id)] = product.value;
+                    AdminDataService.modifyProduct(product.value._id, product.value)
+                    toast.add({severity:'success', summary: 'Successful', detail: 'Product Updated', life: 3000});
+                }
+                else {
+                    product.value.path = 'product-placeholder.svg';
+                    product.value.inventoryStatus = product.value.inventoryStatus ? product.value.inventoryStatus.value : 'INSTOCK';
+                    products.value.push(product.value);
+                    AdminDataService.addProduct(product.value)
+                    toast.add({severity:'success', summary: 'Successful', detail: 'Product Created', life: 3000});
+                }
+
+                productDialog.value = false;
+                product.value = {};
+            }
+        };
+        const editProduct = (prod) => {
+            product.value = {...prod};
+            productDialog.value = true;
+        };
+        const confirmDeleteProduct = (prod) => {
+            product.value = prod;
+            deleteProductDialog.value = true;
+        };
+        const deleteProduct = () => {
+            products.value = products.value.filter(val => val._id !== product.value._id);
+            AdminDataService.deleteProduct(product.value._id)
+            deleteProductDialog.value = false;
+            product.value = {};
+            toast.add({severity:'success', summary: 'Successful', detail: 'Product Deleted', life: 3000});
+        };
+        const findIndexById = (id) => {
+            let index = -1;
+            for (let i = 0; i < products.value.length; i++) {
+                if (products.value[i]._id === id) {
+                    index = i;
+                    break;
+                }
+            }
+
+            return index;
+        };
+        const exportCSV = () => {
+            dt.value.exportCSV();
+        };
+        const confirmDeleteSelected = () => {
+            deleteProductsDialog.value = true;
+        };
+        const deleteSelectedProducts = () => {
+            products.value = products.value.filter(val => !selectedProducts.value.includes(val));
+            selectedProducts.value.forEach(oneProduct => {
+                AdminDataService.deleteProduct(oneProduct._id)
+            });
+            deleteProductsDialog.value = false;
+            selectedProducts.value = null;
+            toast.add({severity:'success', summary: 'Successful', detail: 'Products Deleted', life: 3000});
+        };
+
+        return { dt, products, productDialog, deleteProductDialog, deleteProductsDialog, product, 
+            selectedProducts, filters, submitted, statuses, openNew, hideDialog, saveProduct, editProduct,
+            confirmDeleteProduct, deleteProduct, findIndexById, exportCSV, confirmDeleteSelected, deleteSelectedProducts}
+    }
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+@import "../../assets/css/CostumeVariables.scss";
+main {
+    background-color: $lightblue;
+}
 
+.table-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    @media screen and (max-width: 960px) {
+        align-items: start;
+	}
+}
+
+.product-image {
+    width: 50px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.p-dialog .product-image {
+    width: 50px;
+    margin: 0 auto 2rem auto;
+    display: block;
+}
+
+.confirmation-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+@media screen and (max-width: 960px) {
+	::v-deep(.p-toolbar) {
+		flex-wrap: wrap;
+        
+		.p-button {
+            margin-bottom: 0.25rem;
+        }
+	}
+}
 </style>

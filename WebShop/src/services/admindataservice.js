@@ -18,16 +18,16 @@ export default {
         })
     },
 
-    modifyProduct(id,product){
-        return Axios.put('/admin/modify-product/'+id, product)
+    modifyProduct(productId,product){
+        return Axios.put('/admin/modify-product/'+productId, product)
         .then(()=>{})
         .catch(err => {
             console.log(err)
         })
     },
 
-    deleteProduct(id){
-        return Axios.put('/admin/delete-product/'+id)
+    deleteProduct(productId){
+        return Axios.put('/admin/delete-product/'+productId)
         .then(()=>{})
         .catch(err => {
             console.log(err)
