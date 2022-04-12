@@ -69,6 +69,7 @@ https://www.prisma.io/dataguide/mongodb/setting-up-a-local-mongodb-database
 █ Szerverindító batch fájl █
 
 -- 1. Fontos, hogy a fájl a project főkönyvtárában kerüljön megnyitásra
+
 -- 2. Nincs különösebb teendő, a fájl telepíti a függőségeket, amennyiben azok még nincsenek telepítve, majd elindítja a frontend és a backend szervert. Természetesen nem szükséges a fentebb leírt frontend és backend műveleteket elvégezni, mert ez a fájl pontosan azt teszi.
         
 
