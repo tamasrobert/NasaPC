@@ -26,7 +26,8 @@ const productSchema = new Schema({
                 return d >= 0 && d <= 100;
             },
             message: "Discount must be between 0 and 100 (including 0 and 100)",
-        }
+        },
+        default: 0
     }
 }, { versionKey: false });
 
