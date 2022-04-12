@@ -6,7 +6,7 @@ if not exist "node_modules\" call npm i
 start cmd.exe /k "call npm run serve"
 
 :: Section 1: Backend
-cd ..\WebShop_backend\backEndAPI\
+cd ..\WebShopBackend\
 if not exist "node_modules\" call npm i
 start cmd.exe /k "call npm start"
 
