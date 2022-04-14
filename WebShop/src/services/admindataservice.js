@@ -3,7 +3,7 @@ Axios.defaults.baseURL='http://localhost:3000/api';
 
 export default {
     addProductNoImage(product){
-        return Axios.post('/api/admin/add-product-no-image', product)
+        return Axios.post('/admin/add-product-no-image', product)
         .then(()=>{})
         .catch(err => {
             console.log(err)
@@ -11,7 +11,7 @@ export default {
     },
 
     addProduct(product){
-        return Axios.post('/api/admin/add-product', product)
+        return Axios.post('/admin/add-product', product)
         .then(()=>{})
         .catch(err => {
             console.log(err)
@@ -27,7 +27,7 @@ export default {
     },
 
     deleteProduct(productId){
-        return Axios.put('/admin/delete-product/'+productId)
+        return Axios.delete('/admin/delete-product/'+productId)
         .then(()=>{})
         .catch(err => {
             console.log(err)

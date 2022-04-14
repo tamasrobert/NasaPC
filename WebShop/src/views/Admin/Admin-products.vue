@@ -1,6 +1,29 @@
 <template>
     <main>
         <Navbar/>
+
+
+            <!-- <Toast />
+                <Toast position="top-right" group="bc">
+                    <template #message="slotProps">
+                        <div class="flex flex-column">
+                            <div class="text-center">
+                                <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
+                                <h4>{{slotProps.message.summary}}</h4>
+                                <p>{{slotProps.message.detail}}</p>
+                            </div>
+                            <div class="grid p-fluid">
+                                <div class="col-6">
+                                    <Button class="p-button-success" label="Yes" @click="onConfirm"></Button>
+                                </div>
+                                <div class="col-6">
+                                    <Button class="p-button-secondary" label="No" @click="onReject"></Button>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+            </Toast> -->
+
         <div class="m-3">
             <div class="card">
                 <Toolbar class="mb-4">
@@ -10,12 +33,11 @@
                     </template>
 
                     <template #end>
-                        <FileUpload mode="basic" accept="image/*" :maxFileSize="1000000" label="Import" chooseLabel="Import" class="mr-2 inline-block" />
                         <Button label="Export" icon="pi pi-upload" class="p-button-help" @click="exportCSV($event)"  />
                     </template>
                 </Toolbar>
 
-                <DataTable ref="dt" :value="products" v-model:selection="selectedProducts" dataKey="id" 
+                <DataTable ref="dt" :value="products" v-model:selection="selectedProducts" dataKey="_id" 
                     :paginator="true" :rows="10" :filters="filters"
                     paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown" :rowsPerPageOptions="[5,10,25]"
                     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products" responsiveLayout="scroll">
@@ -30,7 +52,7 @@
                     </template>
 
                     <Column selectionMode="multiple" style="width: 3rem" :exportable="false"></Column>
-                    <Column field="_id" header="_id" :sortable="false" style="min-width:12rem"></Column>
+                    <Column field="_id" header="_id" :sortable="true" style="min-width:12rem"></Column>
                     <Column field="name" header="Name" :sortable="true" style="min-width:16rem"></Column>
                     <Column header="Image">
                         <template #body="slotProps">
@@ -164,7 +186,6 @@ import { ref, onMounted } from 'vue';
 import { FilterMatchMode } from 'primevue/api';
 import { useToast } from 'primevue/usetoast';
 import Dialog from 'primevue/dialog'
-import FileUpload from 'primevue/fileupload'
 import Toolbar from 'primevue/toolbar'
 import InputText from 'primevue/inputtext'
 import InputNumber from 'primevue/inputnumber'
@@ -191,8 +212,7 @@ export default {
         Textarea,
         Column,
         Rating,
-        DataTable,
-        FileUpload
+        DataTable
     },
     setup() {
         onMounted(() => {
@@ -231,15 +251,12 @@ export default {
 
 			if (product.value.name.trim()) {
                 if (product.value._id) {
-                    product.value.inventoryStatus = product.value.inventoryStatus.value ? product.value.inventoryStatus.value : product.value.inventoryStatus;
-                    products.value[findIndexById(product.value.id)] = product.value;
                     AdminDataService.modifyProduct(product.value._id, product.value)
                     toast.add({severity:'success', summary: 'Successful', detail: 'Product Updated', life: 3000});
                 }
                 else {
                     product.value.path = 'product-placeholder.svg';
-                    product.value.inventoryStatus = product.value.inventoryStatus ? product.value.inventoryStatus.value : 'INSTOCK';
-                    products.value.push(product.value);
+                    console.log(product.value)
                     AdminDataService.addProduct(product.value)
                     toast.add({severity:'success', summary: 'Successful', detail: 'Product Created', life: 3000});
                 }
@@ -257,22 +274,10 @@ export default {
             deleteProductDialog.value = true;
         };
         const deleteProduct = () => {
-            products.value = products.value.filter(val => val._id !== product.value._id);
             AdminDataService.deleteProduct(product.value._id)
             deleteProductDialog.value = false;
             product.value = {};
             toast.add({severity:'success', summary: 'Successful', detail: 'Product Deleted', life: 3000});
-        };
-        const findIndexById = (id) => {
-            let index = -1;
-            for (let i = 0; i < products.value.length; i++) {
-                if (products.value[i]._id === id) {
-                    index = i;
-                    break;
-                }
-            }
-
-            return index;
         };
         const exportCSV = () => {
             dt.value.exportCSV();
@@ -281,7 +286,6 @@ export default {
             deleteProductsDialog.value = true;
         };
         const deleteSelectedProducts = () => {
-            products.value = products.value.filter(val => !selectedProducts.value.includes(val));
             selectedProducts.value.forEach(oneProduct => {
                 AdminDataService.deleteProduct(oneProduct._id)
             });
@@ -292,7 +296,7 @@ export default {
 
         return { dt, products, productDialog, deleteProductDialog, deleteProductsDialog, product, 
             selectedProducts, filters, submitted, statuses, openNew, hideDialog, saveProduct, editProduct,
-            confirmDeleteProduct, deleteProduct, findIndexById, exportCSV, confirmDeleteSelected, deleteSelectedProducts}
+            confirmDeleteProduct, deleteProduct, exportCSV, confirmDeleteSelected, deleteSelectedProducts}
     }
 }
 </script>
