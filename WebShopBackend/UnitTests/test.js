@@ -1,86 +1,55 @@
-const path = require('path')
-require('dotenv').config({ path: path.resolve(__dirname, '../.env') })
+let mongoose = require("mongoose");
 
-const request = require('supertest-session');
-
+let app = require('../app');
 let chai = require('chai');
+let chaiHttp = require('chai-http');
+var _ = require('lodash');
+
+const Product = require('../models/product');
+
+const { expect } = require("chai");
 let should = chai.should();
 
+let cookie;
 
-const app = require('../app');
-const { expect } = require('chai');
-var testSession = null;
 
-// API tests
+chai.use(chaiHttp);
+const agent = chai.request.agent(app);
 
-describe('GET /products', function () {
-    it('should list all products - no authentication/free-wiew', function (done) {
-        request(app)
-            .get('/api/products')
-            .expect(200, done)
-    });
+const badProd = new Product({
+  "name": ":(",
+  "category": "phone",
+  "description": "test description",
+  "price": "69",
+  "path":"test",
+  "discount":100
 });
 
+let error = badProd.validateSync();
+let errorCount = 0;
+if (error) { errorCount = _.size(error.errors)}
 
-describe('after authenticating session', function () {
- 
-    var authenticatedSession;
-   
-    beforeEach(function (done) {
-    testSession = request(app);
+describe('test', () => {
 
-      testSession.post('/api/login')
-        .send({ email: 'admin@email.com', password: 'admin' })
-        .expect(200)
-        .end(function (err) {
-          if (err) return done(err);
-          authenticatedSession = testSession;
-          return done();
+
+  describe('WebShopBackend API Tests', () => {
+
+        it('should be able to login', function (done) {
+          agent
+            .post('/api/login')
+            .send({ email: 'admin@email.com', password: 'admin' })
+            .end(function (err, res) {
+              expect(res).to.have.status(200);
+              expect(agent).to.have.cookie('LOCAL_KEY');
+              done();
+            });
         });
-    });
-   
-    it('should get a restricted page / get a session', function (done) {
-      authenticatedSession.get('/api/session')
-        .expect(200)
-        .end((err, res)=>{
-          expect(res.body)
-          .to.be.an.instanceof(Array)
-          .and.to.have.property(0)
-          .that.includes.all.keys([ 'email', 'admin' ]);
-          expect(res.body[0].email).to.equal('admin@email.com');
-          expect(res.body[0].admin).to.equal(true);
-          done();
-        })
-    });
 
-    // it("should post a new product", function(done){
 
-    //   let product = {
 
-    //     "_id": "6252a9584314ad3fdc56cdb7",
-    //     "name": "Test product one,EDITED",
-    //     "description": "asd asd asd asd asd asd asd asda sdasda",
-    //     "price": "225555",
-    //     "category": "CPU",
-    //     "path": "asd",
-    //     "discount": 10
+      
 
-    //   }
 
-    //   console.log("a")
-    //   authenticatedSession
-    //       .post('/api/admin/add-product')
-    //       .send(product)
-    //       .end(function(err, res){
-    //         expect(res.status).to.equal(201);
-    //         res.body.should.be.a('object');
-    //         res.body.should.have.property('name');
-    //         expect(res.body.name).to.equal('Test product one,EDITED');
-    //         done();
-    //       })
 
-    //   });
-   
   });
-
-
+});
