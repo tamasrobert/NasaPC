@@ -16,7 +16,7 @@ let cookie;
 chai.use(chaiHttp);
 const agent = chai.request.agent(app);
 
-const badProd = new Product({
+const product = new Product({
   "name": ":(",
   "category": "phone",
   "description": "test description",
@@ -25,7 +25,7 @@ const badProd = new Product({
   "discount":100
 });
 
-let error = badProd.validateSync();
+let error = product.validateSync();
 let errorCount = 0;
 if (error) { errorCount = _.size(error.errors)}
 
@@ -58,11 +58,25 @@ describe('test', () => {
             });
         });
 
+        it('should be able to post a new product', function (done) {
 
+          if (errorCount != 0) {
+            throw error.errors;
+          }
 
-      
-
-
+          agent
+            .post('/api/admin/add-product')
+            .send(product)
+            .end(function (err, res) {
+              expect(Object.keys(res.body).length).to.equal(7)
+              expect(res).to.have.status(201);
+              expect(res.body)
+              .to.be.an.instanceof(Object)
+              .that.includes.all.keys([ '_id', 'name','price','description','category','path','discount']);
+              expect(agent).to.have.cookie('LOCAL_KEY');
+              done();
+            });
+        });
 
   });
 });
