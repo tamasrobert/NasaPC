@@ -45,6 +45,19 @@ describe('test', () => {
             });
         });
 
+        it('should be able to get a session', function (done) {
+          agent
+            .get('/api/session')
+            .end(function (err, res) {
+              expect(res).to.have.status(200);
+              expect(res.body[0]).to.have.property('email');
+              expect(res.body[0].email).to.equal('admin@email.com');
+              expect(res.body[0].admin).to.equal(true);
+              expect(agent).to.have.cookie('LOCAL_KEY');
+              done();
+            });
+        });
+
 
 
       
