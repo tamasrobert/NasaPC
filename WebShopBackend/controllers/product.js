@@ -4,16 +4,16 @@ exports.getAllProducts = (req, res) => {
 
   Product.find()
     .then(products => res.json(products))
-    .catch((error) => res.json(error))
+    .catch(() => res.status(500).json({"error":"Unexpected error!"}))
 
 };
 
 exports.getProductById = (req, res) => {
 
-  let id = req.params.productId;
+  let _id = req.params.productId;
   
-  Product.find(id)
-    .then(product => res.json(product))
-    .catch((error) => res.json(error))
+  Product.findOne({_id})
+    .then(product => res.status(200).json(product))
+    .catch(() => res.status(404).json({"error":"Product not found!"}))
 
 };

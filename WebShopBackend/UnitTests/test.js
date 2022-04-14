@@ -28,6 +28,17 @@ if (error) { errorCount = _.size(error.errors) }
 
 describe('--------------------------------------\n  \tWebShopBackend API Tests:\n  --------------------------------------', () => {
 
+  it('should be able to login', function (done) {
+    agent
+      .post('/api/login')
+      .send({ email: 'admin@email.com', password: 'admin' })
+      .end(function (err, res) {
+        expect(res).to.have.status(200);
+        expect(agent).to.have.cookie('LOCAL_KEY');
+        done();
+      });
+  });
+
   it('should be able to get all products', function (done) {
     agent
       .get('/api/products')
@@ -42,13 +53,17 @@ describe('--------------------------------------\n  \tWebShopBackend API Tests:\
       });
   });
 
-  it('should be able to login', function (done) {
+
+  it('should be able to get a product by id', function (done) {
     agent
-      .post('/api/login')
-      .send({ email: 'admin@email.com', password: 'admin' })
+      .get('/api/product/625723c89e80202e68e3c24e')
       .end(function (err, res) {
         expect(res).to.have.status(200);
-        expect(agent).to.have.cookie('LOCAL_KEY');
+        expect(res.body).to.have.property('_id');
+        expect(res.body).to.have.property('name');
+        expect(res.body).to.have.property('description');
+        expect(res.body).to.have.property('category');
+        expect(res.body).to.have.property('price');
         done();
       });
   });
