@@ -70,15 +70,12 @@ exports.deleteProduct = (req, res) => {
 
             let _id = req.params.productId;
 
-            Product.findOne({ _id })
-                .then(() => {
-
-                    Product.deleteOne({ _id })
-                        .then(() => { return res.json({ "Message": 'Deleted' }) })
-                        .catch(() => { return res.sendStatus(404) })
-
+            Product.findByIdAndDelete({ _id })
+                .then((resp) => {
+                    if(resp) return res.json({ "message": 'Deleted' })
+                    return res.status(404).json({ "error": "Product not found!" })
                 })
-                .catch(() => { return res.sendStatus(404) })
+                .catch(() => { return res.status(404).json({ "error": "Product not found!" }) })
         })
         .catch(() => { return res.status(500) })
 }

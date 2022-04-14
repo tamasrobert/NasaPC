@@ -56,7 +56,7 @@ describe('--------------------------------------\n  \tWebShopBackend API Tests:\
 
   it('should be able to get a product by id', function (done) {
     agent
-      .get('/api/product/625723c89e80202e68e3c24e')
+      .get('/api/product/62583c6ab32fc81184feb2eb')
       .end(function (err, res) {
         expect(res).to.have.status(200);
         expect(res.body).to.have.property('_id');
@@ -97,6 +97,38 @@ describe('--------------------------------------\n  \tWebShopBackend API Tests:\
           .to.be.an.instanceof(Object)
           .that.includes.all.keys(['_id', 'name', 'price', 'description', 'category', 'path', 'discount']);
         expect(agent).to.have.cookie('LOCAL_KEY');
+        done();
+      });
+  });
+
+  it('should be able to delete the new product', function (done) {
+
+
+    if (errorCount != 0) {
+      throw error.errors;
+    }
+
+    Product.findOne({}, {}, { sort: { '_id' : -1 } }, function(err, prod) {
+      agent
+      .delete('/api/admin/delete-product/'+prod._id)
+      .end(function (err, res) {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an.instanceOf(Object)
+          .that.has.property('message');
+        expect(res.body.message).to.equal('Deleted')
+        expect(agent).to.have.cookie('LOCAL_KEY');
+        done();
+      });
+    });
+
+  });
+
+  it('should be able to logout', function (done) {
+    agent
+      .get('/api/logout')
+      .end(function (err, res) {
+        expect(res).to.have.status(200);
+        expect(agent).to.not.have.cookie('LOCAL_KEY');
         done();
       });
   });
