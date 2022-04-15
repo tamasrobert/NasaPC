@@ -1,32 +1,35 @@
 <template>
     <main>
         <Navbar/>
-                
-                <div class="row">
 
-                    <div class="col-5"></div>
-                    <div class="col-2">
+
+
+
+
                         <transition name="fade">
                             <div v-if="showDetails" class="details_screen">
-                                <img src="https://picsum.photos/290/300">
-                                <h6 class="name">Asd123 name</h6>
+                                <img src="https://picsum.photos/500/350">
+                                <h4 class="name">{{detailedProduct.name}}</h4>
+                                <!-- <div class="lineInTheDetails"></div> -->
+                                <div class="descriptionbox">
+                                    <p class="description">{{detailedProduct.description}}</p>
+                                </div>
                                 <button class="add-to-cart">Add to cart</button>
                                 <button class="close" @click="closeDetailsScreen()">Close</button>
                                 <div class="pricebox"></div>
-                                <h3 class="price">{{}} HUF</h3>
+                                <h3 class="price">{{detailedProduct.price}} HUF</h3>
                             </div>
-                    </transition>
-                    </div>
-                    <div class="col-5"></div>
-                    
-                    
-                    <div v-for="(product,i) in products" :key="i">
+                        </transition>
+
+
+                <div class="row">
+                    <div v-for="(product,i) in products" :key="i" class="col-lg-4 col-md-6 col-sm-7">
 
                         <div class="productCardSettings">
                             <img src="https://picsum.photos/290/300">
                             <h6 class="name">{{product.name}}</h6>
                             <button class="add-to-cart">Add to cart</button>
-                            <button class="details" @click="openDetailsScreen()">Details</button>
+                            <button class="details" @click="openDetailsScreen(product)">Details</button>
                             <div class="pricebox"></div>
                             <h3 class="price">{{product.price}} HUF</h3>
                         </div>
@@ -84,7 +87,8 @@ export default {
         Dataservice.getAllProducts().then(ress => this.products = ress).catch()
     },
     methods: {
-        openDetailsScreen() {
+        openDetailsScreen(product) {
+            this.detailedProduct = product
             // this.product_details = {'_id': product._id,
             //  'name': product.name,
             //   'description': product.description,

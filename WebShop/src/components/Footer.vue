@@ -1,5 +1,5 @@
 <template>
-    <div class="FooterBackground">
+    <div class="FooterBackground" style="width:100%">
       <div class="row">
 
 
@@ -7,14 +7,15 @@
              <div class="col-xs-1 col-sm-1 col-lg-1 mt-3"/>
             <div class="col-xs-10 col-sm-10 col-lg-2 mt-3">
                 <div class="row">
-                    <div class="col-sm-4 col-lg-12">
-                        <h3 class="mb-5 overflow-visible" style="color:white">Important note:</h3>
+                    <div class="col-sm-4 col-lg-1"/>
+                    <div class="col-sm-4 col-lg-10">
+                        <h3 class="mb-5 " style="color:white">Important note:</h3>
                         <p>This project is the sole property of it's 3 founders, 
                             with this being the case you are prohabited from useing it's
                             source code for gaining profit or for turning it in as 
                             your own.</p>
                     </div>
-                    <div class="col-sm-8 col-lg-0"/>
+                    <div class="col-sm-4 col-lg-1"/>
                 </div>
             </div>
             <div class="col-xs-1 col-sm-1 col-lg-1 mt-3"/>
@@ -76,12 +77,12 @@
       
       
       
-      <div class="row" style="padding: 25px">
-          <div class="col-3"></div>
-          <div class="col-6" style="text-align: center; text:white;">
+      <div class="row" >
+
+          <div class="col-12" style="text-align: center; text:white;">
               <p>&copy; 2022 NasaPC all rights reserved</p>
           </div>
-          <div class="col-3"></div>      
+   
         </div>
     </div>  
 </template>
@@ -122,6 +123,8 @@ export default {
 <style>
     .FooterBackground {
         background-color: rgb(37, 36, 36);
+        margin: 0;
+        padding: 0;
         color: white;
     }
     .FooterLinkSettings {

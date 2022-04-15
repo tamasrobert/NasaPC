@@ -307,6 +307,13 @@ main {
     background-color: $lightblue;
 }
 
+
+
+.card {
+    box-shadow: 0 3px 6px $shadowofdarkblue;
+    background-color: $darkblue;
+}
+
 .table-header {
     display: flex;
     align-items: center;

@@ -11,7 +11,7 @@ import 'primeicons/primeicons.css'
 
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import './assets/css/style.css'
+import './assets/css/style.scss'
 import './assets/css/Navbar.scss'
 import './assets/css/Text.css'
 import './assets/css/CostumeVariables.scss'
