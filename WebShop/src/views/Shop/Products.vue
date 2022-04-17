@@ -19,24 +19,31 @@
                             </div>
                         </transition>
 
-
                 <div class="row">
-                    <div v-for="(product,i) in products" :key="i" class="col-lg-4 col-md-6 col-sm-7">
+                    <div class="col-xxl-0 col-xl-1 col-lg-0 col-md-1"></div>
+                    <div class="col-xxl-12 col-xl-10 col-lg-12 col-md-10">
 
-                        <div class="productCardSettings">
-                            <img src="https://picsum.photos/290/300">
-                            <h6 class="name">{{product.name}}</h6>
-                            <button class="add-to-cart">Add to cart</button>
-                            <button class="details" @click="openDetailsScreen(product)">Details</button>
-                            <div class="pricebox"></div>
-                            <h3 class="price">{{product.price}} HUF</h3>
+                        <div class="row">
+                            <div v-for="(product,i) in products" :key="i" class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-12">
+
+                                <div class="productCardSettings">
+                                    <img src="https://picsum.photos/290/300">
+                                    <h6 class="name">{{product.name}}</h6>
+                                    <button class="add-to-cart">Add to cart</button>
+                                    <button class="details" @click="openDetailsScreen(product)">Details</button>
+                                    <div class="pricebox"></div>
+                                    <h3 class="price">{{product.price}} HUF</h3>
+                                </div>
+        
+                            </div>
+
                         </div>
- 
+
+
+
                     </div>
-
+                    <div class="col-xxl-0 col-xl-1 col-lg-0 col-md-1"></div>
                 </div>
-
-
                 
 
         <Footer/>
@@ -105,6 +112,8 @@ export default {
 }
 </script>
 
-<style>
+<style  lang="scss">
+@import "../../assets/css/CostumeVariables.scss";
+    
 
 </style>
