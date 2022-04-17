@@ -18,6 +18,8 @@
                                 <button class="close" @click="closeDetailsScreen()">Close</button>
                                 <div class="pricebox"></div>
                                 <h3 class="price">{{detailedProduct.price}} HUF</h3>
+                                <h3 class="category">{{detailedProduct.category}}</h3>
+                                <Rating class="rating" :modelValue="detailedProduct.rating" :readonly="true" :cancel="false" />
                             </div>
                         </transition>
 
@@ -49,11 +51,13 @@
 import Navbar from '../../components/Navbar.vue'
 import Footer from '../../components/Footer.vue'
 import Dataservice from '../../services/DataService.js'
+import Rating from 'primevue/rating'
 export default {
   name: 'Products',
   components: {
     Navbar,
-    Footer
+    Footer,
+    Rating
   },
   data(){
       return {
