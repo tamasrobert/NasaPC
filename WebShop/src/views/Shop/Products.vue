@@ -2,10 +2,6 @@
     <main>
         <Navbar/>
 
-
-
-
-
                         <transition name="fade">
                             <div v-if="showDetails" class="details_screen">
                                 <img src="https://picsum.photos/500/350">
