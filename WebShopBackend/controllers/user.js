@@ -62,9 +62,9 @@ exports.changePassword = (req, res) => {
             let token = req.body.token;
 
             User.findOne({ "passwordToken": token })
-                .then(async (response) => {
+                .then(async (user) => {
 
-                    if (response) {
+                    if (user) {
 
                         let password = await bcrypt.hash(req.body.newPassword, 5);
 
@@ -91,6 +91,27 @@ exports.changePassword = (req, res) => {
     }
 }
 
+exports.getWishList = (req, res) => {
+    const session = req.cookies['LOCAL_KEY'];
+
+    if (session) {
+
+        User.findOne({ session })
+            .then((user) => {
+
+                if (user) {
+                    let wishlist = user.wishList;
+                    res.status(200).json({wishlist});
+                }
+            })
+            .catch((error) => {
+                res.status(404).json({ "error": "User not found!" });
+            })
+    } else {
+        res.status(401).json({ "error": "No session!" });
+    }
+}
+
 exports.addToWishList = (req, res) => {
 
     const session = req.cookies['LOCAL_KEY'];
@@ -99,11 +120,11 @@ exports.addToWishList = (req, res) => {
     if (session) {
 
         User.findOne({ session })
-            .then((response) => {
+            .then((user) => {
 
-                if (response) {
+                if (user) {
 
-                    var productWishList = [...response.wishList];
+                    var productWishList = [...user.wishList];
 
                     Product.findById(_id)
                         .then(product => {

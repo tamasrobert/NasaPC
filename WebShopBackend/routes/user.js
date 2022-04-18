@@ -10,6 +10,9 @@ router.post('/api/request-password-change', userController.requestPasswordChange
 // change password
 router.post('/api/change-password', userController.changePassword)
 
+// get wishlist
+router.get('/api/wishlist', userController.getWishList)
+
 // add to wishlist
 router.post('/api/add-to-wishlist/:productId', userController.addToWishList)
 
