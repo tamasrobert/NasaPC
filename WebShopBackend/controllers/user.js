@@ -138,3 +138,7 @@ exports.addToWishList = (req, res) => {
         res.status(401).json({ "error": "No session!" });
     }
 }
+
+// exports.removeFromWishList = (req, res) => {
+
+// }
