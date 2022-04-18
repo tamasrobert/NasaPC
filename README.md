@@ -68,17 +68,21 @@ https://www.prisma.io/dataguide/mongodb/setting-up-a-local-mongodb-database
 
 █ ServerLauncher - szerverindító batch fájl █
 
--- 1. Fontos, hogy a fájl a project főkönyvtárában kerüljön megnyitásra.
+-- 1. Használathoz navigáljon a Launchers nevű mappába.
 
--- 2. Nincs különösebb teendő; a fájl telepíti a függőségeket, amennyiben azok még nincsenek telepítve, majd elindítja a frontend és a backend szervert. Természetesen nem szükséges a fentebb leírt frontend és backend műveleteket elvégezni, mert ez a fájl pontosan azt teszi.
+-- 2. Fontos, hogy a fájlt ne helyezze át, a Launchers nevű mappában kerüljön futtatásra!
+
+-- 3. Nincs különösebb teendő; a fájl telepíti a függőségeket, amennyiben azok még nincsenek telepítve, majd elindítja a frontend és a backend szervert. Természetesen nem szükséges a fentebb leírt frontend és backend műveleteket elvégezni, mert ez a fájl pontosan azt teszi.
 
 -----------------------------------------------------------------------------
 
 █ UnitTestLauncher - backend teszt indító batch fájl █
 
--- 1. Fontos, hogy a fájl a project főkönyvtárában kerüljön megnyitásra.
+-- 1. Használathoz navigáljon a Launchers nevű mappába.
 
--- 2. Nincs különösebb teendő; a konzol ablakon megjelennek a tesztek eredményei.
+-- 2. Fontos, hogy a fájlt ne helyezze át, a Launchers nevű mappában kerüljön futtatásra!
+
+-- 3. Nincs különösebb teendő; a konzol ablakon megjelennek a tesztek eredményei.
         
 
 
