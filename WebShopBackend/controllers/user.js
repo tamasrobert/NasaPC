@@ -1,8 +1,21 @@
+// model(s)
 const User = require('../models/user');
 const Product = require('../models/product');
+
+// password hash
 const bcrypt = require('bcrypt');
+
+// custom id maker for generatedToken
 const makeid = require('../util/makeid.js');
+
+// nodemailer to send emails
+const nodemailer = require('nodemailer');
+const nodemailerSendgrid = require('nodemailer-sendgrid');
+
+// sendgrid API key
 require("dotenv").config();
+
+const transport = nodemailer.createTransport(nodemailerSendgrid({ apiKey: process.env.SENDGRID_API_KEY }));
 
 exports.requestPasswordChange = (req, res) => {
     try {
@@ -14,30 +27,28 @@ exports.requestPasswordChange = (req, res) => {
             User.findOne({ email })
                 .then((user) => {
                     if (user) {
+
                         User.updateOne({ email }, { $set: { "passwordToken": generatedToken } })
-                            .then(() => {
-                            })
-                            .catch((error) => {
-                                console.log(error);
-                            })
+                            .then(() => { })
+                            .catch((error) => { console.log(error) })
 
                         transport.sendMail({
                             from: "tamas.robert1@students.jedlik.eu",
                             to: user.email,
                             subject: "NasaPC - Requested password change",
-                            html: "<h3>New password</h3><br><p>Click this link to change your password: http://localhost:8080/change-password/' + generatedToken + ' </p>"
+                            html: "<h3>New password</h3><br><p>Click this link to change your password: http://localhost:8080/change-password/" + generatedToken + " </p>"
                         });
                         return res.status(200).json({ "message": "Password change request sent!" });
                     } else {
-                        return res.sendStatus(400).json({ "error": "Email does not exist!" });
+                        return res.status(400).json({ "error": "Email does not exist!" });
                     }
                 })
-                .catch(() => {
-                    return res.sendStatus(400).json({ "error": "Email does not exist!" });
+                .catch((error) => {
+                    return res.status(400).json({ "error": "Unexpected error!" });
                 })
 
         } else {
-            return res.sendStatus(400).json({ "error": "No data received!" });
+            return res.status(400).json({ "error": "No data received!" });
         }
     } catch (error) {
         return res.status(500).json({ "error": "Unexpected error!" });
