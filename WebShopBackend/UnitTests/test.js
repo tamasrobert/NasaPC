@@ -75,6 +75,17 @@ describe('--------------------------------------\n  \tWebShopBackend API Tests:\
       });
   });
 
+  it('Should be able to add a product to wishlist', function (done) {
+    agent
+      .post('/api/add-to-wishlist/625829a476b8813dd0eddfc6')
+      .end(function (err, res) {
+        expect(res).to.have.status(200);
+        expect(res.body).to.have.property('message');
+        expect(res.body.message).to.equal('Product has been added to your wishlist!')
+        done();
+      });
+  });
+
   it('Should be able to get a session', function (done) {
     agent
       .get('/api/session')
