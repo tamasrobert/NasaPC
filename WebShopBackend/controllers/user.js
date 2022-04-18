@@ -27,22 +27,17 @@ exports.requestPasswordChange = (req, res) => {
                             subject: "Webshop - Jelszó megváltoztatása",
                             html: "<h3>Új jelszó igénylése</h3><br><p>Kattints a linkre a jelszó megváltoztatásához: http://localhost:8080/change-password/' + generatedToken + ' </p>"
                         });
-
-                        res.statusMessage = "Password change request sent";
-                        return res.status(200).end();
+                        return res.status(200).json({"message":"Password change request sent!"});
                     } else {
-                        res.statusMessage = "Email does not exist";
-                        return res.sendStatus(400).end();
+                        return res.sendStatus(400).json({"error":"Email does not exist!"});
                     }
                 })
                 .catch(() => {
-                    res.statusMessage = "Email does not exist";
-                    return res.sendStatus(400).end();
+                    return res.sendStatus(400).json({"error":"Email does not exist!"});
                 })
 
         } else {
-            res.statusMessage = "No data were sent";
-            return res.sendStatus(400).end();
+            return res.sendStatus(400).json({"error":"No data received!"});
         }
     } catch (e) {
         res.statusCode(500);
@@ -64,7 +59,7 @@ exports.changePassword = (req, res) => {
 
                         User.updateOne({ "passwordToken": token }, { $set: { password }, $unset: { "passwordToken": "" } })
                             .then(() => {
-                                return res.send("Password changed successfully");
+                                return res.send("Password changed successfully!");
                             })
                             .catch((error) => {
                                 return res.send(error);
@@ -72,7 +67,7 @@ exports.changePassword = (req, res) => {
 
                     } else {
 
-                        res.statusMessage = "Bad token";
+                        res.statusMessage = "Bad token!";
                         return res.sendStatus(400).end();
 
                     }
@@ -81,7 +76,7 @@ exports.changePassword = (req, res) => {
                     console.log(error)
                 })
         } else {
-            res.statusMessage = "newPassword not set";
+            res.statusMessage = "newPassword not set!";
             return res.sendStatus(400).end();
         }
     } catch (e) {
@@ -121,7 +116,7 @@ exports.addToWishList = (req, res) => {
                 res.send(error);
             })
     } else {
-        res.statusMessage = "No session key found";
+        res.statusMessage = "No session!";
         res.sendStatus(401);
     }
 }
