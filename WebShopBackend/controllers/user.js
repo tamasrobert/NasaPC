@@ -141,4 +141,33 @@ exports.addToWishList = (req, res) => {
 
 // exports.removeFromWishList = (req, res) => {
 
+//     const _id = req.params.productId;
+//     let updated = 0;
+
+
+//     User.find().then(users=>{
+
+//         let userContainer = [];
+
+//         users.forEach(oneUser => {
+//             userContainer.push(oneUser);
+//         })
+
+//         userContainer.forEach(oneUser => {
+
+//             let userId = oneUser._id;
+
+//             var filteredWishList = oneUser.wishList.filter(function(value, index, arr){ 
+//                 return value._id != _id;
+//             });
+
+//             User.updateOne({ _id:userId }, { $set: { wishList:filteredWishList }}).then(response=>{
+//             })
+//             .catch(error=>{return res.status(500).json({"message":"Unexpected error!"})})
+//         });
+
+//         return res.status(200).json({"message":"Wishlist filter/update completed!"})
+
+//     })
+  
 // }
