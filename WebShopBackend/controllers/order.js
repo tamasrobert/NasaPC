@@ -47,7 +47,7 @@ exports.placeOrder = (req, res) => {
 
                 if (!user) {
                     Order.insertMany({ id, 'created_at': Date.now(), 'status': 'Processing...', ...req.body })
-                        .then(() => { return res.status(200).end() })
+                        .then(() => { return res.status(200).json({"message":"Order placed!"}) })
                         .catch(err => res.send(err));
                 }
 
@@ -86,11 +86,11 @@ exports.placeOrder = (req, res) => {
                             attachments: files
                         });
 
-                        return res.status(200).end();
+                        return res.status(200).json({"message":"Order placed!"});
                     })
-                    .catch(err => res.send(err));
+                    .catch(err => res.status(500).json({"error":"Unexpected error!"}));
             })
-            .catch(err => res.send(err))
+            .catch(err => res.status(404).json({"error":"User not found!"}))
     }
 }
 
@@ -115,6 +115,6 @@ exports.getUserOrders=(req,res)=>{
         .catch(err=>console.log(err))
     }
     else {
-        res.status(401).json({"error":"No session"})
+        res.status(401).json({"error":"No session!"})
     }
 }
