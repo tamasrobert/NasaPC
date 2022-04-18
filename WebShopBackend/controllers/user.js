@@ -27,17 +27,17 @@ exports.requestPasswordChange = (req, res) => {
                             subject: "Webshop - Jelszó megváltoztatása",
                             html: "<h3>Új jelszó igénylése</h3><br><p>Kattints a linkre a jelszó megváltoztatásához: http://localhost:8080/change-password/' + generatedToken + ' </p>"
                         });
-                        return res.status(200).json({"message":"Password change request sent!"});
+                        return res.status(200).json({ "message": "Password change request sent!" });
                     } else {
-                        return res.sendStatus(400).json({"error":"Email does not exist!"});
+                        return res.sendStatus(400).json({ "error": "Email does not exist!" });
                     }
                 })
                 .catch(() => {
-                    return res.sendStatus(400).json({"error":"Email does not exist!"});
+                    return res.sendStatus(400).json({ "error": "Email does not exist!" });
                 })
 
         } else {
-            return res.sendStatus(400).json({"error":"No data received!"});
+            return res.sendStatus(400).json({ "error": "No data received!" });
         }
     } catch (e) {
         res.statusCode(500);
@@ -59,21 +59,21 @@ exports.changePassword = (req, res) => {
 
                         User.updateOne({ "passwordToken": token }, { $set: { password }, $unset: { "passwordToken": "" } })
                             .then(() => {
-                                return res.status(200).json({"message":"Password changed successfully!"});
+                                return res.status(200).json({ "message": "Password changed successfully!" });
                             })
                             .catch((error) => {
-                                return res.status(500).json({"error":"Unexpected error!"});
+                                return res.status(500).json({ "error": "Unexpected error!" });
                             })
 
                     } else {
-                        return res.status(400).json({"error":"Bad token!"});
+                        return res.status(400).json({ "error": "Bad token!" });
                     }
                 })
                 .catch((error) => {
                     console.log(error)
                 })
         } else {
-            return res.status(400).json({"error":"newPassword not set!"});
+            return res.status(400).json({ "error": "newPassword not set!" });
         }
     } catch (e) {
         res.sendStatus(500);
