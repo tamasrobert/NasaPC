@@ -139,35 +139,64 @@ exports.addToWishList = (req, res) => {
     }
 }
 
-// exports.removeFromWishList = (req, res) => {
+exports.removeFromWishList = (req, res) => {
 
-//     const _id = req.params.productId;
-//     let updated = 0;
+    const session = req.cookies['LOCAL_KEY'];
+    const _id = req.params.productId;
+
+    if (session) {
+
+        User.findOne({ session })
+            .then((user) => {
+
+                if (user) {
+
+                    let userId = user._id;
+
+                    Product.findOne({ _id })
+                        .then(product => {
 
 
-//     User.find().then(users=>{
+                            let productExists = false;
+                            if (product) productExists = true
 
-//         let userContainer = [];
+                            let productInWishListExists = false;
 
-//         users.forEach(oneUser => {
-//             userContainer.push(oneUser);
-//         })
+                            for (let index = 0; index < user.wishList.length; index++) {
+                                if (user.wishList[index]._id == _id) {
+                                    productInWishListExists = true;
+                                    break;
+                                }
+                            }
 
-//         userContainer.forEach(oneUser => {
+                            if (productExists && productInWishListExists) {
+                                var filteredWishList = user.wishList.filter(function (value, index, arr) {
+                                    return value._id != _id;
+                                });
 
-//             let userId = oneUser._id;
+                                User.updateOne({ _id: userId }, { $set: { wishList: filteredWishList } }).then(response => {
+                                    return res.status(200).json({ "message": "Your WishList has been updated." })
+                                })
+                                    .catch(error => { return res.status(500).json({ "message": "Unexpected error!" }) })
+                            }
+                            else {
 
-//             var filteredWishList = oneUser.wishList.filter(function(value, index, arr){ 
-//                 return value._id != _id;
-//             });
+                                if (productExists && !productInWishListExists)
+                                    return res.status(404).json({ "error": "Product is not wishlisted!" })
+                                else
+                                    return res.status(404).json({ "error": "Product not found!" })
 
-//             User.updateOne({ _id:userId }, { $set: { wishList:filteredWishList }}).then(response=>{
-//             })
-//             .catch(error=>{return res.status(500).json({"message":"Unexpected error!"})})
-//         });
+                            }
 
-//         return res.status(200).json({"message":"Wishlist filter/update completed!"})
+                        })
+                        .catch(error => { res.status(404).json({ "error": "Unexpected error!" }) })
+                }
+            })
+            .catch((error) => {
+                return res.status(404).json({ "error": "User not found!" });
+            })
+    } else {
+        res.status(401).json({ "error": "No session!" });
+    }
 
-//     })
-  
-// }
+}
