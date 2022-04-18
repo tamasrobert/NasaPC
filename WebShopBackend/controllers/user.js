@@ -108,14 +108,27 @@ exports.addToWishList = (req, res) => {
                     Product.findById(_id)
                         .then(product => {
 
-                            productWishList.push(product);
+                            if (product) {
 
-                            User.updateOne({ session }, { wishList: productWishList })
-                                .then(() => { return res.sendStatus(200).end() })
-                                .catch((error) => { return res.status(500).json({ "error": "Failed to add to wishlist!" }) })
+                                var contains = productWishList.some(prod => {
+                                    return JSON.stringify(product._id) === JSON.stringify(prod._id);
+                                });
 
+                                if (!contains) {
+
+                                    productWishList.push(product);
+
+                                    User.updateOne({ session }, { wishList: productWishList })
+                                        .then(() => { return res.status(200).json({ "message": "Product has been added to your wishlist!" }) })
+                                        .catch((error) => { return res.status(500).json({ "error": "Failed adding product to your wishlist!" }) })
+                                }
+                                else {
+                                    return res.status(400).json({ "error": "Failed adding product to your wishlist! Product is already wishlisted!" })
+                                }
+                            }
+                            else { res.status(404).json({ "error": "Product not found!" }) }
                         })
-                        .catch(err => { res.status(404).json({ "error": "Product not found!" }); });
+                        .catch(err => { res.status(404).json({ "error": "Product not found!" }) });
                 }
             })
             .catch((error) => {
