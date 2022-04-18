@@ -24,8 +24,8 @@ exports.requestPasswordChange = (req, res) => {
                         transport.sendMail({
                             from: "tamas.robert1@students.jedlik.eu",
                             to: user.email,
-                            subject: "Webshop - Jelszó megváltoztatása",
-                            html: "<h3>Új jelszó igénylése</h3><br><p>Kattints a linkre a jelszó megváltoztatásához: http://localhost:8080/change-password/' + generatedToken + ' </p>"
+                            subject: "NasaPC - Requested password change",
+                            html: "<h3>New password</h3><br><p>Click this link to change your password: http://localhost:8080/change-password/' + generatedToken + ' </p>"
                         });
                         return res.status(200).json({ "message": "Password change request sent!" });
                     } else {
@@ -39,8 +39,8 @@ exports.requestPasswordChange = (req, res) => {
         } else {
             return res.sendStatus(400).json({ "error": "No data received!" });
         }
-    } catch (e) {
-        res.statusCode(500);
+    } catch (error) {
+        return res.status(500).json({ "error": "Unexpected error!" });
     }
 }
 
@@ -75,9 +75,8 @@ exports.changePassword = (req, res) => {
         } else {
             return res.status(400).json({ "error": "newPassword not set!" });
         }
-    } catch (e) {
-        res.sendStatus(500);
-        console.log(e)
+    } catch (error) {
+        return res.status(500).json({ "error": "Unexpected error!" });
     }
 }
 
@@ -102,17 +101,16 @@ exports.addToWishList = (req, res) => {
 
                             User.updateOne({ session }, { wishList: productWishList })
                                 .then(() => { return res.sendStatus(200).end() })
-                                .catch((error) => { return res.send(error) })
+                                .catch((error) => { return res.status(500).json({ "error": "Failed to add to wishlist!" }) })
 
                         })
-                        .catch(err => console.log(err));
+                        .catch(err => { res.status(404).json({ "error": "Product not found!" }); });
                 }
             })
             .catch((error) => {
-                res.send(error);
+                res.status(404).json({ "error": "User not found!" });
             })
     } else {
-        res.statusMessage = "No session!";
-        res.sendStatus(401);
+        res.status(401).json({ "error": "No session!" });
     }
 }
