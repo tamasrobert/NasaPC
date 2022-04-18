@@ -59,25 +59,21 @@ exports.changePassword = (req, res) => {
 
                         User.updateOne({ "passwordToken": token }, { $set: { password }, $unset: { "passwordToken": "" } })
                             .then(() => {
-                                return res.send("Password changed successfully!");
+                                return res.status(200).json({"message":"Password changed successfully!"});
                             })
                             .catch((error) => {
-                                return res.send(error);
+                                return res.status(500).json({"error":"Unexpected error!"});
                             })
 
                     } else {
-
-                        res.statusMessage = "Bad token!";
-                        return res.sendStatus(400).end();
-
+                        return res.status(400).json({"error":"Bad token!"});
                     }
                 })
                 .catch((error) => {
                     console.log(error)
                 })
         } else {
-            res.statusMessage = "newPassword not set!";
-            return res.sendStatus(400).end();
+            return res.status(400).json({"error":"newPassword not set!"});
         }
     } catch (e) {
         res.sendStatus(500);
