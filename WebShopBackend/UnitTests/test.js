@@ -109,11 +109,11 @@ describe('--------------------------------------\n  \tWebShopBackend API Tests:\
       .post('/api/admin/add-product')
       .send(product)
       .end(function (err, res) {
-        expect(Object.keys(res.body).length).to.equal(7)
+        expect(Object.keys(res.body).length).to.equal(8)
         expect(res).to.have.status(201);
         expect(res.body)
           .to.be.an.instanceof(Object)
-          .that.includes.all.keys(['_id', 'name', 'price', 'description', 'category', 'path', 'discount']);
+          .that.includes.all.keys(['_id', 'name', 'price', 'description', 'category', 'path', 'discount', 'quantity']);
         expect(agent).to.have.cookie('LOCAL_KEY');
         done();
       });
