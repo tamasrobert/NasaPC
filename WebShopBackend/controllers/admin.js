@@ -77,7 +77,7 @@ exports.deleteProduct = (req, res) => {
                                     .catch(error => { return res.status(500).json({ "message": "Unexpected error!" }) })
                             });
 
-                            console.log("WishList update for all users is done.")
+                            console.log("\tWishList update for all users is done.\n\tIf the product existed in any wishlist, it is now deleted.")
 
                         })
 
@@ -110,10 +110,10 @@ exports.modifyProduct = (req, res) => {
                     var price = req.body.price;
                     var category = req.body.category;
                     var path = req.body.path;
-                    var generatedFileName = '';
                     var discount = req.body.discount;
+                    var quantity = req.body.quantity;
 
-                    Product.updateOne({ _id }, { $set: { name, category, description, price, path, discount } })
+                    Product.updateOne({ _id }, { $set: { name, category, description, price, path, discount, quantity } })
                         .then(() => { Product.findOne({ _id }).then((result => { res.send(result) })) })
                         .catch(() => { return res.sendStatus(404) })
 
