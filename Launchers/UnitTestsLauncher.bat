@@ -1,5 +1,5 @@
 @ECHO OFF 
 
-cd ..\WebShopBackend\UnitTests\
+cd ..\WebShopBackend\UnitTest\
 call npm test
 pause
