@@ -5,7 +5,15 @@ Axios.defaults.baseURL='http://localhost:3000/api';
 
 
 export default {
-    error:"asdasdasdasd",
+
+    GetSession() {
+        return Axios.get('/session')
+        .then((response) => {return response})
+        .catch(err => {
+            console.log(err)
+            return Promise.reject(err)
+        })
+    },
 
     SignUp(UserData) {
         return Axios.post('/register', UserData)
@@ -28,7 +36,7 @@ export default {
         .then(() => {})
         .catch((err) => {
             console.log(err)
-            return Promise.reject(err) //  this.error = "anyaaaaaaaad"
+            return Promise.reject(err)
         })
     },
 
