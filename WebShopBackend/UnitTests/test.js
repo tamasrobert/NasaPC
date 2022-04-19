@@ -75,13 +75,34 @@ describe('--------------------------------------\n  \tWebShopBackend API Tests:\
       });
   });
 
+  it('Should be able to get wishlist', function (done) {
+    agent
+      .get('/api/wishlist')
+      .end(function (err, res) {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an.instanceOf(Object);
+        done();
+      });
+  });
+
   it('Should be able to add a product to wishlist', function (done) {
     agent
       .post('/api/add-to-wishlist/625829a476b8813dd0eddfc6')
       .end(function (err, res) {
         expect(res).to.have.status(200);
         expect(res.body).to.have.property('message');
-        expect(res.body.message).to.equal('Product has been added to your wishlist!')
+        expect(res.body.message).to.equal('Product has been added to your wishlist.')
+        done();
+      });
+  });
+
+  it('Should be able to remove a product from wishlist', function (done) {
+    agent
+      .post('/api/remove-from-wishlist/625829a476b8813dd0eddfc6')
+      .end(function (err, res) {
+        expect(res).to.have.status(200);
+        expect(res.body).to.have.property('message');
+        expect(res.body.message).to.equal('Your WishList has been updated.')
         done();
       });
   });
