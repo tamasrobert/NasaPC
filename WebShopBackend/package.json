@@ -4,7 +4,7 @@
   "description": "back-end",
   "main": "app.js",
   "scripts": {
-    "test": "mocha UnitTests/test.js --timeout 10000 --exit",
+    "test": "mocha UnitTest/BackEndAPITests --timeout 10000 --exit",
     "start": "nodemon app.js"
   },
   "repository": {
