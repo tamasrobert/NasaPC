@@ -72,7 +72,36 @@ exports.deleteProduct = (req, res) => {
 
             Product.findByIdAndDelete({ _id })
                 .then((resp) => {
-                    if(resp) return res.json({ "message": 'Deleted' })
+                    if (resp) {
+
+                        const _id = req.params.productId;
+
+                        User.find().then(users => {
+
+                            let userContainer = [];
+
+                            users.forEach(oneUser => {
+                                userContainer.push(oneUser);
+                            })
+
+                            userContainer.forEach(oneUser => {
+
+                                let userId = oneUser._id;
+
+                                var filteredWishList = oneUser.wishList.filter(function (value, index, arr) {
+                                    return value._id != _id;
+                                });
+
+                                User.updateOne({ _id: userId }, { $set: { wishList: filteredWishList } }).then(response => { })
+                                    .catch(error => { return res.status(500).json({ "message": "Unexpected error!" }) })
+                            });
+
+                            console.log("WishList update for all users is done.")
+
+                        })
+
+                        return res.json({ "message": 'Deleted' })
+                    }
                     return res.status(404).json({ "error": "Product not found!" })
                 })
                 .catch(() => { return res.status(404).json({ "error": "Product not found!" }) })

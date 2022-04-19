@@ -19,6 +19,10 @@ const productSchema = new Schema({
         required: [true, "Description required"]
     },
     path: String,
+    quantity: {
+        type: Number,
+        default: 1
+    },
     discount: {
         type: Number,
         validate: {
