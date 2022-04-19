@@ -1,73 +1,136 @@
 <template>
-    <Navbar/>
-        <main>
-            <div class="container" v-if="cartItems.length > 0">
-                
-                <div style="border-bottom: 2px solid white; margin-bottom:45px">
-                    <h2 class="highlightedInfoText">This is your cart.</h2>
-                    <h3 class="highlightedInfoText">Press the order now button to purchase your items.</h3>
-                </div>
+    <main>
+        <Navbar/>
 
-                <div class="row">
-                    <div class=" col-3 productCardSettings " v-for="(item,i) in cartItems" :key="i">
-                        <img :src="item.cartItemImage">
-                        <div class="flex justify-content-between" style="margin: 12px;">
-                            <h5>{{item.cartItemName}}</h5>
-                            <h5>{{item.cartItemPrice}} FT</h5>
+        <div class="card">
+            <OrderList v-model="cartItems" listStyle="height:auto" dataKey="_id">
+                <template #header>
+                    List of Products
+                </template>
+                <template #item="slotProps">
+                    <div class="product-item">
+                        <div class="image-container">
+                            <img src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" :alt="slotProps.item.name" />
                         </div>
-                        
-                            <div style="border-top: 2px solid white; padding:5px">
-                                <p>{{item.cartItemDescription}}</p>
-                            </div>
-                            <div style="position: absolute; bottom: 0;">
-                                
-                                    
-                                    <button class="btn bg-danger" style="margin:10px">Remove</button>
-                                    <button class="btn bg-info" style="margin-left: 165px ;">Details</button>
-                              
-                            </div>
-                        
+                        <div class="product-list-detail">
+                            <h6 class="mb-2">{{slotProps.item.name}}</h6>
+                            <i class="pi pi-tag product-category-icon"></i>
+                            <span class="product-category">{{slotProps.item.category}}</span>
+                        </div>
+                        <div class="product-list-action">
+                            <h6 class="mb-2">{{slotProps.item.price}} HUF</h6>
+                        </div>
                     </div>
+                </template>
+            </OrderList>
+        </div>
 
-                </div>
-
-            </div>
-            <!-- Cart isn't empthy ends here -->
-
-            <div v-else style="margin-bottom:45px">
-                    <h2 class="highlightedInfoText">Your cart is empthy!</h2>
-                    <h3 class="highlightedInfoText">Check out our latest items <router-link class="hotLink" to="/products">HERE!</router-link></h3>
-                </div>
-
-
-        </main>
-    <Footer/>
+        <Footer/>
+    </main>
 </template>
 
 <script>
 import Navbar from '../../components/Navbar.vue'
 import Footer from '../../components/Footer.vue'
+import OrderList from 'primevue/orderlist'
+import { ref, onMounted } from 'vue';
 export default {
   name: 'Cart',
   components: {
     Navbar,
-    Footer
+    Footer,
+    OrderList,
   },
-  data(){
-      return {
-          cartItems: [
-              {cartItemName: "1Cartitem", cartItemPrice: "1500", cartItemDescription: "A very good product!", cartItemImage: "https://picsum.photos/200/300"},
-              {cartItemName: "2Cartitemasdasdasdasdads", cartItemPrice: "1500", cartItemDescription: "A very good product!", cartItemImage: "https://picsum.photos/200/300"},
-              {cartItemName: "3Cartitem", cartItemPrice: "1500", cartItemDescription: "A very good product!", cartItemImage: "https://picsum.photos/200/300"},
-              {cartItemName: "4Cartitem", cartItemPrice: "1500", cartItemDescription: "A very good product!", cartItemImage: "https://picsum.photos/200/300"},
-              {cartItemName: "5Cartitem", cartItemPrice: "1500", cartItemDescription: "A very good product!", cartItemImage: "https://picsum.photos/200/300"}
+  setup() {
+        onMounted(() => {
+            // productService.value.getProductsSmall().then(data => products.value = data);
+            cartItems.value = [
+              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush"},
+              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush"},
+              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush"},
+              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush"},
+              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush"},
+              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush"},
           ]
-      }
-  }
+        })
+
+        const cartItems = ref(null);
+        // const productService = ref(new ProductService());
+
+        return { cartItems }
+    }
+    // data(){
+    //     return {
+    //         cartItems: [
+    //             {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush"},
+    //             {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush"},
+    //             {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush"},
+    //             {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush"},
+    //             {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush"},
+    //             {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush"},
+    //         ]
+    //     }
+    // }
 
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+.card {
+    background: #ffffff;
+    padding: 2rem;
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+    border-radius: 4px;
+    margin-bottom: 2rem;
+}
+.product-item {
+	display: flex;
+	align-items: center;
+	padding: .5rem;
+	width: 100%;
 
+	img {
+		width: 75px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+        margin-right: 1rem;
+	}
+
+	.product-list-detail {
+		flex: 1 1 0;
+	}
+
+	.product-list-action {
+		display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .product-category-icon {
+        vertical-align: middle;
+        margin-right: .5rem;
+        font-size: .875rem;
+    }
+
+    .product-category {
+        vertical-align: middle;
+        line-height: 1;
+        font-size: .875rem;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .product-item {
+        flex-wrap: wrap;
+
+        .image-container {
+            width: 100%;
+            text-align: center;
+        }
+
+        img {
+            margin: 0 0 1rem 0;
+            width: 100px;
+        }
+    }
+}
 </style>
