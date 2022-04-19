@@ -46,6 +46,16 @@ export default {
         .catch(err => {
             console.log(err)
         })
-    }
+    },
+
+    RequestPasswordChange(email) {
+        return Axios.post('/request-password-change', email)
+        .then(() => {})
+        .catch((err) => {
+            console.log(err)
+            return Promise.reject(err)
+        })
+    },
+
 
 }

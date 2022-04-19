@@ -30,7 +30,7 @@
             <div class="col-4"></div>
 
 
-            <form class="col-4 form m-5" method="post" @submit.prevent="Login">
+            <div class="col-4 form m-5">
                 
                 <div class="mb-3 ">
                     <label class="form-label">Email:</label>
@@ -44,7 +44,7 @@
 
                 <div class="row">
                     <div class="col-2">
-                        <button type="submit" class="btn btn-primary">Login</button>
+                        <button @click="Login()" class="btn btn-primary">Login</button>
                     </div>
                     <div class="col-3">
                         <button class="btn btn-primary" @click="forgotPasswordForm()">Forgot password</button>
@@ -58,7 +58,7 @@
                     <router-link to="/signup" class="btn btn-primary">signup</router-link>
                     </div>
                 </div>
-            </form>
+            </div>
 
 
 
@@ -128,8 +128,15 @@ export default {
             this.messageText = "Please give us your email address so we can send you a link to reset your password."
             this.messageColor = "blue"
         },
+        sendForgotPasswordRequest () {
+            AccountDataService.sendForgotPasswordRequest(this.passwordResetEmail).then(()=>{}).catch(err => {
+                console.log(err.response.data)
+                this.errorDialog(err.response.data)
+            })
+        },
         errorDialog(message) {
             this.showMessage = true
+            this.passwordReset = false
             this.messageHeader = "ERROR"
             this.messageText = message
             this.messageColor = "red"
