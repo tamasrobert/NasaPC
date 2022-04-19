@@ -4,10 +4,10 @@
         <div class="form-demo mt-5 mb-5">
             <Dialog v-model:visible="showMessage" :breakpoints="{ '960px': '80vw' }" :style="{ width: '30vw' }" position="top">
                 <div class="flex align-items-center flex-column pt-6 px-3">
-                    <i class="pi pi-check-circle" :style="{fontSize: '5rem', color: 'var(--green-500)' }"></i>
-                    <h5>Registration Successful!</h5>
+                    <i class="pi pi-check-circle" :style="{fontSize: '5rem', color: messageColor }"></i>
+                    <h5>{{messageHeader}}</h5>
                     <p :style="{lineHeight: 1.5, textIndent: '1rem'}">
-                    Success, only one final step is required for your registration. <b>{{state.name}}</b> Please check <b>{{state.email}}</b> for activation instructions.
+                    {{messageText}}
                     </p>
                 </div>
                 <template #footer>
@@ -127,8 +127,24 @@ export default {
         };
 
         const submitted = ref(false);
-        const showMessage = ref(false);
+        var showMessage = ref(false);
         const date = ref();
+
+        var messageHeader = ref()
+        var messageText = ref()
+        var messageColor = ref()
+        const errorDialog = (message) => {
+            messageHeader = "ERROR"
+            messageText = message
+            messageColor = "red"
+            showMessage = true
+        }
+        const successDialog = () => {
+            messageHeader = "Registration Successful!"
+            messageText = "Success, only one final step is required for your registration. <b>{{state.name}}</b> Please check <b>{{state.email}}</b> for activation instructions."
+            messageColor = "green"
+            showMessage = true
+        }
 
         const v$ = useVuelidate(rules, state);
 
@@ -139,9 +155,13 @@ export default {
                 return;
             }
 
-            AccountDataService.SignUp({"email": state.email, "password": state.password}).then(() => {}).catch(err => { console.log(err.data)});
+            AccountDataService.SignUp({"email": state.email, "password": state.password})
+            .then(() => {successDialog()})
+            .catch(err => { 
+                console.log(err.response.data)
+                errorDialog(err.response.data.error)
+            });
              
-            toggleDialog();
         }
         const toggleDialog = () => {
             showMessage.value = !showMessage.value;
@@ -159,7 +179,7 @@ export default {
             submitted.value = false;
         }
 
-        return { state, v$, handleSubmit, toggleDialog, submitted, showMessage, date }
+        return { state, v$, handleSubmit, toggleDialog, submitted, showMessage, date, messageHeader, messageText, messageColor, errorDialog, successDialog }
     }
 }
 </script>

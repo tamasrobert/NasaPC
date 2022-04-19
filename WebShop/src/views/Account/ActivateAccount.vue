@@ -3,10 +3,10 @@
     <Navbar/>
             <Dialog v-model:visible="this.showMessage" :breakpoints="{ '960px': '80vw' }" :style="{ width: '30vw' }" position="top">
                 <div class="flex align-items-center flex-column pt-6 px-3">
-                    <i class="pi pi-check-circle" :style="{fontSize: '5rem', color: 'var(--green-500)' }"></i>
-                    <h5>Success!</h5>
+                    <i class="pi pi-check-circle" :style="{fontSize: '5rem', color: messageColor}"></i>
+                    <h5>{{messageHeader}}</h5>
                     <p :style="{lineHeight: 1.5, textIndent: '1rem'}">
-                   Your account have been activated!
+                        {{messageText}}
                     </p>
                 </div>
                 <template #footer>
@@ -42,16 +42,35 @@ export default {
     data(){
         return {
             token: this.$route.params.activatorToken,
-            showMessage: true
+            showMessage: true,
+            messageHeader: "",
+            messageText: "",
+            messageColor: ""
         }
     },
     mounted() {
         AccountDataService.ActivateAccount(this.token)
-       .catch(err => {console.log(err.data,this.token)})
+        .then(() => {this.successDialog()})
+       .catch(err => {
+           console.log(err.response.data+" --- "+this.token)
+           this.errorDialog(err.response.data.error)
+       })
     },
     methods: {
         toggleDialog() {
             this.$router.push('/login')
+        },
+        successDialog() {
+            this.showMessage = true
+            this.messageHeader = "Success!"
+            this.messageText = "Your account have been activated!"
+            this.messageColor = "green"
+        },
+        errorDialog(message) {
+            this.showMessage = true
+            this.messageHeader = "ERROR"
+            this.messageText = message
+            this.messageColor = "red"
         }
     }
 

@@ -109,7 +109,7 @@ export default {
 
                 })
                 .catch(err => {
-                    console.log(err.response.data)
+                    console.log(err.response.data.error)
                 })
             
         },
@@ -131,7 +131,7 @@ export default {
         sendForgotPasswordRequest() {
             AccountDataService.RequestPasswordChange(this.email).then(()=>{}).catch(err => {
                 console.log(err.response.data)
-                this.errorDialog(err.response.data)
+                this.errorDialog(err.response.data.error)
             })
         },
         errorDialog(message) {
