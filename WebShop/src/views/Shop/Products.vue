@@ -1,119 +1,251 @@
 <template>
-    <main>
-        <Navbar/>
-
-                        <transition name="fade">
-                            <div v-if="showDetails" class="details_screen">
-                                <img src="https://picsum.photos/500/350">
-                                <h4 class="name">{{detailedProduct.name}}</h4>
-                                <!-- <div class="lineInTheDetails"></div> -->
-                                <div class="descriptionbox">
-                                    <p class="description">{{detailedProduct.description}}</p>
-                                </div>
-                                <button class="add-to-cart">Add to cart</button>
-                                <button class="close" @click="closeDetailsScreen()">Close</button>
-                                <div class="pricebox"></div>
-                                <h3 class="price">{{detailedProduct.price}} HUF</h3>
-                                <h3 class="category">{{detailedProduct.category}}</h3>
-                                <Rating class="rating" :modelValue="detailedProduct.rating" :readonly="true" :cancel="false" />
-                            </div>
-                        </transition>
-
-                <div class="row">
-                    <div class="col-xxl-0 col-xl-1 col-lg-0 col-md-1"></div>
-                    <div class="col-xxl-12 col-xl-10 col-lg-12 col-md-10">
-
-                        <div class="row">
-                            <div v-for="(product,i) in products" :key="i" class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-12">
-
-                                <div class="productCardSettings">
-                                    <img src="https://picsum.photos/290/300">
-                                    <h6 class="name">{{product.name}}</h6>
-                                    <button class="add-to-cart">Add to cart</button>
-                                    <button class="details" @click="openDetailsScreen(product)">Details</button>
-                                    <div class="pricebox"></div>
-                                    <h3 class="price">{{product.price}} HUF</h3>
-                                </div>
-        
-                            </div>
-
-                        </div>
-
-
-
+  <main>
+      <Navbar/>
+    <div class="card">
+        <DataView :value="products" :layout="layout" :paginator="true" :rows="9" :sortOrder="sortOrder" :sortField="sortField">
+			<template #header>
+                <div class="grid grid-nogutter">
+                    <div class="col-6" style="text-align: left">
+                        <Dropdown v-model="sortKey" :options="sortOptions" optionLabel="label" placeholder="Sort By Price" @change="onSortChange($event)"/>
                     </div>
-                    <div class="col-xxl-0 col-xl-1 col-lg-0 col-md-1"></div>
+                    <div class="col-6" style="text-align: right">
+                        <DataViewLayoutOptions v-model="layout" />
+                    </div>
                 </div>
-                
+			</template>
 
-        <Footer/>
-    </main>
+			<template #list="slotProps">
+				<div class="col-12">
+					<div class="product-list-item">
+						<img src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" :alt="slotProps.data.name"/>
+						<div class="product-list-detail">
+							<div class="product-name">{{slotProps.data.name}}</div>
+							<div class="product-description">{{slotProps.data.description}}</div>
+							<Rating :modelValue="slotProps.data.rating" :readonly="true" :cancel="false"></Rating>
+							<i class="pi pi-tag product-category-icon"></i><span class="product-category">{{slotProps.data.category}}</span>
+						</div>
+						<div class="product-list-action">
+							<span class="product-price">${{slotProps.data.price}}</span>
+							<Button icon="pi pi-shopping-cart" label="Add to Cart" :disabled="slotProps.data.inventoryStatus === 'OUTOFSTOCK'"></Button>
+							<span :class="'product-badge status-'+slotProps.data.inventoryStatus">{{slotProps.data.inventoryStatus}}</span>
+						</div>
+					</div>
+				</div>
+			</template>
+
+			<template #grid="slotProps">
+				<div class="col-12 md:col-4">
+					<div class="product-grid-item card">
+						<div class="product-grid-item-top">
+							<div>
+								<i class="pi pi-tag product-category-icon"></i>
+								<span class="product-category">{{slotProps.data.category}}</span>
+							</div>
+							<span :class="'product-badge status-'+slotProps.data.inventoryStatus">{{slotProps.data.inventoryStatus}}</span>
+						</div>
+						<div class="product-grid-item-content">
+							<img src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" :alt="slotProps.data.name"/>
+							<div class="product-name">{{slotProps.data.name}}</div>
+							<div class="product-description">{{slotProps.data.description}}</div>
+							<Rating :modelValue="slotProps.data.rating" :readonly="true" :cancel="false"></Rating>
+						</div>
+						<div class="product-grid-item-bottom">
+							<span class="product-price">${{slotProps.data.price}}</span>
+							<Button icon="pi pi-shopping-cart" :disabled="slotProps.data.inventoryStatus === 'OUTOFSTOCK'"></Button>
+						</div>
+					</div>
+				</div>
+			</template>
+		</DataView>
+	</div>
+    <Footer/>
+</main>
 </template>
 
 <script>
 import Navbar from '../../components/Navbar.vue'
 import Footer from '../../components/Footer.vue'
-import Dataservice from '../../services/DataService.js'
+import DataView from 'primevue/dataview';
 import Rating from 'primevue/rating'
+import Dropdown from 'primevue/dropdown'
+import Button from 'primevue/button'
+import DataViewLayoutOptions from 'primevue/dataviewlayoutoptions'
+import { ref, onMounted } from "vue";
+import DataService from '../../services/DataService.js';
+
 export default {
-  name: 'Products',
-  components: {
-    Navbar,
-    Footer,
-    Rating
-  },
-  data(){
-      return {
-            // products: [
-            //     {productName: "1OneProduct", productPrice: "1500", productDescription: "A very good product!", productImage: "https://picsum.photos/200/300"},
-            //     {productName: "2OneProduct123123121", productPrice: "1500", productDescription: "A very good product! I promise! I promise! I promise! I promise! I promise! I promise! I promise! I promise! I promise!", productImage: "https://picsum.photos/200/300"},
-            //     {productName: "3OneProduct", productPrice: "1500", productDescription: "A very good product!", productImage: "https://picsum.photos/200/300"},
-            //     {productName: "4OneProduct", productPrice: "1500", productDescription: "A very good product!", productImage: "https://picsum.photos/200/300"},
-            //     {productName: "5OneProduct", productPrice: "1500", productDescription: "A very good product!", productImage: "https://picsum.photos/200/300"},
-            //     {productName: "6OneProduct", productPrice: "1500", productDescription: "A very good product!", productImage: "https://picsum.photos/200/300"},
-            //     {productName: "7OneProduct", productPrice: "1500", productDescription: "A very good product!", productImage: "https://picsum.photos/200/300"},
-            //     {productName: "8OneProduct", productPrice: "1500", productDescription: "A very good product!", productImage: "https://picsum.photos/200/300"},
-            //     {productName: "9OneProduct", productPrice: "1500", productDescription: "A very good product!", productImage: "https://picsum.photos/200/300"},
-            //     {productName: "10OneProduct", productPrice: "1500", productDescription: "A very good product!", productImage: "https://picsum.photos/200/300"},
-            //     {productName: "11OneProduct", productPrice: "1500", productDescription: "A very good product!", productImage: "https://picsum.photos/200/300"},
-            //     {productName: "12OneProduct", productPrice: "1500", productDescription: "A very good product!", productImage: "https://picsum.photos/200/300"}
-            // ]
-            products: [],
-            showDetails: false,
-            detailedProduct: {
-                // _id: "",
-                // name: "",
-                // description: "",
-                // price: "",
-                // category: "",
-                // path: ""
+    name: "Products",
+    components: {
+        Navbar,
+        Footer,
+        DataView,
+        Rating,
+        Dropdown,
+        Button,
+        DataViewLayoutOptions
+    },
+    setup() {
+        onMounted(() => {
+            DataService.getAllProducts().then(data => products.value = data).then(console.log(products)).catch(console.log("Baj van"));
+            
+        })
+
+        const products = ref();
+        // const Dataservice = ref(new DataService());
+        const layout = ref('grid');
+        const sortKey = ref();
+        const sortOrder = ref();
+        const sortField = ref();
+        const sortOptions = ref([
+            {label: 'Price High to Low', value: '!price'},
+            {label: 'Price Low to High', value: 'price'},
+        ]);
+        const onSortChange = (event) => {
+            const value = event.value.value;
+            const sortValue = event.value;
+
+            if (value.indexOf('!') === 0) {
+                sortOrder.value = -1;
+                sortField.value = value.substring(1, value.length);
+                sortKey.value = sortValue;
             }
-        }
-    },
-    mounted() {
-        Dataservice.getAllProducts().then(ress => this.products = ress).catch()
-    },
-    methods: {
-        openDetailsScreen(product) {
-            this.detailedProduct = product
-            // this.product_details = {'_id': product._id,
-            //  'name': product.name,
-            //   'description': product.description,
-            //    'price': product.price,
-            //     'path': product.path,
-            //      'category': product.category}
-            this.showDetails = true;
-        },
-        closeDetailsScreen() {
-            this.showDetails = false
+            else {
+                sortOrder.value = 1;
+                sortField.value = value;
+                sortKey.value = sortValue;
+            }
+        };
+        return {
+            products, layout, sortKey, sortOrder, sortField, sortOptions, onSortChange
         }
     }
-
 }
 </script>
 
-<style  lang="scss">
-@import "../../assets/css/CostumeVariables.scss";
-    
+<style lang="scss" scoped>
+.card {
+    background: #ffffff;
+    padding: 2rem;
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+    border-radius: 4px;
+    margin-bottom: 2rem;
+}
+.p-dropdown {
+    width: 14rem;
+    font-weight: normal;
+}
 
+.product-name {
+	font-size: 1.5rem;
+	font-weight: 700;
+}
+
+.product-description {
+	margin: 0 0 1rem 0;
+}
+
+.product-category-icon {
+	vertical-align: middle;
+	margin-right: .5rem;
+}
+
+.product-category {
+	font-weight: 600;
+	vertical-align: middle;
+}
+
+::v-deep(.product-list-item) {
+	display: flex;
+	align-items: center;
+	padding: 1rem;
+	width: 100%;
+
+	img {
+		width: 50px;
+		box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+		margin-right: 2rem;
+	}
+
+	.product-list-detail {
+		flex: 1 1 0;
+	}
+
+	.p-rating {
+		margin: 0 0 .5rem 0;
+	}
+
+	.product-price {
+		font-size: 1.5rem;
+		font-weight: 600;
+		margin-bottom: .5rem;
+		align-self: flex-end;
+	}
+
+	.product-list-action {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.p-button {
+		margin-bottom: .5rem;
+	}
+}
+
+::v-deep(.product-grid-item) {
+	margin: .5rem;
+	border: 1px solid var(--surface-border);
+
+	.product-grid-item-top,
+	.product-grid-item-bottom {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	img {
+		box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+		margin: 2rem 0;
+	}
+
+	.product-grid-item-content {
+		text-align: center;
+	}
+
+	.product-price {
+		font-size: 1.5rem;
+		font-weight: 600;
+	}
+}
+
+@media screen and (max-width: 576px) {
+	.product-list-item {
+		flex-direction: column;
+		align-items: center;
+
+		img {
+			margin: 2rem 0;
+		}
+
+		.product-list-detail {
+			text-align: center;
+		}
+
+		.product-price {
+			align-self: center;
+		}
+
+		.product-list-action {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.product-list-action {
+			margin-top: 2rem;
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
+			width: 100%;
+		}
+	}
+}
 </style>

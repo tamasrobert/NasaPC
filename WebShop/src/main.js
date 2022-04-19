@@ -16,6 +16,7 @@ import './assets/css/Navbar.scss'
 import './assets/css/Text.css'
 import './assets/css/CostumeVariables.scss'
 import './assets/css/ProductCard.scss'
+import './assets/css/FilterBar.scss'
 
 
 
