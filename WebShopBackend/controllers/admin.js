@@ -2,30 +2,6 @@
 const User = require('../models/user');
 const Product = require('../models/product');
 
-exports.addProductNoImage = (req, res) => {
-
-    const session = req.cookies['LOCAL_KEY'];
-    if (!session) return res.sendStatus(401);
-
-    User.findOne({ session, 'admin': true })
-        .then((response) => {
-
-            if (!response) return res.sendStatus(401);
-
-            const name = req.body.name;
-            const category = req.body.category;
-            const price = req.body.price;
-            const description = req.body.description;
-            const path = "NoImage.png";
-            const discount = req.body.discount;
-
-            Product.create({ name, category, price, description, path, discount })
-                .then((result) => { return res.json(result) })
-                .catch((error) => { return res.json(error.message) })
-        })
-        .catch((error) => res.send(error))
-}
-
 exports.addProduct = (req, res) => {
 
     const session = req.cookies['LOCAL_KEY'];
@@ -41,9 +17,14 @@ exports.addProduct = (req, res) => {
             const description = req.body.description;
             const price = req.body.price;
             const category = req.body.category;
-            const path = req.body.path;
-            const discount = req.body.discount;
 
+            let path;
+            if (req.body.path && req.body.path != "" && req.body.path != " ") {
+                path = req.body.path;
+            }
+            else (path = "NoImage.png")
+
+            const discount = req.body.discount;
             const product = new Product();
             product.name = name;
             product.description = description;
