@@ -140,7 +140,7 @@ exports.addToWishList = (req, res) => {
                                     productWishList.push(product);
 
                                     User.updateOne({ session }, { wishList: productWishList })
-                                        .then(() => { return res.status(200).json({ "message": "Product has been added to your wishlist!" }) })
+                                        .then(() => { return res.status(200).json({ "message": "Product has been added to your wishlist." }) })
                                         .catch((error) => { return res.status(500).json({ "error": "Failed adding product to your wishlist!" }) })
                                 }
                                 else {
