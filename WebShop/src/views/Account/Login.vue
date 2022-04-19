@@ -9,11 +9,11 @@
                         <p :style="{lineHeight: 1.5, textIndent: '1rem'}">
                             {{this.messageText}}
                         </p>
-                        <input v-if="this.passwordReset" type="email" class="form-control" v-model="passwordResetEmail">
+                        <input v-if="this.passwordReset" type="email" class="form-control" v-model="email">
                     </div>
                     <template #footer>
                         <div v-if="this.passwordReset" class="flex justify-content-center">
-                            <Button label="Send" @click="closeDialog()" class="p-button-text" />
+                            <Button label="Send" @click="sendForgotPasswordRequest()" class="p-button-text" />
                         </div>
                         <div class="flex justify-content-center">
                             <Button label="Cancel" @click="closeDialog()" class="p-button-text" />
@@ -97,7 +97,7 @@ export default {
             messageHeader: "",
             messageText: "",
             messageColor: "",
-            passwordResetEmail: "",
+            email: "",
             passwordReset: false
 
         }
@@ -119,7 +119,7 @@ export default {
             this.messageHeader = ""
             this.messageText = ""
             this.messageColor = ""
-            this.passwordResetEmail = ""
+            this.email = ""
         },
         forgotPasswordForm() {
             this.showMessage = true
@@ -128,8 +128,8 @@ export default {
             this.messageText = "Please give us your email address so we can send you a link to reset your password."
             this.messageColor = "blue"
         },
-        sendForgotPasswordRequest () {
-            AccountDataService.sendForgotPasswordRequest(this.passwordResetEmail).then(()=>{}).catch(err => {
+        sendForgotPasswordRequest() {
+            AccountDataService.RequestPasswordChange(this.email).then(()=>{}).catch(err => {
                 console.log(err.response.data)
                 this.errorDialog(err.response.data)
             })
