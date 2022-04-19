@@ -5,7 +5,7 @@
         <div class="card">
             <OrderList v-model="cartItems" listStyle="height:auto" dataKey="_id">
                 <template #header>
-                    List of Products
+                    This is your Cart:
                 </template>
                 <template #item="slotProps">
                     <div class="product-item">
@@ -45,12 +45,12 @@ export default {
         onMounted(() => {
             // productService.value.getProductsSmall().then(data => products.value = data);
             cartItems.value = [
-              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush"},
-              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush"},
-              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush"},
-              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush"},
-              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush"},
-              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush"},
+              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 1},
+              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 2},
+              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 3},
+              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 4},
+              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 5},
+              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 6},
           ]
         })
 

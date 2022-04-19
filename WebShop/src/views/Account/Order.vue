@@ -3,7 +3,7 @@
         <DataTable :value="products" responsiveLayout="scroll">
             <template #header>
                 <div class="table-header">
-                    Products
+                    These are your Order(s):
                     <Button icon="pi pi-refresh" />
                 </div>
             </template>
@@ -15,7 +15,7 @@
             </Column>
             <Column field="price" header="Price">
                 <template #body="slotProps">
-                    {{formatCurrency(slotProps.data.price)}}
+                    {{slotProps.data.price}}
                 </template>
             </Column>
             <Column field="rating" header="Reviews">
@@ -23,38 +23,52 @@
                     <Rating :modelValue="slotProps.data.rating" :readonly="true" :cancel="false" />
                 </template>
             </Column>
-            <Column header="Status">
-                <template #body="slotProps">
-                    <span :class="'product-badge status-' + slotProps.data.inventoryStatus.toLowerCase()">{{slotProps.data.inventoryStatus}}</span>
-                </template>
-            </Column>
             <template #footer>
                 In total there are {{products ? products.length : 0 }} products.
+                <!-- Total price: {{totalPrice}} -->
             </template>
         </DataTable>
 	</div>
 </template>
 
 <script>
-import ProductService from './service/ProductService';
+import { ref, onMounted } from 'vue'
+import DataTable from 'primevue/datatable'
+import Column from 'primevue/column'
+import Rating from 'primevue/rating'
+import Button from 'primevue/button'
 
 export default {
-    data() {
-        return {
-            products: null
+    name: "Orders",
+    components: {
+        DataTable,
+        Column,
+        Rating,
+        Button
+    },
+    setup() {
+        onMounted(() => {
+            products.value = [
+              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 1},
+              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 2},
+              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 3},
+              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 4},
+              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 5},
+              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 6},
+          ]
+          
+        })
+
+        const products = ref();
+        var totalPrice = ref()
+        const totalPriceCalc = () => {
+            products.value.forEach(product => {
+                totalPrice.value += product.value.price
+            });
         }
-    },
-    productService: null,
-    created() {
-        this.productService = new ProductService();
-    },
-    mounted() {
-        this.productService.getProductsSmall().then(data => this.products = data);
-    },
-    methods: {
-        formatCurrency(value) {
-            return value.toLocaleString('en-US', {style: 'currency', currency: 'USD'});
-        }
+        
+
+        return { products, totalPrice, totalPriceCalc }
     }
 }
 </script>
@@ -70,4 +84,4 @@ export default {
     width: 50px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
 }
-</style>                  
+</style>                    

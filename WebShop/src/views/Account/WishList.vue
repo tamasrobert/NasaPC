@@ -1,74 +1,136 @@
 <template>
-    <Navbar/>
-    <div class="row mt-5">
-        <div class="col-1"></div>
+    <main>
+        <Navbar/>
 
-        <div class="col-10">
-            <OrderList v-model="wishlist" listStyle="height:auto" dataKey="vin">
+        <div class="card">
+            <OrderList v-model="wishList" listStyle="height:auto" dataKey="_id">
                 <template #header>
-                    Your WishList
+                    This is your WishList:
                 </template>
-                <template #item="WishListItem">
-                    <div class="p-caritem row WishListItemBoxSettings">
-                        <div class="col-6">
-                             <img class="WishListPictureSettings" :src="WishListItem.item.productImage">
+                <template #item="slotProps">
+                    <div class="product-item">
+                        <div class="image-container">
+                            <img src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" :alt="slotProps.item.name" />
                         </div>
-                       
-                        <div class="col-6">
-                            <div class="row">
-                                <span style="width: 90%; height:50%; word-wrap: break-word" class="p-caritem-vin">{{WishListItem.item.productName}}</span>
-                                <span style="margin-top: 20%" >{{WishListItem.item.productPrice}} EU</span>
-                            </div>
+                        <div class="product-list-detail">
+                            <h6 class="mb-2">{{slotProps.item.name}}</h6>
+                            <i class="pi pi-tag product-category-icon"></i>
+                            <span class="product-category">{{slotProps.item.category}}</span>
+                        </div>
+                        <div class="product-list-action">
+                            <h6 class="mb-2">{{slotProps.item.price}} HUF</h6>
                         </div>
                     </div>
                 </template>
             </OrderList>
         </div>
 
-        <div class="col-1"></div>
-    </div>
-    <Footer/>
+        <Footer/>
+    </main>
 </template>
 
 <script>
 import Navbar from '../../components/Navbar.vue'
 import Footer from '../../components/Footer.vue'
 import OrderList from 'primevue/orderlist'
-
-
+import { ref, onMounted } from 'vue';
 export default {
-    name: 'WishList',
-    components: {
-        Navbar,
-        Footer,
-        OrderList,
-    },
-    data() {
-        return {
-            wishlist: [
-                {productName: "1OneProduct", productPrice: "1500", productDescription: "A very good product!", productImage: "https://picsum.photos/300/200"},
-                {productName: "2OneProduct123123121", productPrice: "1500", productDescription: "A very good product! I promise! I promise! I promise! I promise! I promise! I promise! I promise! I promise! I promise!", productImage: "https://picsum.photos/300/200"},
-                {productName: "3OneProduct", productPrice: "1500", productDescription: "A very good product!", productImage: "https://picsum.photos/300/200"},
-                {productName: "4OneProduct", productPrice: "1500", productDescription: "A very good product!", productImage: "https://picsum.photos/300/200"},
-                {productName: "5OneProduct", productPrice: "1500", productDescription: "A very good product!", productImage: "https://picsum.photos/300/200"},
-                {productName: "6OneProduct", productPrice: "1500", productDescription: "A very good product!", productImage: "https://picsum.photos/300/200"},
-                {productName: "7OneProduct", productPrice: "1500", productDescription: "A very good product!", productImage: "https://picsum.photos/300/200"},
-            ]
-        }
+  name: 'Cart',
+  components: {
+    Navbar,
+    Footer,
+    OrderList,
+  },
+  setup() {
+        onMounted(() => {
+            // productService.value.getProductsSmall().then(data => products.value = data);
+            wishList.value = [
+              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 1},
+              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 2},
+              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 3},
+              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 4},
+              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 5},
+              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 6},
+          ]
+        })
+
+        const wishList = ref(null);
+        // const productService = ref(new ProductService());
+
+        return { wishList }
     }
+    // data(){
+    //     return {
+    //         cartItems: [
+    //             {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush"},
+    //             {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush"},
+    //             {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush"},
+    //             {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush"},
+    //             {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush"},
+    //             {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush"},
+    //         ]
+    //     }
+    // }
 
 }
 </script>
 
-<style>
-    .WishListItemBoxSettings {
-        height: fit-content;
+<style lang="scss" scoped>
+.card {
+    background: #ffffff;
+    padding: 2rem;
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+    border-radius: 4px;
+    margin-bottom: 2rem;
+}
+.product-item {
+	display: flex;
+	align-items: center;
+	padding: .5rem;
+	width: 100%;
 
-    }
-    .WishListPictureSettings {
-        width: 75%;
-        height: 75%;
-    }
-    
+	img {
+		width: 75px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+        margin-right: 1rem;
+	}
 
+	.product-list-detail {
+		flex: 1 1 0;
+	}
+
+	.product-list-action {
+		display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .product-category-icon {
+        vertical-align: middle;
+        margin-right: .5rem;
+        font-size: .875rem;
+    }
+
+    .product-category {
+        vertical-align: middle;
+        line-height: 1;
+        font-size: .875rem;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .product-item {
+        flex-wrap: wrap;
+
+        .image-container {
+            width: 100%;
+            text-align: center;
+        }
+
+        img {
+            margin: 0 0 1rem 0;
+            width: 100px;
+        }
+    }
+}
 </style>
