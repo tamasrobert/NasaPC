@@ -22,7 +22,7 @@ exports.register = (req, res) => {
 
             let email = req.body.email;
 
-            User.findOne({ 'email':email })
+            User.findOne({ email })
                 .then(async (response) => {
 
                     if (!response) {
@@ -77,7 +77,7 @@ exports.verifyRegistration = (req, res) => {
 
                         User.updateOne({ 'activatorToken': token }, { $unset: { 'activatorToken': "" } })
                             .then((result) => {
-                                return res.status(200).json({ "success": "Account activated!" });
+                                return res.status(200).json({ "message": "Account activated!" });
                             })
                             .catch((error) => { return res.send(error) })
 
@@ -89,8 +89,7 @@ exports.verifyRegistration = (req, res) => {
                     console.log(error)
                 })
         } else {
-            res.statusMessage = "Hiba: Nincs aktiválási token!";
-            return res.sendStatus(400).end();
+            return res.status(400).json({ "error": "Bad token!" });
         }
     } catch (e) {
         res.statusCode(500);
@@ -100,12 +99,12 @@ exports.verifyRegistration = (req, res) => {
 exports.getSession = (req, res) => {
     const session = req.cookies['LOCAL_KEY'];
     if (!session) {
-        return res.status(401).json({ "error": "No session key found" });
+        return res.status(401).json({ "error": "No session key found!" });
     }
     User.findOne({ session })
         .then((response) => {
             if (!response) {
-                return res.status(401).json({ "error": "No session key found" });
+                return res.status(401).json({ "error": "No session key found!" });
             }
             var data = {
                 email: response.email
@@ -113,8 +112,8 @@ exports.getSession = (req, res) => {
             if (response.admin) {
                 data = [{ ...data, admin: true }];
             }
-            else if (response.courier && response.admin==false) {
-                data = [{ ...data, admin:false, courier: true }];
+            else if (response.courier && response.admin == false) {
+                data = [{ ...data, admin: false, courier: true }];
             }
             else {
                 data = [{ ...data, admin: false, courier: false }];
@@ -130,20 +129,20 @@ exports.login = (req, res) => {
     try {
         if (req.body.email && req.body.password) {
             let email = req.body.email;
-            
-            User.findOne({ "email":email })
+
+            User.findOne({ email })
                 .then(async (response) => {
 
                     if (response) {
 
                         if (response.activatorToken) {
-                            return res.status(400).json({ "error": "Account is not activated" });
+                            return res.status(400).json({ "error": "Account is not activated!" });
                         }
 
                         const user = await bcrypt.compare(req.body.password, response.password);
                         if (user) {
                             const session = makeid(32);
-                            res.cookie('LOCAL_KEY', session )
+                            res.cookie('LOCAL_KEY', session)
                             User.updateOne({ email }, { $set: { session } })
                                 .then(() => { })
                                 .catch((error) => {
@@ -155,8 +154,8 @@ exports.login = (req, res) => {
                             if (response.admin) {
                                 data = [{ ...data, admin: true }];
                             }
-                            else if (response.courier && response.admin==false) {
-                                data = [{ ...data, admin:false, courier: true }];
+                            else if (response.courier && response.admin == false) {
+                                data = [{ ...data, admin: false, courier: true }];
                             }
                             else {
                                 data = [{ ...data, admin: false, courier: false }];
@@ -167,11 +166,11 @@ exports.login = (req, res) => {
                         }
                     }
                     else {
-                        return res.status(400).json({ "error": "Email does not exis2t!" });
+                        return res.status(400).json({ "error": "Email does not exist!" });
                     }
                 })
                 .catch(() => {
-                    return res.status(400).json({ "error": "Email does not exis1t!" });
+                    return res.status(400).json({ "error": "Email does not exist!" });
                 })
 
         } else {

@@ -38,7 +38,7 @@ describe('--------------------------------------\n  \tWebShopBackend API Tests:\
   it('Should be able to login', function (done) {
     agent
       .post('/api/login')
-      .send({ email: 'admin@email.com', password: 'admin' })
+      .send({ email: 'admin@nasapc.com', password: 'admin' })
       .end(function (err, res) {
         expect(res).to.have.status(200);
         expect(agent).to.have.cookie('LOCAL_KEY');
@@ -113,7 +113,7 @@ describe('--------------------------------------\n  \tWebShopBackend API Tests:\
       .end(function (err, res) {
         expect(res).to.have.status(200);
         expect(res.body[0]).to.have.property('email');
-        expect(res.body[0].email).to.equal('admin@email.com');
+        expect(res.body[0].email).to.equal('admin@nasapc.com');
         expect(res.body[0].admin).to.equal(true);
         expect(agent).to.have.cookie('LOCAL_KEY');
         done();
@@ -194,7 +194,7 @@ describe('--------------------------------------\n  \tWebShopBackend API Tests:\
   it('Should be able to request password change', function (done) {
     agent
       .post('/api/request-password-change')
-      .send({ email: 'admin@email.com'})
+      .send({ email: 'admin@nasapc.com'})
       .end(function (err, res) {
         expect(res).to.have.status(200);
         expect(res.body).to.have.property('message');
