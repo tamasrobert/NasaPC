@@ -181,6 +181,7 @@
 import Navbar from '../../components/Navbar.vue'
 import Footer from '../../components/Footer.vue'
 import AdminDataService from '../../services/AdminDataService.js'
+import AccountDataService from '../../services/AccountDataService.js'
 import DataService from '../../services/DataService.js'
 import { ref, onMounted } from 'vue';
 import { FilterMatchMode } from 'primevue/api';
@@ -216,6 +217,16 @@ export default {
     },
     setup() {
         onMounted(() => {
+            AccountDataService.GetSession().then((response) => {
+                if (!response.data[0].admin) {
+                    this.$router.push('/')
+                }
+            })
+            .catch(() => {
+                this.$router.push('/')
+                console.log("Error accured")
+            })
+
             DataService.getAllProducts().then(data => products.value = data);
         })
 

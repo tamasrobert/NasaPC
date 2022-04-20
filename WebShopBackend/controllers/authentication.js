@@ -130,8 +130,8 @@ exports.login = (req, res) => {
     try {
         if (req.body.email && req.body.password) {
             let email = req.body.email;
-            
-            User.findOne({ "email":email })
+
+            User.findOne({ email })
                 .then(async (response) => {
 
                     if (response) {

@@ -42,9 +42,6 @@
             <li v-if="this.rules.isLoggedIn == true" class="navbar-item">
                 <button class="btn navbar-link" @click="Logout()">Logout</button>
             </li>
-            <li class="navbar-item">
-                <button class="btn navbar-link" @click="console()">asd</button>
-            </li>
             <li v-if="this.rules.isLoggedIn == false" class="navbar-item">
                 <router-link class="btn navbar-link" to="/signup">Signup</router-link>
             </li>
@@ -154,9 +151,6 @@ export default {
                 this.menu[i].dropdown = true
             }
             
-        },
-        console() {
-            console.log(this.rules)
         }
     },
         mounted() {
@@ -170,7 +164,7 @@ export default {
                 }
             })
             .catch(() => {
-            console.log("Baj van")
+            console.log("An error might have accured during the loading of the navigationbar")
             })
         }
 }
