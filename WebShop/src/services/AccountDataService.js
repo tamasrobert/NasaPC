@@ -9,11 +9,10 @@ export default {
 
     GetSession() {
         return Axios.get('/session')
-        .then((response) => {return response})
-        .catch(err => {
-            console.log(err)
-            return Promise.reject(err)
+        .then(resp => {
+            return resp
         })
+        .catch()
     },
 
     SignUp(UserData) {
@@ -21,6 +20,7 @@ export default {
         .then(() => {})
         .catch(err => {
             console.log(err)
+            return Promise.reject(err)
         })
     },
     
@@ -29,6 +29,7 @@ export default {
         .then(() => {})
         .catch(err => {
             console.log(err)
+            return Promise.reject(err)
         })
     },
 
@@ -46,6 +47,7 @@ export default {
         .then(() => {})
         .catch(err => {
             console.log(err)
+            return Promise.reject(err)
         })
     },
 

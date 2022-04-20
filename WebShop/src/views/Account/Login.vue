@@ -107,7 +107,7 @@ export default {
             AccountDataService.Login(this.UserData)
                 .then(()=>{
                     console.log("Login was succesfull")
-                    // this.$router.push('/')
+                    this.$router.push('/')
                 })
                 .catch(err => {
                     console.log(err.response.data.error)

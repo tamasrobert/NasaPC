@@ -38,8 +38,18 @@
                 </div>
                 
             </li>
+
+            <li v-if="this.rules.isLoggedIn == true" class="navbar-item">
+                <button class="btn navbar-link" @click="Logout()">Logout</button>
+            </li>
             <li class="navbar-item">
-                <router-link class="btn navbar-link" to="/logout">Logout</router-link>
+                <button class="btn navbar-link" @click="console()">asd</button>
+            </li>
+            <li v-if="this.rules.isLoggedIn == false" class="navbar-item">
+                <router-link class="btn navbar-link" to="/signup">Signup</router-link>
+            </li>
+            <li v-if="this.rules.isLoggedIn == false" class="navbar-item">
+                <router-link class="btn navbar-link" to="/login">Login</router-link>
             </li>
             
         </ul>
@@ -66,6 +76,7 @@
 
 <script>
 import Logo from './Logo.vue'
+import AccountDataService from '../services/AccountDataService.js'
 export default {
     name: 'Navbar',
     components: {
@@ -82,10 +93,9 @@ export default {
                     {ddTitle:'Add-product', to:'/admin/add-product'},
                     {ddTitle:'Edit-product', to:'/admin/edit-product'},
                     {ddTitle:'Products', to:'/admin/products'}
-                    ]},
-                {title:'Login', to:'/login'},
-                {title:'Signup', to:'/signup'},
-            ]
+                    ]}
+            ],
+            rules: {isLoggedIn: false ,admin: false, courier: false}
         }
     },
     methods: {
@@ -118,6 +128,17 @@ export default {
                 })
             }
         },
+        Logout() {
+            AccountDataService.Logout().then(() => {
+                this.$router.push('/')
+                this.rules.isLoggedIn = false
+                this.rules.admin = false
+                this.rules.courier = false
+            })
+            .catch(err => {
+                    console.log(err.response.data.error)
+            })
+        },
         toggleDropdowns(i) {
             
             if (this.menu[i].dropdown) {
@@ -134,8 +155,24 @@ export default {
             }
             
         },
-        
-    }
+        console() {
+            console.log(this.rules)
+        }
+    },
+        mounted() {
+            AccountDataService.GetSession().then((response) => {
+                this.rules.isLoggedIn = true
+                if (response.data[0].admin) {
+                    this.rules.admin = true
+                }
+                if (response.data[0].courier) {
+                    this.rules[0].courier = true
+                }
+            })
+            .catch(() => {
+            console.log("Baj van")
+            })
+        }
 }
 </script>
 
