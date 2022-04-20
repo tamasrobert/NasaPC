@@ -130,7 +130,6 @@ exports.login = (req, res) => {
     try {
         if (req.body.email && req.body.password) {
             let email = req.body.email;
-            console.log("Idáig eljutok")
             User.findOne({ "email":email })
                 .then(async (response) => {
 
@@ -149,7 +148,6 @@ exports.login = (req, res) => {
                                 .catch((error) => {
                                     console.log(error);
                                 })
-                            console.log("Még idáig is")
                             var data = {
                                 email: response.email
                             }
