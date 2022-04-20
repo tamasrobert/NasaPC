@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import AccountDataService from '../../services/AccountDataService.js'
 import Navbar from '../../components/Navbar.vue'
 import Footer from '../../components/Footer.vue'
 import OrderList from 'primevue/orderlist'
@@ -43,19 +44,18 @@ export default {
   },
   setup() {
         onMounted(() => {
-            // productService.value.getProductsSmall().then(data => products.value = data);
-            wishList.value = [
-              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 1},
-              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 2},
-              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 3},
-              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 4},
-              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 5},
-              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 6},
-          ]
+            AccountDataService.getWishList().then(data => wishList.value = data);
+        //     wishList.value = [
+        //       {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 1},
+        //       {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 2},
+        //       {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 3},
+        //       {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 4},
+        //       {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 5},
+        //       {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 6},
+        //   ]
         })
 
         const wishList = ref(null);
-        // const productService = ref(new ProductService());
 
         return { wishList }
     }

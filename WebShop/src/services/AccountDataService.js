@@ -60,5 +60,16 @@ export default {
         })
     },
 
+    getWishList(){
+        return Axios.get('/wishlist')
+        .then(resp => {
+            return resp.data
+        })
+        .catch(err => {
+            console.log(err)
+            return Promise.reject(err)
+        })
+    },
+
 
 }
