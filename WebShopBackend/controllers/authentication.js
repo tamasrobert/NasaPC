@@ -22,7 +22,7 @@ exports.register = (req, res) => {
 
             let email = req.body.email;
 
-            User.findOne({ email })
+            User.findOne({ 'email':email })
                 .then(async (response) => {
 
                     if (!response) {
@@ -77,7 +77,7 @@ exports.verifyRegistration = (req, res) => {
 
                         User.updateOne({ 'activatorToken': token }, { $unset: { 'activatorToken': "" } })
                             .then((result) => {
-                                return res.status(200).json({ "error": "Account activated!" });
+                                return res.status(200).json({ "success": "Account activated!" });
                             })
                             .catch((error) => { return res.send(error) })
 
@@ -130,8 +130,8 @@ exports.login = (req, res) => {
     try {
         if (req.body.email && req.body.password) {
             let email = req.body.email;
-
-            User.findOne({ email })
+            console.log("Idáig eljutok")
+            User.findOne({ "email":email })
                 .then(async (response) => {
 
                     if (response) {
@@ -143,13 +143,13 @@ exports.login = (req, res) => {
                         const user = await bcrypt.compare(req.body.password, response.password);
                         if (user) {
                             const session = makeid(32);
-                            res.cookie('LOCAL_KEY', session);
+                            res.cookie('LOCAL_KEY', session )
                             User.updateOne({ email }, { $set: { session } })
                                 .then(() => { })
                                 .catch((error) => {
                                     console.log(error);
                                 })
-
+                            console.log("Még idáig is")
                             var data = {
                                 email: response.email
                             }
@@ -168,11 +168,11 @@ exports.login = (req, res) => {
                         }
                     }
                     else {
-                        return res.status(400).json({ "error": "Email does not exist!" });
+                        return res.status(400).json({ "error": "Email does not exis2t!" });
                     }
                 })
                 .catch(() => {
-                    return res.status(400).json({ "error": "Email does not exist!" });
+                    return res.status(400).json({ "error": "Email does not exis1t!" });
                 })
 
         } else {

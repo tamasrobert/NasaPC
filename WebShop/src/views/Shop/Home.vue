@@ -52,6 +52,7 @@
 </template>
 
 <script>
+import AccountDataService from '../../services/AccountDataService.js'
 import Navbar from '../../components/Navbar.vue'
 import Footer from '../../components/Footer.vue'
 import Carousel from '../../components/Carousel.vue'
@@ -75,6 +76,14 @@ export default {
         {title:"Lorem valami asdasdasd", text:"Lorem valami asdasdasdasdasd  Lorem valami Lorem valami asdasdasdasdasd vLorem valami asdasdasdasdasd  Lorem valami asdasdasdasdasd  asdasdasdasdasd  Lorem valami asdasdasdasdasd", picture:"https://picsum.photos/350/350"},
       ]
     }
+  },
+  mounted() {
+    AccountDataService.GetSession().then((response) => {
+      console.log(response.data)
+    })
+    .catch((err) => {
+      console.log(err.response.data.error)
+    })
   }
 
 }
