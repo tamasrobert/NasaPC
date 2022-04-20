@@ -215,18 +215,19 @@ export default {
         Rating,
         DataTable
     },
-    setup() {
-        onMounted(() => {
-            AccountDataService.GetSession().then((response) => {
-                if (!response.data[0].admin) {
+    mounted() {
+        AccountDataService.GetSession().then((response) => {
+                if (response.data[0].admin == false) {
                     this.$router.push('/')
                 }
             })
             .catch(() => {
-                this.$router.push('/')
                 console.log("Error accured")
+                this.$router.push('/')
             })
-
+    },
+    setup() {
+        onMounted(() => {
             DataService.getAllProducts().then(data => products.value = data);
         })
 
