@@ -60,11 +60,38 @@ export default {
         })
     },
 
+    changePassword(UserData) {
+        return Axios.get('/change-password/', UserData)
+        .then(() => {})
+        .catch(err => {
+            console.log(err)
+            return Promise.reject(err)
+        })
+    },
+
     getWishList(){
         return Axios.get('/wishlist')
         .then(resp => {
             return resp.data
         })
+        .catch(err => {
+            console.log(err)
+            return Promise.reject(err)
+        })
+    },
+
+    addToWishList(productId) {
+        return Axios.post('/add-to-wishlist/'+productId)
+        .then(() => {})
+        .catch(err => {
+            console.log(err)
+            return Promise.reject(err)
+        })
+    },
+
+    removeFromWishList(productId) {
+        return Axios.post('/add-to-wishlist/'+productId)
+        .then(() => {})
         .catch(err => {
             console.log(err)
             return Promise.reject(err)
