@@ -63,7 +63,7 @@ describe('--------------------------------------\n  \tWebShopBackend API Tests:\
 
   it('Should be able to get a product by id', function (done) {
     agent
-      .get('/api/product/62583c6ab32fc81184feb2eb')
+      .get('/api/product/62615b4807b9781aa86fb5ee')
       .end(function (err, res) {
         expect(res).to.have.status(200);
         expect(res.body).to.have.property('_id');
@@ -87,7 +87,7 @@ describe('--------------------------------------\n  \tWebShopBackend API Tests:\
 
   it('Should be able to add a product to wishlist', function (done) {
     agent
-      .post('/api/add-to-wishlist/625829a476b8813dd0eddfc6')
+      .post('/api/add-to-wishlist/62615b4807b9781aa86fb5ee')
       .end(function (err, res) {
         expect(res).to.have.status(200);
         expect(res.body).to.have.property('message');
@@ -98,7 +98,7 @@ describe('--------------------------------------\n  \tWebShopBackend API Tests:\
 
   it('Should be able to remove a product from wishlist', function (done) {
     agent
-      .post('/api/remove-from-wishlist/625829a476b8813dd0eddfc6')
+      .post('/api/remove-from-wishlist/62615b4807b9781aa86fb5ee')
       .end(function (err, res) {
         expect(res).to.have.status(200);
         expect(res.body).to.have.property('message');
