@@ -3,22 +3,22 @@
         <Navbar/>
 
         <div class="card">
-            <OrderList v-model="cartItems" listStyle="height:auto" dataKey="_id">
+            <OrderList v-model="this.cartItems" listStyle="height:auto" dataKey="_id">
                 <template #header>
                     This is your Cart:
                 </template>
                 <template #item="slotProps">
                     <div class="product-item">
                         <div class="image-container">
-                            <img src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" :alt="slotProps.item.name" />
+                            <img src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" :alt="slotProps.name" />
                         </div>
                         <div class="product-list-detail">
-                            <h6 class="mb-2">{{slotProps.item.name}}</h6>
+                            <h6 class="mb-2">{{slotProps.name}}</h6>
                             <i class="pi pi-tag product-category-icon"></i>
-                            <span class="product-category">{{slotProps.item.category}}</span>
+                            <span class="product-category">{{slotProps.category}}</span>
                         </div>
                         <div class="product-list-action">
-                            <h6 class="mb-2">{{slotProps.item.price}} HUF</h6>
+                            <h6 class="mb-2">{{slotProps.price}} HUF</h6>
                         </div>
                     </div>
                 </template>
@@ -30,10 +30,11 @@
 </template>
 
 <script>
+import DataService from '../../services/DataService.js';
 import Navbar from '../../components/Navbar.vue'
 import Footer from '../../components/Footer.vue'
 import OrderList from 'primevue/orderlist'
-import { ref, onMounted } from 'vue';
+// import { ref,  } from 'vue';
 export default {
   name: 'Cart',
   components: {
@@ -41,36 +42,27 @@ export default {
     Footer,
     OrderList,
   },
-  setup() {
-        onMounted(() => {
-            // productService.value.getProductsSmall().then(data => products.value = data);
-            cartItems.value = [
-              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 1},
-              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 2},
-              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 3},
-              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 4},
-              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 5},
-              {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 6},
-          ]
-        })
+  data(){
+      return {
+          cartItems: []
+      }
+  },
+  mounted() {
+            var locArr = []
 
-        const cartItems = ref(null);
-        // const productService = ref(new ProductService());
+            locArr = JSON.parse(localStorage.getItem('cart'))
+            
+            console.log("asdasdasda     "+locArr[0]._id)
 
-        return { cartItems }
-    }
-    // data(){
-    //     return {
-    //         cartItems: [
-    //             {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush"},
-    //             {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush"},
-    //             {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush"},
-    //             {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush"},
-    //             {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush"},
-    //             {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush"},
-    //         ]
-    //     }
-    // }
+            locArr.forEach(product => {
+                DataService.getProductById(product._id).then((resp) => {
+                    this.cartItems.value.push({...resp, 'amount': product.amount})
+                })
+                .catch(()=>{})
+            });
+
+            console.log("This is the cart: "+this.cartItems.value)
+  }
 
 }
 </script>
