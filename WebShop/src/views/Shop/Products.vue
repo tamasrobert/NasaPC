@@ -51,7 +51,7 @@
 						</div>
 						<div class="product-grid-item-bottom">
 							<span class="product-price">${{slotProps.data.price}}</span>
-							<Button icon="pi pi-shopping-cart" :disabled="slotProps.data.inventoryStatus === 'OUTOFSTOCK'"></Button>
+							<Button icon="pi pi-shopping-cart" @click="addToCart(slotProps.data._id)" :disabled="slotProps.data.inventoryStatus === 'OUTOFSTOCK'"></Button>
 						</div>
 					</div>
 				</div>
@@ -84,6 +84,25 @@ export default {
         Button,
         DataViewLayoutOptions
     },
+	methods: {
+		addToCart(_id) {
+		var cartItem = {_id, amount: 1};
+		var match = false;
+		if(!JSON.parse(localStorage.getItem('cart'))) {
+			localStorage.setItem('cart', JSON.stringify([cartItem]));
+		} else {
+			var locArr = JSON.parse(localStorage.getItem('cart'));
+			for (let i = 0; i < locArr.length; i++) {
+			if(locArr[i]._id == cartItem._id) {
+				match = true;
+				locArr[i] = ({_id: cartItem._id, amount: (locArr[i].amount+1)});
+			}
+			}
+			if(!match) locArr.push({_id: cartItem._id, amount: 1});
+			localStorage.setItem('cart', JSON.stringify(locArr));
+		}
+		}
+	},
     setup() {
         onMounted(() => {
             DataService.getAllProducts().then(data => products.value = data).then(console.log(products)).catch(console.log("Baj van"));
