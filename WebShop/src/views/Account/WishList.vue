@@ -44,7 +44,10 @@ export default {
   },
   setup() {
         onMounted(() => {
-            AccountDataService.getWishList().then(data => wishList.value = data).then(()=>{console.log("asdasd   "+wishList.value)})
+            AccountDataService.getWishList().then((data) => wishList.value = data)
+            
+            
+            .then(()=>{console.log("asdasd   "+wishList.value)})
         //     wishList.value = [
         //       {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 1},
         //       {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 2},

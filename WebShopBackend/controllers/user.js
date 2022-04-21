@@ -101,7 +101,7 @@ exports.getWishList = (req, res) => {
 
                 if (user) {
                     let wishlist = user.wishList;
-                    res.status(200).json({wishlist});
+                    res.status(200).json(wishlist)
                 }
             })
             .catch((error) => {
