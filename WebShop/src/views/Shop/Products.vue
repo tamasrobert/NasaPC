@@ -26,7 +26,8 @@
 						</div>
 						<div class="product-list-action">
 							<span class="product-price">${{slotProps.data.price}}</span>
-							<Button icon="pi pi-shopping-cart" label="Add to Cart" :disabled="slotProps.data.inventoryStatus === 'OUTOFSTOCK'"></Button>
+							<Button icon="pi pi-shopping-cart" label="Add to Cart" @click="addToCart(slotProps.data._id)" :disabled="slotProps.data.inventoryStatus === 'OUTOFSTOCK'"></Button>
+							<Button icon="pi pi-star-fill" label="Add to Wishlist" @click="addToWishList(slotProps.data._id)" :disabled="slotProps.data.inventoryStatus === 'OUTOFSTOCK'"></Button>
 							<span :class="'product-badge status-'+slotProps.data.inventoryStatus">{{slotProps.data.inventoryStatus}}</span>
 						</div>
 					</div>
@@ -52,6 +53,7 @@
 						<div class="product-grid-item-bottom">
 							<span class="product-price">${{slotProps.data.price}}</span>
 							<Button icon="pi pi-shopping-cart" @click="addToCart(slotProps.data._id)" :disabled="slotProps.data.inventoryStatus === 'OUTOFSTOCK'"></Button>
+							<Button icon="pi pi-star-fill" @click="addToWishList(slotProps.data._id)" :disabled="slotProps.data.inventoryStatus === 'OUTOFSTOCK'"></Button>
 						</div>
 					</div>
 				</div>
@@ -72,6 +74,7 @@ import Button from 'primevue/button'
 import DataViewLayoutOptions from 'primevue/dataviewlayoutoptions'
 import { ref, onMounted } from "vue";
 import DataService from '../../services/DataService.js';
+import AccountDataService from '../../services/AccountDataService.js'
 
 export default {
     name: "Products",
@@ -101,11 +104,16 @@ export default {
 			if(!match) locArr.push({_id: cartItem._id, amount: 1});
 			localStorage.setItem('cart', JSON.stringify(locArr));
 		}
+		},
+		addToWishList(_id) {
+			AccountDataService.addToWishList(_id)
+			.then(()=>{})
+			.catch(err => {console.log(err.response.data.error)});
 		}
 	},
     setup() {
         onMounted(() => {
-            DataService.getAllProducts().then(data => products.value = data).then(console.log(products)).catch(console.log("Baj van"));
+            DataService.getAllProducts().then(data => products.value = data).then(console.log(products)).catch(err => {console.log(err.response.data.error)});
             
         })
 
