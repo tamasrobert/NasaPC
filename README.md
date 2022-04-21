@@ -46,11 +46,12 @@ A backend elindításához a következőkre van szükség:
    a következők a tennivalók annak érdekében, hogy a helyi gépen
    fusson az adatbázis:
 
-###### ▐ Automatikus beállítás▐
+###### Automatikus beállítás
    
 -- 1. Navigáljon a Launchers nevű mappába.
 
 -- 2. Indítsa el a megfelelő LocalhostMongoDBLauncher fájlt.
+
         -> Amennyiben a MongoDB Tools fájljai *(mongoimport, mongoexport stb.)*
                 különálló mappában találhatóak *(pl. C:\Program Files\MongoDB\Tools\100\bin)*
                 és nem összevonva a Server *(pl. C:\Program Files\MongoDB\Server)* fájljaival,
@@ -61,7 +62,7 @@ A backend elindításához a következőkre van szükség:
                 fájljai között megtalálhatóak a Tools fájljai *(pl. mongoimport)*,
                 a **Merged_LocalhostMongoDBLauncher.bat** az indítantó fájl.
 
-###### ▐ Manuális beállítás▐
+###### Manuális beállítás
 
 -- 1. Győződjön meg róla hogy a MongoDB telepítve van.
         -> https://www.mongodb.com/try/download/community
