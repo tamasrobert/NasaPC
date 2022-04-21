@@ -11,6 +11,7 @@ export default {
         })
         .catch(err => {
             console.log(err)
+            return Promise.reject(err)
         })
     },
 
@@ -21,6 +22,7 @@ export default {
         })
         .catch(err => {
             console.log(err)
+            return Promise.reject(err)
         })
     }
 }
