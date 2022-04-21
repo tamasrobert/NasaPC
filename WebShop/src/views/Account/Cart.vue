@@ -10,15 +10,15 @@
                 <template #item="slotProps">
                     <div class="product-item">
                         <div class="image-container">
-                            <img src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" :alt="slotProps.name" />
+                            <img src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" :alt="slotProps.item.name" />
                         </div>
                         <div class="product-list-detail">
-                            <h6 class="mb-2">{{slotProps.name}}</h6>
+                            <h6 class="mb-2">{{slotProps.item.name}}</h6>
                             <i class="pi pi-tag product-category-icon"></i>
-                            <span class="product-category">{{slotProps.category}}</span>
+                            <span class="product-category">{{slotProps.item.category}}</span>
                         </div>
                         <div class="product-list-action">
-                            <h6 class="mb-2">{{slotProps.price}} HUF</h6>
+                            <h6 class="mb-2">{{slotProps.item.price}} HUF</h6>
                         </div>
                     </div>
                 </template>
@@ -48,20 +48,14 @@ export default {
       }
   },
   mounted() {
-            var locArr = []
-
-            locArr = JSON.parse(localStorage.getItem('cart'))
-            
-            console.log("asdasdasda     "+locArr[0]._id)
+            var locArr = JSON.parse(localStorage.getItem('cart'));
 
             locArr.forEach(product => {
                 DataService.getProductById(product._id).then((resp) => {
-                    this.cartItems.value.push({...resp, 'amount': product.amount})
+                    this.cartItems.push({...resp, 'amount': product.amount})
                 })
                 .catch(()=>{})
             });
-
-            console.log("This is the cart: "+this.cartItems.value)
   }
 
 }
