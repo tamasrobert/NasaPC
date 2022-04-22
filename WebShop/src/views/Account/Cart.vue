@@ -5,7 +5,15 @@
         <div class="card">
             <OrderList v-model="this.cartItems" listStyle="height:auto" dataKey="_id">
                 <template #header>
-                    This is your Cart:
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12">
+                            <span >This is your Cart:</span>
+                        </div>
+                        <div class="col-md-4 col-sm-0"></div>
+                        <div class="col-md-4 col-sm-12">
+                            <span >The total price is: {{getTotalPrice()}} HUF</span>
+                        </div>
+                    </div>
                 </template>
                 <template #item="slotProps">
                     <div class="product-item">
@@ -19,6 +27,12 @@
                         </div>
                         <div class="product-list-action">
                             <h6 class="mb-2">{{slotProps.item.price}} HUF</h6>
+                            <h6 class="mb-2">Quantity: {{slotProps.item.amount}}</h6>
+                            
+                            <div class="row">
+                                <Button class="p-button-rounded p-button-primary" icon="pi pi-plus" @click="addAmount(slotProps.item._id, 1)"></Button>
+                                <Button class="p-button-rounded p-button-danger" style="margin-left:20px" icon="pi pi-minus" @click="addAmount(slotProps.item._id, -1)"></Button>
+                            </div>
                         </div>
                     </div>
                 </template>
@@ -34,6 +48,7 @@ import DataService from '../../services/DataService.js';
 import Navbar from '../../components/Navbar.vue'
 import Footer from '../../components/Footer.vue'
 import OrderList from 'primevue/orderlist'
+import Button from 'primevue/button'
 // import { ref,  } from 'vue';
 export default {
   name: 'Cart',
@@ -41,11 +56,78 @@ export default {
     Navbar,
     Footer,
     OrderList,
+    Button
   },
   data(){
       return {
-          cartItems: []
+          cartItems: [],
+          isEmpty: true,
       }
+  },
+  methods: {
+        isCartEmpty() {
+            return (JSON.parse(localStorage.getItem('cart')) == null || JSON.parse(localStorage.getItem('cart')) == undefined || JSON.parse(localStorage.getItem('cart')).length == 0);
+        },
+        getTotalPrice() {
+            let sum = 0;
+            this.cartItems.forEach(product => {
+                sum += (product.price * product.amount);
+            });
+            return sum;
+        },
+        addAmount(_id, num) {
+            this.cartItems.forEach(product => {
+                if(_id === product._id) {
+                    let locArr = JSON.parse(localStorage.getItem('cart'));
+                    if(num < 0) {
+                        if(product.amount > 1) {
+                            product.amount += num;
+                            for (let i = 0; i < locArr.length; i++) {
+                                if(locArr[i]._id === _id) {
+                                    locArr[i].amount += num;
+                                }
+                            }
+                        } else {
+                            this.removeItemOnce(this.cartItems, product);
+                            locArr.forEach(locItem => {
+                                if(locItem._id === _id) {
+                                    this.removeItemOnce(locArr, locItem);
+                                }
+                            });
+                        }
+                    } else {
+                        product.amount += num;
+                        for (let i = 0; i < locArr.length; i++) {
+                            if(locArr[i]._id === _id) {
+                                locArr[i].amount += num;
+                            }
+                        }
+                    }
+                    localStorage.setItem('cart', JSON.stringify(locArr));
+                    this.isEmpty = this.isCartEmpty();
+                }
+            });
+            // this.calculateCartAmount();
+        },
+        removeItemOnce(arr, value) {
+            var index = arr.indexOf(value);
+            if (index > -1) {
+                arr.splice(index, 1);
+            }
+            return arr;
+        },
+        // calculateCartAmount() {
+        //     if(!JSON.parse(localStorage.getItem('cart'))) {
+        //         this.$store.state.cartItemsLength = 0;
+        //     } else {
+        //         var locArr = JSON.parse(localStorage.getItem('cart'));
+        //         var sum = 0;
+        //         locArr.forEach(locItem => {
+        //         sum += locItem.amount;
+        //         });
+        //         this.$store.state.cartItemsLength = sum;
+        //     }
+        // }
   },
   mounted() {
             var locArr = JSON.parse(localStorage.getItem('cart'));
