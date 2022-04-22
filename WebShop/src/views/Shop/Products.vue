@@ -1,6 +1,7 @@
 <template>
   <main>
       <Navbar/>
+
     <div class="card">
         <DataView :value="products" :layout="layout" :paginator="true" :rows="9" :sortOrder="sortOrder" :sortField="sortField">
 			<template #header>
@@ -87,6 +88,11 @@ export default {
         Button,
         DataViewLayoutOptions
     },
+	data() {
+		return {
+			
+		}
+	},
 	methods: {
 		addToCart(_id) {
 		var cartItem = {_id, amount: 1};
@@ -109,7 +115,7 @@ export default {
 			AccountDataService.addToWishList(_id)
 			.then(()=>{})
 			.catch(err => {console.log(err.response.data.error)});
-		}
+		},
 	},
     setup() {
         onMounted(() => {

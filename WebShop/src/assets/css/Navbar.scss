@@ -143,7 +143,7 @@
     /* ................These are the toggle button settings.......... */
     .mobile-nav-toggle {
         display: block;
-        position: absolute;
+        position: fixed;
         z-index: 9999;
         right: 2rem;
         top: 2rem;
