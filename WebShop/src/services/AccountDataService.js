@@ -60,8 +60,8 @@ export default {
         })
     },
 
-    changePassword(UserData) {
-        return Axios.get('/change-password/', UserData)
+    ChangePassword(data) {
+        return Axios.post('/change-password/', data)
         .then(() => {})
         .catch(err => {
             console.log(err)

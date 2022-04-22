@@ -9,7 +9,7 @@
                         <p :style="{lineHeight: 1.5, textIndent: '1rem'}">
                             {{this.messageText}}
                         </p>
-                        <input v-if="this.passwordReset" type="email" class="form-control" v-model="email">
+                        <input v-if="this.passwordReset" type="email" class="form-control" v-model="this.UserData.email">
                     </div>
                     <template #footer>
                         <div v-if="this.passwordReset" class="flex justify-content-center">
@@ -97,7 +97,6 @@ export default {
             messageHeader: "",
             messageText: "",
             messageColor: "",
-            email: "",
             passwordReset: false
 
         }
@@ -120,7 +119,6 @@ export default {
             this.messageHeader = ""
             this.messageText = ""
             this.messageColor = ""
-            this.email = ""
         },
         forgotPasswordForm() {
             this.showMessage = true
@@ -130,7 +128,12 @@ export default {
             this.messageColor = "blue"
         },
         sendForgotPasswordRequest() {
-            AccountDataService.RequestPasswordChange(this.email).then(()=>{}).catch(err => {
+            AccountDataService.RequestPasswordChange(this.UserData)
+            .then(()=>{
+                this.successDialog()
+            })
+            .catch(err => {
+                console.log(this.email)
                 console.log(err.response.data)
                 this.errorDialog(err.response.data.error)
             })
@@ -141,6 +144,13 @@ export default {
             this.messageHeader = "ERROR"
             this.messageText = message
             this.messageColor = "red"
+        },
+        successDialog() {
+            this.passwordReset = false
+            this.showMessage = true
+            this.messageHeader = "Success!"
+            this.messageText = "We sent you an email for further instructions."
+            this.messageColor = "green"
         }
     },
 
