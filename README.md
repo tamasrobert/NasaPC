@@ -56,7 +56,7 @@ A backend elindításához a következőkre van szükség:
         különálló mappában találhatóak *(pl. C:\Program Files\MongoDB\Tools\100\bin)*
         és nem összevonva a Server *(pl. C:\Program Files\MongoDB\Server)* fájljaival,
          abban az esetben a **Tools_LocalhostMongoDBLauncher.bat** az indítantó fájl.
-        (Friss MongoDB Server 5.0 és MongoDB Tools 100 esetében ez az aléprtelmezett)
+        (Friss MongoDB Server 5.0 és MongoDB Tools 100 esetében ez az alapértelmezett)
         
 -> Ellenkező esetben, amennyiban a Server *(pl. C:\Program Files\MongoDB\Server)*
         fájljai között megtalálhatóak a Tools fájljai *(pl. mongoimport)*,
