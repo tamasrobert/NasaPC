@@ -90,7 +90,7 @@ export default {
     },
 
     removeFromWishList(productId) {
-        return Axios.post('/add-to-wishlist/'+productId)
+        return Axios.post('/remove-from-wishlist/'+productId)
         .then(() => {})
         .catch(err => {
             console.log(err)

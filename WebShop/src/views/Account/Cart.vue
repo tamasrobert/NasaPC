@@ -136,7 +136,9 @@ export default {
                 DataService.getProductById(product._id).then((resp) => {
                     this.cartItems.push({...resp, 'amount': product.amount})
                 })
-                .catch(()=>{})
+                .catch(()=>{
+                    
+                })
             });
   }
 

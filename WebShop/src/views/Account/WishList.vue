@@ -3,7 +3,7 @@
         <Navbar/>
 
         <div class="card">
-            <OrderList v-model="wishList" listStyle="height:auto" dataKey="_id">
+            <OrderList v-model="this.wishList" listStyle="height:auto" dataKey="_id">
                 <template #header>
                     This is your WishList:
                 </template>
@@ -19,6 +19,7 @@
                         </div>
                         <div class="product-list-action">
                             <h6 class="mb-2">{{slotProps.item.price}} HUF</h6>
+                            <Button icon="pi pi-minus" @click="removeFromWishlist(slotProps.item._id)" class="p-button-raised p-button-danger" />
                         </div>
                     </div>
                 </template>
@@ -34,47 +35,38 @@ import AccountDataService from '../../services/AccountDataService.js'
 import Navbar from '../../components/Navbar.vue'
 import Footer from '../../components/Footer.vue'
 import OrderList from 'primevue/orderlist'
-import { ref, onMounted } from 'vue';
+import Button from 'primevue/button'
+// import { ref, onMounted } from 'vue';
 export default {
   name: 'Cart',
   components: {
     Navbar,
     Footer,
     OrderList,
+    Button
   },
-  setup() {
-        onMounted(() => {
-            AccountDataService.getWishList().then((data) => wishList.value = data)
-            
-            
-            .then(()=>{console.log("asdasd   "+wishList.value)})
-        //     wishList.value = [
-        //       {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 1},
-        //       {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 2},
-        //       {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 3},
-        //       {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 4},
-        //       {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 5},
-        //       {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 6},
-        //   ]
-        })
-
-        const wishList = ref(null);
-
-        return { wishList }
-    }
-    // data(){
-    //     return {
-    //         cartItems: [
-    //             {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush"},
-    //             {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush"},
-    //             {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush"},
-    //             {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush"},
-    //             {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush"},
-    //             {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush"},
-    //         ]
-    //     }
-    // }
-
+  data(){
+      return {
+          wishList: []
+      }
+  },
+  methods: {
+      removeFromWishlist(_id) {
+          AccountDataService.removeFromWishList(_id)
+          .then(() => {
+              for (let index = 0; index < this.wishList.length; index++) {
+                  if (this.wishList[index]._id == _id) {
+                      this.wishList.splice(index, 1)
+                  }
+              }
+          })
+          .catch(() => {})
+      }
+  },
+  mounted() {
+      AccountDataService.getWishList().then((data) => this.wishList = data)
+        .then(()=>{})
+  }
 }
 </script>
 
