@@ -13,6 +13,15 @@
         android:theme="@style/Theme.WebshopProject"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Profile"
+            android:exported="false" />
+        <activity
+            android:name=".Orders"
+            android:exported="false" />
+        <activity
+            android:name=".Cart"
+            android:exported="false" />
+        <activity
             android:name=".SelectedProduct"
             android:exported="false" />
         <activity

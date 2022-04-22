@@ -1,5 +1,6 @@
 package com.example.webshopproject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -12,6 +13,7 @@ import android.os.StrictMode;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -28,6 +30,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
     EditText editText;
 
+    BottomNavigationView bnv;
+
     public ArrayList<Product> products;
     public ArrayList<Product> filteredProducts;
 
@@ -61,8 +67,11 @@ public class MainActivity extends AppCompatActivity {
 
         listView = findViewById(R.id.listView);
         editText = findViewById(R.id.editText);
+        bnv = findViewById(R.id.bottom_navigation);
 
-        String url = "http://192.168.0.100:3000/api/products";
+        bnv.setSelectedItemId(R.id.products);
+
+        String url =  Variables.getServerAddress() + "/api/products";
         products = new ArrayList<Product>();
         filteredProducts = new ArrayList<Product>();
 
@@ -73,6 +82,32 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(),  android.R.layout.simple_spinner_dropdown_item, categories);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+
+
+        bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.products:
+                        return true;
+                    case R.id.profile:
+                        startActivity(new Intent(getApplicationContext(), Profile.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.orders:
+                        startActivity(new Intent(getApplicationContext(), Orders.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.cart:
+                        startActivity(new Intent(getApplicationContext(), Cart.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                }
+
+                return false;
+            }
+        });
 
         editText.addTextChangedListener(new TextWatcher() {
             @Override

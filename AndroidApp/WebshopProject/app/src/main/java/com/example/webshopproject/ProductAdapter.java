@@ -42,7 +42,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         TextView txtPrice = convertView.findViewById(R.id.txtPrice);
 
         //imageView.setImageResource(getItem(position));
-        imageView.setImageDrawable(LoadImageFromWebOperations("http://192.168.0.100:3000/images/products/" + getItem(position).getPath()));
+        imageView.setImageDrawable(LoadImageFromWebOperations( Variables.getServerAddress() + "/images/products/" + getItem(position).getPath()));
 
         txtName.setText(getItem(position).getName());
         txtPrice.setText(String.valueOf(getItem(position).getPrice()) + " Ft");
