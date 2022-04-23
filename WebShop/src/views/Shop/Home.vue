@@ -1,7 +1,7 @@
 <template>
-<main>
+<main class="mainContent">
   <Navbar/>
-  <div class="container mt-1">
+  <div class="mainContent container mt-5">
     <div class="row" style="margin-bottom: 3%">
     <div class="col-lg-12 col-xl-12">
       <Carousel/>
@@ -9,7 +9,7 @@
     </div>
 
     <div v-for="(promotion,i) in promotions" :key="i">
-      <div class="row mb-2" style="padding: 5px; background-color: gray;" v-if="i%2==0">
+      <div class="row mb-1" style="padding: 5px; background-color: gray;" v-if="i%2==0">
 
         <div class="col-sm-0 col-lg-1"></div>
           <div class="col-sm-12 col-lg-10">
@@ -92,13 +92,13 @@ export default {
 <style  lang="scss">
 @import "../../assets/css/CostumeVariables.scss";
 
-.container {
-  background-color: $darkblue;
-  box-shadow: 0 3px 6px $shadowoflightblue;
-}
+// .container {
+//   background-color: $darkblue;
+//   box-shadow: 0 3px 6px $shadowoflightblue;
+// }
 
-main {
-  background-color: $mediumgray;
-}
+// main {
+//   background-color: $mediumgray;
+// }
 
 </style>

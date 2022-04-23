@@ -1,7 +1,7 @@
 <template>
-  <main>
+  <main class="mainContent">
       <Navbar/>
-
+	<div class="m-5">
     <div class="card">
         <DataView :value="products" :layout="layout" :paginator="true" :rows="9" :sortOrder="sortOrder" :sortField="sortField">
 			<template #header>
@@ -60,6 +60,7 @@
 				</div>
 			</template>
 		</DataView>
+	</div>
 	</div>
     <Footer/>
 </main>

@@ -1,7 +1,7 @@
 <template>
-    <main>
+    <main class="mainContent">
         <Navbar/>
-
+        <div class="m-5">
         <div class="card">
             <OrderList v-model="this.wishList" listStyle="height:auto" dataKey="_id">
                 <template #header>
@@ -25,7 +25,7 @@
                 </template>
             </OrderList>
         </div>
-
+        </div>
         <Footer/>
     </main>
 </template>

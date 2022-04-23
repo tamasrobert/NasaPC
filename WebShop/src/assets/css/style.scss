@@ -8,6 +8,10 @@ body {
     
     min-height: 1500px;
 }
+.mainContent {
+    background-color: $lightblue;
+}
+
 .flex {
     display: flex;
     gap: var(--gap,0.2rem);
