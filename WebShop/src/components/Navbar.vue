@@ -113,22 +113,22 @@ export default {
                 // secondaryNav.setAttribute("data-visible", "true")
                 navToggle.setAttribute("aria-expanded", "true")
                 
-                this.menu.forEach(n => {
-                if (n.dropdown == true) {
-                    n.dropdown = false
-                }
-                })
+                // this.menu.forEach(n => {
+                // if (n.dropdown == true) {
+                //     n.dropdown = false
+                // }
+                // })
 
             } else if (visibility === "true"){
                 primaryNav.setAttribute("data-visible", false)
                 // secondaryNav.setAttribute("data-visible", false)
                 navToggle.setAttribute("aria-expanded", "false")
                 
-                this.menu.forEach(n => {
-                if (n.dropdown == true) {
-                    n.dropdown = false
-                }
-                })
+                // this.menu.forEach(n => {
+                // if (n.dropdown == true) {
+                //     n.dropdown = false
+                // }
+                // })
             }
         },
         Logout() {

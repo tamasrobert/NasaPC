@@ -1,5 +1,5 @@
 <template>
-<main>
+<main class="mainContent">
     <Navbar/>
             <Dialog v-model:visible="this.showMessage" :breakpoints="{ '960px': '80vw' }" :style="{ width: '30vw' }" position="top">
                 <div class="flex align-items-center flex-column pt-6 px-3">
@@ -15,9 +15,12 @@
                     </div>
                 </template>
             </Dialog>
-        <div class="container" style="height: 600px; margin-top: 50px">
+        <!-- <div class="container" style="height: 600px; margin-top: 50px">
             <h1 style="text-align: center">Success!</h1>
             <h3 style="text-align: center">Your account have been activated!</h3>
+        </div> -->
+        <div style="height: 40rem">
+
         </div>
     
     <Footer/>
