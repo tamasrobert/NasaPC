@@ -2,12 +2,16 @@ package com.example.webshopproject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.text.Editable;
@@ -53,8 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bnv;
 
-    public ArrayList<Product> products;
-    public ArrayList<Product> filteredProducts;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,9 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        //Change the built in bottom nav color
+        getWindow().setNavigationBarColor(getResources().getColor(R.color.primary));
+
         listView = findViewById(R.id.listView);
         editText = findViewById(R.id.editText);
         bnv = findViewById(R.id.bottom_navigation);
@@ -72,8 +78,8 @@ public class MainActivity extends AppCompatActivity {
         bnv.setSelectedItemId(R.id.products);
 
         String url =  Variables.getServerAddress() + "/api/products";
-        products = new ArrayList<Product>();
-        filteredProducts = new ArrayList<Product>();
+        Variables.products = new ArrayList<Product>();
+        Variables.filteredProducts = new ArrayList<Product>();
 
         ArrayList<String> categories = new ArrayList<>();
         categories.add("All");
@@ -92,7 +98,12 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.products:
                         return true;
                     case R.id.profile:
-                        startActivity(new Intent(getApplicationContext(), Profile.class));
+                        SharedPreferences data = getSharedPreferences("webshop", MODE_PRIVATE);
+                        if(data.getBoolean("isLoggedIn", false)) {
+                            startActivity(new Intent(getApplicationContext(), Profile.class));
+                        } else {
+                            startActivity(new Intent(getApplicationContext(), Login.class));
+                        }
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.orders:
@@ -119,15 +130,15 @@ public class MainActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 Log.d("TEXT_CHANGED", editText.getText().toString());
 
-                filteredProducts.clear();
+                Variables.filteredProducts.clear();
 
-                for(int index = 0; index<products.size(); index++) {
-                    if((spinner.getSelectedItem().toString().equalsIgnoreCase(products.get(index).getCategory()) && products.get(index).getName().toLowerCase().contains(editText.getText().toString().toLowerCase())) || (spinner.getSelectedItem().toString().equalsIgnoreCase("All") && products.get(index).getName().toLowerCase().contains(editText.getText().toString().toLowerCase()))) {
-                        filteredProducts.add(products.get(index));
+                for(int index = 0; index<Variables.products.size(); index++) {
+                    if((spinner.getSelectedItem().toString().equalsIgnoreCase(Variables.products.get(index).getCategory()) && Variables.products.get(index).getName().toLowerCase().contains(editText.getText().toString().toLowerCase())) || (spinner.getSelectedItem().toString().equalsIgnoreCase("All") && Variables.products.get(index).getName().toLowerCase().contains(editText.getText().toString().toLowerCase()))) {
+                        Variables.filteredProducts.add(Variables.products.get(index));
                     }
                 }
 
-                ProductAdapter productAdapter = new ProductAdapter(MainActivity.this, R.layout.list_row, filteredProducts);
+                ProductAdapter productAdapter = new ProductAdapter(MainActivity.this, R.layout.list_row, Variables.filteredProducts);
                 listView.setAdapter(productAdapter);
             }
 
@@ -141,16 +152,16 @@ public class MainActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.d("CATEGORY", categories.get(position));
 
-                filteredProducts.clear();
-                for (int i = 0; i<products.size(); i++) {
-                    if(categories.get(position).equalsIgnoreCase("All") && products.get(i).getName().toLowerCase().contains(editText.getText().toString().toLowerCase())) {
-                        filteredProducts.add(products.get(i));
-                    } else if(products.get(i).getCategory().equalsIgnoreCase(categories.get(position)) && products.get(i).getName().toLowerCase().contains(editText.getText().toString().toLowerCase())) {
-                        filteredProducts.add(products.get(i));
+                Variables.filteredProducts.clear();
+                for (int i = 0; i<Variables.products.size(); i++) {
+                    if(categories.get(position).equalsIgnoreCase("All") && Variables.products.get(i).getName().toLowerCase().contains(editText.getText().toString().toLowerCase())) {
+                        Variables.filteredProducts.add(Variables.products.get(i));
+                    } else if(Variables.products.get(i).getCategory().equalsIgnoreCase(categories.get(position)) && Variables.products.get(i).getName().toLowerCase().contains(editText.getText().toString().toLowerCase())) {
+                        Variables.filteredProducts.add(Variables.products.get(i));
                     }
                 }
 
-                ProductAdapter productAdapter = new ProductAdapter(MainActivity.this, R.layout.list_row, filteredProducts);
+                ProductAdapter productAdapter = new ProductAdapter(MainActivity.this, R.layout.list_row, Variables.filteredProducts);
                 listView.setAdapter(productAdapter);
             }
             public void onNothingSelected(AdapterView<?> parent) {
@@ -160,15 +171,15 @@ public class MainActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d("PRODUCT", products.get(i).getName());
+                Log.d("PRODUCT", Variables.products.get(i).getName());
 
                 Intent intent = new Intent(MainActivity.this, SelectedProduct.class);
-                intent.putExtra("_id", products.get(i).get_id());
-                intent.putExtra("name", products.get(i).getName());
-                intent.putExtra("category", products.get(i).getCategory());
-                intent.putExtra("description", products.get(i).getDescription());
-                intent.putExtra("price", products.get(i).getPrice());
-                intent.putExtra("path", products.get(i).getPath());
+                intent.putExtra("_id", Variables.products.get(i).get_id());
+                intent.putExtra("name", Variables.products.get(i).getName());
+                intent.putExtra("category", Variables.products.get(i).getCategory());
+                intent.putExtra("description", Variables.products.get(i).getDescription());
+                intent.putExtra("price", Variables.products.get(i).getPrice());
+                intent.putExtra("path", Variables.products.get(i).getPath());
 
                 startActivity(intent);
             }
@@ -179,8 +190,8 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onResponse(JSONArray response) {
-                        products.clear();
-                        filteredProducts.clear();
+                        Variables.products.clear();
+                        Variables.filteredProducts.clear();
 
                         try {
                             for(int i = 0; i<response.length(); i++) {
@@ -188,12 +199,18 @@ public class MainActivity extends AppCompatActivity {
                                 if(!categories.contains(jsonObj.getString("category"))) {
                                     categories.add(jsonObj.getString("category"));
                                 }
-                                products.add(new Product(jsonObj.getString("_id"), jsonObj.getString("name"), jsonObj.getString("category"), jsonObj.getString("description"), jsonObj.getInt("price"), jsonObj.getString("path")));
+                                Variables.products.add(new Product(jsonObj.getString("_id"), jsonObj.getString("name"), jsonObj.getString("category"), jsonObj.getString("description"), jsonObj.getInt("price"), jsonObj.getString("path")));
                             }
 
-                            filteredProducts.addAll(products);
+                            Variables.filteredProducts.addAll(Variables.products);
+                            /*
+                            Variables.cart = new ArrayList<CartItem>();
+                            for(int i = 0; i<Variables.products.size(); i++) {
+                                Product p = Variables.products.get(i);
+                                Variables.cart.add(new CartItem(p._id, p.name, p.category, p.description, p.price, p.path));
+                            }*/
 
-                            ProductAdapter productAdapter = new ProductAdapter(MainActivity.this, R.layout.list_row, products);
+                            ProductAdapter productAdapter = new ProductAdapter(MainActivity.this, R.layout.list_row, Variables.products);
                             listView.setAdapter(productAdapter);
                         } catch (JSONException e) {
                             e.printStackTrace();

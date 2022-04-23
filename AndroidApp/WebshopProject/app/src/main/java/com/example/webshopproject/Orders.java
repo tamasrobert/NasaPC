@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -21,6 +22,9 @@ public class Orders extends AppCompatActivity {
         bnv = findViewById(R.id.bottom_navigation);
         bnv.setSelectedItemId(R.id.orders);
 
+        //Change the built in bottom nav color
+        getWindow().setNavigationBarColor(getResources().getColor(R.color.primary));
+
         bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 
             @Override
@@ -31,7 +35,12 @@ public class Orders extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.profile:
-                        startActivity(new Intent(getApplicationContext(), Profile.class));
+                        SharedPreferences data = getSharedPreferences("webshop", MODE_PRIVATE);
+                        if(data.getBoolean("isLoggedIn", false)) {
+                            startActivity(new Intent(getApplicationContext(), Profile.class));
+                        } else {
+                            startActivity(new Intent(getApplicationContext(), Login.class));
+                        }
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.orders:
