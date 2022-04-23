@@ -24,7 +24,7 @@ exports.addProduct = (req, res) => {
             }
             else (path = "NoImage.png")
 
-            const discount = req.body.discount;
+            const discount = req.body.discount || 0;
             const product = new Product();
             product.name = name;
             product.description = description;
@@ -36,7 +36,7 @@ exports.addProduct = (req, res) => {
             product.save().then(response => { return res.status(201).send(response) });
 
         })
-        .catch((error) => { res.send(error) })
+        .catch((error) => { res.status(422).json({ "error": "Data cannot be processed!" }) })
 }
 
 exports.deleteProduct = (req, res) => {
@@ -105,13 +105,13 @@ exports.modifyProduct = (req, res) => {
             Product.findOne({ _id })
                 .then((product) => {
 
-                    var name = req.body.name;
-                    var description = req.body.description;
-                    var price = req.body.price;
-                    var category = req.body.category;
-                    var path = req.body.path;
-                    var discount = req.body.discount;
-                    var quantity = req.body.quantity;
+                    var name = req.body.name || product.name;
+                    var description = req.body.description || product.description;
+                    var price = req.body.price || product.price;
+                    var category = req.body.category || product.category;
+                    var path = req.body.path || "NoImage.png";
+                    var discount = req.body.discount || product.discount;
+                    var quantity = req.body.quantity || product.quantity;
 
                     Product.updateOne({ _id }, { $set: { name, category, description, price, path, discount, quantity } })
                         .then(() => { Product.findOne({ _id }).then((result => { res.send(result) })) })
