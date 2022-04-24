@@ -32,6 +32,10 @@
                     <router-link class="btn navbar-link " to="/account/wishlist"><span class="pi pi-star-fill NavbarIcons"/></router-link>
                 </li>
                 <li v-if="this.rules.isLoggedIn == true" class="navbar-item">
+                    <button class="btn navbar-link" @click="toOrders()">Orders</button>
+                     <router-link class="btn navbar-link " :to="this.userLink">Order(s)</router-link>
+                </li>
+                <li v-if="this.rules.isLoggedIn == true" class="navbar-item">
                     <button class="btn navbar-link" @click="Logout()"><span class="pi pi-sign-out NavbarIcons"/></button>
                 </li>
                  <li v-if="this.rules.isLoggedIn == true" class="navbar-item">
@@ -98,7 +102,7 @@ export default {
             //         {ddTitle:'Products', to:'/admin/products'}
             //         ]}
             // ],
-            rules: {isLoggedIn: false ,admin: false, courier: false}
+            rules: {isLoggedIn: false ,admin: false, courier: false},
         }
     },
     methods: {

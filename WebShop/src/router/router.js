@@ -14,7 +14,7 @@ import ChangePassword from '../views/Account/ChangePassword.vue'
 import ActivateAccount from '../views/Account/ActivateAccount.vue'
 import AccountSettings from '../views/Account/Account-settings.vue'
 import WishList from '../views/Account/WishList.vue'
-import Order from '../views/Account/Order.vue'
+// import Order from '../views/Account/Order.vue'
 
 const routes = [
     {path: '/', component: Home},
@@ -31,7 +31,7 @@ const routes = [
     {path: '/activate/:activatorToken', component: ActivateAccount},
     {path: '/account/settings', component: AccountSettings},
     {path: '/account/wishlist', component: WishList},
-    {path: '/account/order', component: Order},
+    // {path: '/account/order/:userId', component: Order},
     
     
 ]
