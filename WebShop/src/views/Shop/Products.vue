@@ -96,7 +96,7 @@ export default {
 	},
 	methods: {
 		addToCart(_id) {
-		var cartItem = {_id, amount: 1};
+		var cartItem = {_id, quantity: 1};
 		var match = false;
 		if(!JSON.parse(localStorage.getItem('cart'))) {
 			localStorage.setItem('cart', JSON.stringify([cartItem]));
@@ -105,10 +105,10 @@ export default {
 			for (let i = 0; i < locArr.length; i++) {
 			if(locArr[i]._id == cartItem._id) {
 				match = true;
-				locArr[i] = ({_id: cartItem._id, amount: (locArr[i].amount+1)});
+				locArr[i] = ({_id: cartItem._id, quantity: (locArr[i].quantity+1)});
 			}
 			}
-			if(!match) locArr.push({_id: cartItem._id, amount: 1});
+			if(!match) locArr.push({_id: cartItem._id, quantity: 1});
 			localStorage.setItem('cart', JSON.stringify(locArr));
 		}
 		},

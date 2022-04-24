@@ -33,7 +33,7 @@
                         </div>
                         <div class="m-3">
                             <div class="p-float-label">
-                                <InputText type="number" id="phone_number" v-model="this.data.phone_number"/>
+                                <InputText type="text" id="phone_number" v-model="this.data.phone_number"/>
                                 <label for="phone_number">phone number</label>
                             </div>
                             <small v-if="this.validation.vphone_number == false" style="color:red">Invalid data!</small>
@@ -92,11 +92,11 @@
                         </div>
                         <div class="product-list-action">
                             <h6 class="mb-2">{{slotProps.item.price}} HUF</h6>
-                            <h6 class="mb-2">Quantity: {{slotProps.item.amount}}</h6>
+                            <h6 class="mb-2">Quantity: {{slotProps.item.quantity}}</h6>
                             
                             <div class="row">
-                                <Button class="p-button-rounded p-button-primary" icon="pi pi-plus" @click="addAmount(slotProps.item._id, 1)"></Button>
-                                <Button class="p-button-rounded p-button-danger" style="margin-left:20px" icon="pi pi-minus" @click="addAmount(slotProps.item._id, -1)"></Button>
+                                <Button class="p-button-rounded p-button-primary" icon="pi pi-plus" @click="addquantity(slotProps.item._id, 1)"></Button>
+                                <Button class="p-button-rounded p-button-danger" style="margin-left:20px" icon="pi pi-minus" @click="addquantity(slotProps.item._id, -1)"></Button>
                             </div>
                         </div>
                     </div>
@@ -163,6 +163,7 @@ export default {
   methods: {
         placeOrder() {
             this.validationFunction()
+            console.log(this.data)
             if (
                 this.validation.vlast_name == true &&
                 this.validation.vfirst_name == true &&
@@ -203,7 +204,10 @@ export default {
             if (this.validation.vshipping_address != null) {
                 this.validation.vshipping_address = true
             }
+            
+           
             this.data.items = this.cartItems
+
         },
         personalInformationForm()
         {
@@ -215,21 +219,21 @@ export default {
         getTotalPrice() {
             let sum = 0;
             this.cartItems.forEach(product => {
-                sum += (product.price * product.amount);
+                sum += (product.price * product.quantity);
             });
             this.data.total_price = sum
             return sum;
         },
-        addAmount(_id, num) {
+        addquantity(_id, num) {
             this.cartItems.forEach(product => {
                 if(_id === product._id) {
                     let locArr = JSON.parse(localStorage.getItem('cart'));
                     if(num < 0) {
-                        if(product.amount > 1) {
-                            product.amount += num;
+                        if(product.quantity > 1) {
+                            product.quantity += num;
                             for (let i = 0; i < locArr.length; i++) {
                                 if(locArr[i]._id === _id) {
-                                    locArr[i].amount += num;
+                                    locArr[i].quantity += num;
                                 }
                             }
                         } else {
@@ -241,10 +245,10 @@ export default {
                             });
                         }
                     } else {
-                        product.amount += num;
+                        product.quantity += num;
                         for (let i = 0; i < locArr.length; i++) {
                             if(locArr[i]._id === _id) {
-                                locArr[i].amount += num;
+                                locArr[i].quantity += num;
                             }
                         }
                     }
@@ -252,7 +256,7 @@ export default {
                     this.isEmpty = this.isCartEmpty();
                 }
             });
-            // this.calculateCartAmount();
+            // this.calculateCartquantity();
         },
         removeItemOnce(arr, value) {
             var index = arr.indexOf(value);
@@ -261,14 +265,14 @@ export default {
             }
             return arr;
         },
-        // calculateCartAmount() {
+        // calculateCartquantity() {
         //     if(!JSON.parse(localStorage.getItem('cart'))) {
         //         this.$store.state.cartItemsLength = 0;
         //     } else {
         //         var locArr = JSON.parse(localStorage.getItem('cart'));
         //         var sum = 0;
         //         locArr.forEach(locItem => {
-        //         sum += locItem.amount;
+        //         sum += locItem.quantity;
         //         });
         //         this.$store.state.cartItemsLength = sum;
         //     }
@@ -279,11 +283,15 @@ export default {
 
             locArr.forEach(product => {
                 DataService.getProductById(product._id).then((resp) => {
-                    this.cartItems.push({...resp, 'amount': product.amount})
+                    this.cartItems.push({...resp, 'quantity': product.quantity})
                 })
                 .catch((err)=>{
                     console.log(err.response.data.error)
                 })
+            });
+
+             this.cartItems.forEach(element => {
+                element.discount == "0"
             });
   }
 
