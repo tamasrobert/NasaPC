@@ -66,7 +66,7 @@
 
         <div class="m-5">
         <div class="card">
-            <OrderList v-model="this.cartItems" listStyle="height:auto" dataKey="_id">
+            <OrderList v-model="this.cartItems" listStyle="height:auto" dataKey="product._id">
                 <template #header>
                     <div class="row">
                         <div class="col-md-4 col-sm-12">
@@ -83,20 +83,21 @@
                 <template #item="slotProps">
                     <div class="product-item">
                         <div class="image-container">
-                            <img src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" :alt="slotProps.item.name" />
+                            <img src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" :alt="slotProps.item.product.name" />
                         </div>
                         <div class="product-list-detail">
-                            <h6 class="mb-2">{{slotProps.item.name}}</h6>
+                            <h6 class="mb-2">{{slotProps.item.product.name}}</h6>
                             <i class="pi pi-tag product-category-icon"></i>
-                            <span class="product-category">{{slotProps.item.category}}</span>
+                            <span class="product-category">{{slotProps.item.product.category}}</span>
                         </div>
                         <div class="product-list-action">
-                            <h6 class="mb-2">{{slotProps.item.price}} HUF</h6>
-                            <h6 class="mb-2">Quantity: {{slotProps.item.quantity}}</h6>
+                            <h6 class="mb-2">{{slotProps.item.product.price}} HUF</h6>
+                            <h6 class="mb-2">Quantity: {{slotProps.item.product.quantity}}</h6>
                             
                             <div class="row">
-                                <Button class="p-button-rounded p-button-primary" icon="pi pi-plus" @click="addquantity(slotProps.item._id, 1)"></Button>
-                                <Button class="p-button-rounded p-button-danger" style="margin-left:20px" icon="pi pi-minus" @click="addquantity(slotProps.item._id, -1)"></Button>
+                                <Button class="p-button-rounded p-button-primary" icon="pi pi-plus" @click="addquantity(slotProps.item.product._id, 1)"></Button>
+                                <Button class="p-button-rounded p-button-danger" style="margin-left:20px" icon="pi pi-minus" @click="addquantity(slotProps.item.product._id, -1)"></Button>
+                                 <!-- <Button label="log" class="p-button-rounded p-button-primary" icon="pi pi-plus" @click="log()"></Button> -->
                             </div>
                         </div>
                     </div>
@@ -142,7 +143,7 @@ export default {
                 billing_address: "",
                 shipping_address: "",
                 total_price: "",
-                items: []
+                items: ""
                 // payment_method: "",
             },
             validation: {
@@ -209,6 +210,9 @@ export default {
             this.data.items = this.cartItems
 
         },
+        // log(){
+        //     console.log(this.data)
+        // },
         personalInformationForm()
         {
             this.showMessage = true
@@ -219,7 +223,7 @@ export default {
         getTotalPrice() {
             let sum = 0;
             this.cartItems.forEach(product => {
-                sum += (product.price * product.quantity);
+                sum += (product.product.price * product.product.quantity);
             });
             this.data.total_price = sum
             return sum;
@@ -283,16 +287,16 @@ export default {
 
             locArr.forEach(product => {
                 DataService.getProductById(product._id).then((resp) => {
-                    this.cartItems.push({...resp, 'quantity': product.quantity})
+                    this.cartItems.push({'product':{'name': resp.name,'category': resp.category,'price': resp.price,'_id':resp._id,'description':resp.description,'__v':0, 'quantity': product.quantity }})
                 })
                 .catch((err)=>{
                     console.log(err.response.data.error)
                 })
             });
 
-             this.cartItems.forEach(element => {
-                element.discount == "0"
-            });
+            //  this.cartItems.forEach(element => {
+            //     element.discount == "0"
+            // });
   }
 
 }
