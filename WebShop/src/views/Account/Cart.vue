@@ -83,7 +83,7 @@
                 <template #item="slotProps">
                     <div class="product-item">
                         <div class="image-container">
-                            <img src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" :alt="slotProps.item.product.name" />
+                            <img src="../../assets/image/asus-rog-strix-b450-f-gaming-ii.jpg" :alt="slotProps.item.product.name" />
                         </div>
                         <div class="product-list-detail">
                             <h6 class="mb-2">{{slotProps.item.product.name}}</h6>

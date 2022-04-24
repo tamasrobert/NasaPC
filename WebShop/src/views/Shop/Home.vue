@@ -1,11 +1,15 @@
 <template>
 <main class="mainContent">
   <Navbar/>
-  <div class="mainContent container mt-5">
+  <div class="mainContent" style="margin:5%">
+    <Carousel/>
+    <div class="line"></div>
+  </div>
+  <div class="mainContent container ">
     <div class="row" style="margin-bottom: 3%">
-    <div class="col-lg-12 col-xl-12">
-      <Carousel/>
-    </div>
+    <!-- <div class="col-lg-12 col-xl-12">
+      
+    </div> -->
     </div>
 
     <div v-for="(promotion,i) in promotions" :key="i">
@@ -78,8 +82,7 @@ export default {
     }
   },
   mounted() {
-    AccountDataService.GetSession().then((response) => {
-      console.log(response.data)
+    AccountDataService.GetSession().then(() => {
     })
     .catch((err) => {
       console.log(err.response.data.error)
@@ -100,5 +103,11 @@ export default {
 // main {
 //   background-color: $mediumgray;
 // }
+.line {
+  height: 4px;
+  border-radius: 2px;
+  background-color: white;
+  margin-top: 100px;
+}
 
 </style>

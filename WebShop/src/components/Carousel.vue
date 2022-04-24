@@ -11,15 +11,15 @@
             <div class="carousel-item active" data-bs-interval="10000">
                 <img src="https://picsum.photos/600/300" class="d-block w-100">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>First</h5>
-                    <p>asda</p>
+                    <h5>Wellcome</h5>
+                    <p></p>
                 </div>
             </div>
 
             <div v-for="(item,i) in carousel_items" :key="i" class="carousel-item" data-bs-interval="10000" >
                 <img :src="item.imageURl" class="d-block w-100" >
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>{{item.title}}</h5>
+                    <h4>{{item.title}}</h4>
                     <p>{{item.text}}</p>
                 </div>
             </div>
@@ -43,7 +43,7 @@ export default {
     data() {
         return{
             carousel_items: [
-                {title: "Carousel item 1", text: "Some placeholder text to fill the space. Enjoy!", imageURl: "https://picsum.photos/id/1/600/300"},
+                {title: "Wellcome", text: "", imageURl: "https://picsum.photos/id/1/600/300"},
                 {title: "Carousel item 2", text: "Some placeholder text to fill the space. Enjoy!", imageURl: "https://picsum.photos/id/101/600/300"},
                 {title: "Carousel item 3", text: "Some placeholder text to fill the space. Enjoy!", imageURl: "https://picsum.photos/id/103/600/300"},
                 {title: "Carousel item 4", text: "Some placeholder text to fill the space. Enjoy!", imageURl: "https://picsum.photos/id/106/600/300"}
