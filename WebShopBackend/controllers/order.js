@@ -28,7 +28,7 @@ function base64_encode(file) {
     var bitmap = fs.readFileSync(file);
     return new Buffer.from(bitmap).toString('base64');
 }
-
+  
 exports.placeOrder = (req, res) => {
 
     const session = req.cookies['LOCAL_KEY'];
