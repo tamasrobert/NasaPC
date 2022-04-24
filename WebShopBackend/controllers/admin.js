@@ -77,10 +77,9 @@ exports.deleteProduct = (req, res) => {
                                     .catch(error => { return res.status(500).json({ "message": "Unexpected error!" }) })
                             });
 
-                            console.log("\tWishList update for all users is done.\n\tIf the product existed in any wishlist, it is now deleted.")
-
+                            
                         })
-
+                        console.log("\tWishList update for all users is done.\n\tIf the product existed in any wishlist, it is now deleted.")
                         return res.json({ "message": 'Deleted' })
                     }
                     return res.status(404).json({ "error": "Product not found!" })
