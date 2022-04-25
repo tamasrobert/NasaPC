@@ -20,7 +20,7 @@
 						<div class="product-list-item">
 							<img :src="'/image/'+slotProps.data.path" :alt="slotProps.data.name"/>
 							<div class="product-list-detail">
-								<div class="product-name">{{slotProps.data.name}}</div>
+								<div class="product-name"><a class="LinkToDetails" :href="'/product-details/'+slotProps.data._id" target="blank">{{slotProps.data.name}}</a></div>
 								<div class="product-description">{{slotProps.data.description}}</div>
 								<Rating :modelValue="slotProps.data.rating" :readonly="true" :cancel="false"></Rating>
 								<i class="pi pi-tag product-category-icon"></i><span class="product-category">{{slotProps.data.category}}</span>
@@ -35,7 +35,7 @@
 				</template>
 
 				<template #grid="slotProps">
-					<div class="col-12 md:col-4">
+					<div class=" xl:col-4 md:col-12">
 						<div class="product-grid-item card">
 							<div class="product-grid-item-top">
 								<div>
@@ -45,7 +45,7 @@
 							</div>
 							<div class="product-grid-item-content">
 								<img :src="'/image/'+slotProps.data.path" :alt="slotProps.data.name"/>
-								<div class="product-name">{{slotProps.data.name}}</div>
+								<div class="product-name"><a class="LinkToDetails" :href="'/product-details/'+slotProps.data._id" target="blank">{{slotProps.data.name}}</a></div>
 								<div class="product-description">{{slotProps.data.description}}</div>
 								<Rating :modelValue="slotProps.data.rating" :readonly="true" :cancel="false"></Rating>
 							</div>
@@ -145,12 +145,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../../assets/css/CostumeVariables.scss";
 .card {
     background: #ffffff;
     padding: 2rem;
     box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
     border-radius: 4px;
     margin-bottom: 2rem;
+}
+.LinkToDetails{
+	text-decoration: none;
+	color: $darkblue;
+}
+.LinkToDetails:hover {
+	color: $lightestblue;
 }
 .p-dropdown {
     width: 14rem;
@@ -216,6 +224,13 @@ export default {
 ::v-deep(.product-grid-item) {
 	margin: .5rem;
 	border: 1px solid var(--surface-border);
+	width: 400px;
+
+	.product-description {
+		overflow: scroll;
+		height: 150px;
+	}
+
 
 	.product-grid-item-top,
 	.product-grid-item-bottom {
@@ -226,11 +241,13 @@ export default {
 
 	img {
 		box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-		margin: 2rem 0;
+		margin: 1rem 0;
+		width: 300px;
 	}
 
 	.product-grid-item-content {
 		text-align: center;
+		height: 700px;
 	}
 
 	.product-price {

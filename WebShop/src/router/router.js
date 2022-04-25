@@ -15,10 +15,12 @@ import ActivateAccount from '../views/Account/ActivateAccount.vue'
 // import AccountSettings from '../views/Account/Account-settings.vue'
 import WishList from '../views/Account/WishList.vue'
 // import Order from '../views/Account/Order.vue'
+import ProductDetails from '../views/Shop/ProductDetails.vue'
 
 const routes = [
     {path: '/', component: Home},
     {path: '/products', component: Products},
+    {path: '/product-details/:Id', component: ProductDetails},
     {path: '/about', component: About},
     {path: '/cart', component: Cart},
 
