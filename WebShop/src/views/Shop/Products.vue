@@ -18,7 +18,7 @@
 			<template #list="slotProps">
 				<div class="col-12">
 					<div class="product-list-item">
-						<img src="../../assets/image/asus-geforce-rtx-3070-ti-oc-8gb-gddr6x.jpg" :alt="slotProps.data.name"/>
+						<img :src="'/image/'+slotProps.data.path" :alt="slotProps.data.path"/>
 						<div class="product-list-detail">
 							<div class="product-name">{{slotProps.data.name}}</div>
 							<div class="product-description">{{slotProps.data.description}}</div>
@@ -46,7 +46,7 @@
 							<span :class="'product-badge status-'+slotProps.data.inventoryStatus">{{slotProps.data.inventoryStatus}}</span>
 						</div>
 						<div class="product-grid-item-content">
-							<img src="../../assets/image/asus-rog-strix-b450-f-gaming-ii.jpg" :alt="slotProps.data.path"/>
+							<img :src="'/image/'+slotProps.data.path" :alt="slotProps.data.path"/>
 							<div class="product-name">{{slotProps.data.name}}</div>
 							<div class="product-description">{{slotProps.data.description}}</div>
 							<Rating :modelValue="slotProps.data.rating" :readonly="true" :cancel="false"></Rating>
@@ -93,7 +93,7 @@ export default {
     },
 	data() {
 		return {
-			imgtest: "../../assets/image/asus-rog-strix-b450-f-gaming-ii.jpg"
+			imgtest: "/image/amd-ryzen-5-5600X-6-core-12-thread.jpg"
 		}
 	},
 	methods: {

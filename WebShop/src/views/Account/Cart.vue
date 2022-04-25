@@ -83,7 +83,7 @@
                 <template #item="slotProps">
                     <div class="product-item">
                         <div class="image-container">
-                            <img src="../../assets/image/asus-rog-strix-b450-f-gaming-ii.jpg" :alt="slotProps.item.product.name" />
+                            <img :src="'/image/'+slotProps.item.product.path" :alt="slotProps.item.product.path" />
                         </div>
                         <div class="product-list-detail">
                             <h6 class="mb-2">{{slotProps.item.product.name}}</h6>
@@ -287,7 +287,7 @@ export default {
 
             locArr.forEach(product => {
                 DataService.getProductById(product._id).then((resp) => {
-                    this.cartItems.push({'product':{'name': resp.name,'category': resp.category,'price': resp.price,'_id':resp._id,'description':resp.description,'__v':0, 'quantity': product.quantity }})
+                    this.cartItems.push({'product':{'name': resp.name,'category': resp.category,'price': resp.price,'_id':resp._id,'description':resp.description,'__v':0, 'quantity': product.quantity, "path": resp.path }})
                 })
                 .catch((err)=>{
                     console.log(err.response.data.error)
