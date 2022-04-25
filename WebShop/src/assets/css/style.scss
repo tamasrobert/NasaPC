@@ -2,11 +2,12 @@
 
 body {
     background-color: $mediumgray;
+    min-width: $SmallestWidth;
     /* background-image: url('../image/1234.jpg');
     background-repeat: no-repeat;
     background-size: cover; */
     
-    min-height: 1500px;
+    // min-height: 1500px;
 }
 .mainContent {
     background-color: $lightblue;
