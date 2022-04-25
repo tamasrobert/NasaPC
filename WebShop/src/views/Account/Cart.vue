@@ -6,7 +6,7 @@
                 <div class="flex align-items-center flex-column pt-6 px-3">
                     <i class="pi pi-user" :style="{fontSize: '5rem', color: 'blue' }"></i>
                     <h5>Personal information</h5>
-                    <h6>Please give us personal information for your order.</h6>
+                    <h6>Please give us some personal information for your order.</h6>
                     <!-- <p :style="{lineHeight: 1.5, textIndent: '1rem'}">
                     {{messageText}}
                     </p> -->
@@ -217,9 +217,9 @@ export default {
         {
             this.showMessage = true
         },
-        isCartEmpty() {
-            return (JSON.parse(localStorage.getItem('cart')) == null || JSON.parse(localStorage.getItem('cart')) == undefined || JSON.parse(localStorage.getItem('cart')).length == 0);
-        },
+        // isCartEmpty() {
+        //     return (JSON.parse(localStorage.getItem('cart')) == null || JSON.parse(localStorage.getItem('cart')) == undefined || JSON.parse(localStorage.getItem('cart')).length == 0);
+        // },
         getTotalPrice() {
             let sum = 0;
             this.cartItems.forEach(product => {
@@ -230,11 +230,11 @@ export default {
         },
         addquantity(_id, num) {
             this.cartItems.forEach(product => {
-                if(_id === product._id) {
+                if(_id === product.product._id) {
                     let locArr = JSON.parse(localStorage.getItem('cart'));
                     if(num < 0) {
-                        if(product.quantity > 1) {
-                            product.quantity += num;
+                        if(product.product.quantity > 1) {
+                            product.product.quantity += num;
                             for (let i = 0; i < locArr.length; i++) {
                                 if(locArr[i]._id === _id) {
                                     locArr[i].quantity += num;
@@ -249,7 +249,7 @@ export default {
                             });
                         }
                     } else {
-                        product.quantity += num;
+                        product.product.quantity += num;
                         for (let i = 0; i < locArr.length; i++) {
                             if(locArr[i]._id === _id) {
                                 locArr[i].quantity += num;
@@ -257,7 +257,7 @@ export default {
                         }
                     }
                     localStorage.setItem('cart', JSON.stringify(locArr));
-                    this.isEmpty = this.isCartEmpty();
+                    // this.product.isEmpty = this.isCartEmpty();
                 }
             });
             // this.calculateCartquantity();
