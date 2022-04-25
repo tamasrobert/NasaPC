@@ -61,6 +61,7 @@ A backend elindításához a következőkre van szükség:
 -> Ellenkező esetben, amennyiban a Server *(pl. C:\Program Files\MongoDB\Server)*
         fájljai között megtalálhatóak a Tools fájljai *(pl. mongoimport)*,
         a **Merged_LocalhostMongoDBLauncher.bat** az indítantó fájl.
+        ![Példa merged típusra](https://drive.google.com/file/d/1x_NFyUHF_nEe88AFOhqnPwJSd7DiXqub/view?usp=sharing)
 
 ###### Manuális beállítás
 
