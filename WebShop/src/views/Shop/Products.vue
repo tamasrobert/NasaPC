@@ -1,7 +1,7 @@
 <template>
-  <main>
+  <main class="mainContent">
       <Navbar/>
-
+	<div class="m-5">
     <div class="card">
         <DataView :value="products" :layout="layout" :paginator="true" :rows="9" :sortOrder="sortOrder" :sortField="sortField">
 			<template #header>
@@ -18,7 +18,7 @@
 			<template #list="slotProps">
 				<div class="col-12">
 					<div class="product-list-item">
-						<img src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" :alt="slotProps.data.name"/>
+						<img src="../../assets/image/asus-geforce-rtx-3070-ti-oc-8gb-gddr6x.jpg" :alt="slotProps.data.name"/>
 						<div class="product-list-detail">
 							<div class="product-name">{{slotProps.data.name}}</div>
 							<div class="product-description">{{slotProps.data.description}}</div>
@@ -26,7 +26,7 @@
 							<i class="pi pi-tag product-category-icon"></i><span class="product-category">{{slotProps.data.category}}</span>
 						</div>
 						<div class="product-list-action">
-							<span class="product-price">${{slotProps.data.price}}</span>
+							<span class="product-price">{{slotProps.data.price}} HUF</span>
 							<Button icon="pi pi-shopping-cart" label="Add to Cart" @click="addToCart(slotProps.data._id)" :disabled="slotProps.data.inventoryStatus === 'OUTOFSTOCK'"></Button>
 							<Button icon="pi pi-star-fill" label="Add to Wishlist" @click="addToWishList(slotProps.data._id)" :disabled="slotProps.data.inventoryStatus === 'OUTOFSTOCK'"></Button>
 							<span :class="'product-badge status-'+slotProps.data.inventoryStatus">{{slotProps.data.inventoryStatus}}</span>
@@ -36,7 +36,7 @@
 			</template>
 
 			<template #grid="slotProps">
-				<div class="col-12 md:col-4">
+				<div class="col-lg-4 col-md-12">
 					<div class="product-grid-item card">
 						<div class="product-grid-item-top">
 							<div>
@@ -46,20 +46,23 @@
 							<span :class="'product-badge status-'+slotProps.data.inventoryStatus">{{slotProps.data.inventoryStatus}}</span>
 						</div>
 						<div class="product-grid-item-content">
-							<img src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" :alt="slotProps.data.name"/>
+							<img src="../../assets/image/asus-rog-strix-b450-f-gaming-ii.jpg" :alt="slotProps.data.path"/>
 							<div class="product-name">{{slotProps.data.name}}</div>
 							<div class="product-description">{{slotProps.data.description}}</div>
 							<Rating :modelValue="slotProps.data.rating" :readonly="true" :cancel="false"></Rating>
 						</div>
 						<div class="product-grid-item-bottom">
-							<span class="product-price">${{slotProps.data.price}}</span>
+							<span class="product-price">{{slotProps.data.price}} HUF</span>
 							<Button icon="pi pi-shopping-cart" @click="addToCart(slotProps.data._id)" :disabled="slotProps.data.inventoryStatus === 'OUTOFSTOCK'"></Button>
 							<Button icon="pi pi-star-fill" @click="addToWishList(slotProps.data._id)" :disabled="slotProps.data.inventoryStatus === 'OUTOFSTOCK'"></Button>
 						</div>
 					</div>
 				</div>
 			</template>
+
+			<template #empty>No records found.</template>
 		</DataView>
+	</div>
 	</div>
     <Footer/>
 </main>
@@ -90,12 +93,12 @@ export default {
     },
 	data() {
 		return {
-			
+			imgtest: "../../assets/image/asus-rog-strix-b450-f-gaming-ii.jpg"
 		}
 	},
 	methods: {
 		addToCart(_id) {
-		var cartItem = {_id, amount: 1};
+		var cartItem = {_id, quantity: 1};
 		var match = false;
 		if(!JSON.parse(localStorage.getItem('cart'))) {
 			localStorage.setItem('cart', JSON.stringify([cartItem]));
@@ -104,10 +107,10 @@ export default {
 			for (let i = 0; i < locArr.length; i++) {
 			if(locArr[i]._id == cartItem._id) {
 				match = true;
-				locArr[i] = ({_id: cartItem._id, amount: (locArr[i].amount+1)});
+				locArr[i] = ({_id: cartItem._id, quantity: (locArr[i].quantity+1)});
 			}
 			}
-			if(!match) locArr.push({_id: cartItem._id, amount: 1});
+			if(!match) locArr.push({_id: cartItem._id, quantity: 1});
 			localStorage.setItem('cart', JSON.stringify(locArr));
 		}
 		},
@@ -119,7 +122,7 @@ export default {
 	},
     setup() {
         onMounted(() => {
-            DataService.getAllProducts().then(data => products.value = data).then(console.log(products)).catch(err => {console.log(err.response.data.error)});
+            DataService.getAllProducts().then(data => products.value = data).then().catch(err => {console.log(err.response.data.error)});
             
         })
 

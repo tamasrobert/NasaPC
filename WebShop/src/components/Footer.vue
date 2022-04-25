@@ -120,9 +120,10 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+@import "../assets/css/CostumeVariables.scss";
     .FooterBackground {
-        background-color: rgb(37, 36, 36);
+        background-color: $mediumgray;
         margin: 0;
         padding: 0;
         color: white;

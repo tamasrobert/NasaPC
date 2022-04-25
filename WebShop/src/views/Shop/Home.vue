@@ -1,15 +1,19 @@
 <template>
-<main>
+<main class="mainContent">
   <Navbar/>
-  <div class="container mt-1">
+  <div class="mainContent" style="margin:5%">
+    <Carousel/>
+    <div class="line"></div>
+  </div>
+  <div class="mainContent container ">
     <div class="row" style="margin-bottom: 3%">
-    <div class="col-lg-12 col-xl-12">
-      <Carousel/>
-    </div>
+    <!-- <div class="col-lg-12 col-xl-12">
+      
+    </div> -->
     </div>
 
     <div v-for="(promotion,i) in promotions" :key="i">
-      <div class="row mb-2" style="padding: 5px; background-color: gray;" v-if="i%2==0">
+      <div class="row mb-1" style="padding: 5px; background-color: gray;" v-if="i%2==0">
 
         <div class="col-sm-0 col-lg-1"></div>
           <div class="col-sm-12 col-lg-10">
@@ -78,8 +82,7 @@ export default {
     }
   },
   mounted() {
-    AccountDataService.GetSession().then((response) => {
-      console.log(response.data)
+    AccountDataService.GetSession().then(() => {
     })
     .catch((err) => {
       console.log(err.response.data.error)
@@ -92,13 +95,19 @@ export default {
 <style  lang="scss">
 @import "../../assets/css/CostumeVariables.scss";
 
-.container {
-  background-color: $darkblue;
-  box-shadow: 0 3px 6px $shadowoflightblue;
-}
+// .container {
+//   background-color: $darkblue;
+//   box-shadow: 0 3px 6px $shadowoflightblue;
+// }
 
-main {
-  background-color: $mediumgray;
+// main {
+//   background-color: $mediumgray;
+// }
+.line {
+  height: 4px;
+  border-radius: 2px;
+  background-color: white;
+  margin-top: 100px;
 }
 
 </style>

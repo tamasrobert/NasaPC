@@ -24,7 +24,7 @@
                     </template>
             </Toast> -->
 
-        <div class="m-3">
+        <div class="m-5 mainContent">
             <div class="card">
                 <Toolbar class="mb-4">
                     <template #start>
@@ -323,7 +323,7 @@ main {
 
 .card {
     box-shadow: 0 3px 6px $shadowofdarkblue;
-    background-color: $darkblue;
+    background-color: $lightblue;
 }
 
 .table-header {

@@ -1,7 +1,7 @@
 <template>
-    <main>
+    <main class="mainContent">
         <Navbar/>
-        <div class="form-demo mt-5 mb-5">
+        <div class="form-demo m-5">
             <Dialog v-model:visible="showMessage" :breakpoints="{ '960px': '80vw' }" :style="{ width: '30vw' }" position="top">
                 <div class="flex align-items-center flex-column pt-6 px-3">
                     <i class="pi pi-check-circle" :style="{fontSize: '5rem', color: messageColor }"></i>
@@ -187,12 +187,8 @@ export default {
 <style lang="scss" scoped>
 @import "../../assets/css/CostumeVariables.scss";
 
-main {
-    background-color: $lightestblue;
-}
-
 .form-demo {
-    background-color: $lightestblue;
+    // background-color: $lightestblue;
     .card {
        
         min-width: 450px;

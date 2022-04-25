@@ -3,6 +3,7 @@ import {createRouter,createWebHistory} from 'vue-router'
 import Home from '../views/Shop/Home.vue'
 import Products from '../views/Shop/Products.vue'
 import Cart from '../views/Account/Cart.vue'
+import About from '../views/Shop/Contact.vue'
 
 
 import Admin_Product from '../views/Admin/Admin-products.vue'
@@ -13,11 +14,12 @@ import ChangePassword from '../views/Account/ChangePassword.vue'
 import ActivateAccount from '../views/Account/ActivateAccount.vue'
 import AccountSettings from '../views/Account/Account-settings.vue'
 import WishList from '../views/Account/WishList.vue'
-import Order from '../views/Account/Order.vue'
+// import Order from '../views/Account/Order.vue'
 
 const routes = [
     {path: '/', component: Home},
     {path: '/products', component: Products},
+    {path: '/about', component: About},
     {path: '/cart', component: Cart},
 
     
@@ -29,7 +31,7 @@ const routes = [
     {path: '/activate/:activatorToken', component: ActivateAccount},
     {path: '/account/settings', component: AccountSettings},
     {path: '/account/wishlist', component: WishList},
-    {path: '/account/order', component: Order},
+    // {path: '/account/order/:userId', component: Order},
     
     
 ]

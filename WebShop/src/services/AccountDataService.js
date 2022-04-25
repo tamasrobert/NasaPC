@@ -98,5 +98,25 @@ export default {
         })
     },
 
+    PlaceOrder(data) {
+        return Axios.post('/place-order', data)
+        .then(() => {})
+        .catch(err => {
+            console.log(err)
+            return Promise.reject(err)
+        })
+    },
+
+    getUserOrders(userId) {
+        return Axios.get('/getUserOrders/'+userId)
+        .then((resp) => {
+            return resp.data
+        })
+        .catch(err => {
+            console.log(err)
+            return Promise.reject(err)
+        })
+    },
+
 
 }
