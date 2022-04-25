@@ -62,6 +62,8 @@ public class CartAdapter extends ArrayAdapter<CartItem> {
                 }
                 CartAdapter productAdapter = new CartAdapter(mContext, R.layout.cart_row, Variables.cart);
                 Cart.listView.setAdapter(productAdapter);
+
+                Cart.tc.setText("Fizetendő: " + String.valueOf(Variables.getCartItemsCost()) + " Ft");
             }
         });
 
@@ -74,6 +76,8 @@ public class CartAdapter extends ArrayAdapter<CartItem> {
 
                 CartAdapter productAdapter = new CartAdapter(mContext, R.layout.cart_row, Variables.cart);
                 Cart.listView.setAdapter(productAdapter);
+
+                Cart.tc.setText("Fizetendő: " + String.valueOf(Variables.getCartItemsCost()) + " Ft");
             }
         });
 

@@ -27,6 +27,14 @@ public class Variables {
         }
     }
 
+    public static int getCartItemsCost() {
+        int sum = 0;
+        for(int i = 0; i<cart.size(); i++) {
+            sum += cart.get(i).price*cart.get(i).getQuantity();
+        }
+        return sum;
+    }
+
     public static String getServerAddress() {
         return serverAddress;
     }

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -55,6 +56,7 @@ public class SelectedProduct extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Variables.addToCart(new CartItem(p._id, p.name, p.category, p.description, p.price, p.path));
+                Toast.makeText(SelectedProduct.this, "A termék hozzá lett adva a kosárhoz.", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -7,7 +7,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -26,10 +29,13 @@ import java.util.ArrayList;
 public class Cart extends AppCompatActivity {
 
     BottomNavigationView bnv;
+    public static TextView tc;
     public static ListView listView;
 
     public ArrayList<Product> products;
     public ArrayList<Product> filteredProducts;
+
+    Button placeOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +45,8 @@ public class Cart extends AppCompatActivity {
         bnv = findViewById(R.id.bottom_navigation);
         bnv.setSelectedItemId(R.id.cart);
         listView = findViewById(R.id.listView);
+        tc = findViewById(R.id.text_cost);
+        placeOrder = findViewById(R.id.btn_place_order);
 
         products = new ArrayList<Product>();
         filteredProducts = new ArrayList<Product>();
@@ -78,6 +86,15 @@ public class Cart extends AppCompatActivity {
 
         CartAdapter productAdapter = new CartAdapter(Cart.this, R.layout.cart_row, Variables.cart);
         listView.setAdapter(productAdapter);
+
+        tc.setText("Fizetendő: " + String.valueOf(Variables.getCartItemsCost()) + " Ft");
+
+        placeOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Cart.this, PlaceOrder.class));
+            }
+        });
     }
 
     /*
