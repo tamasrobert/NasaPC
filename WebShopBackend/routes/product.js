@@ -11,6 +11,9 @@ router.get('/api/products', productController.getAllProducts);
 router.get('/api/product/:productId', productController.getProductById);
 
 // add a review to a product
-router.post('/api/postReview/:productId', productController.postReview);
+router.post('/api/post-review/:productId', productController.postReview);
+
+// delete a review from a product
+router.post('/api/delete-review/:productId', productController.deleteReview);
 
 module.exports = router;
