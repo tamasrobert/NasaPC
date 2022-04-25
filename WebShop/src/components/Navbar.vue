@@ -34,9 +34,9 @@
                 <li v-if="this.rules.isLoggedIn == true" class="navbar-item">
                     <button class="btn navbar-link" @click="Logout()"><span class="pi pi-sign-out NavbarIcons"/></button>
                 </li>
-                 <li v-if="this.rules.isLoggedIn == true" class="navbar-item">
+                 <!-- <li v-if="this.rules.isLoggedIn == true" class="navbar-item">
                     <router-link class="btn navbar-link " to="/account/settings"><span class="pi pi-cog NavbarIcons"/></router-link>
-                </li>
+                </li> -->
                 <li v-if="this.rules.isLoggedIn == false" class="navbar-item">
                     <router-link class="btn navbar-link " to="/login"><span class="pi pi-sign-in NavbarIcons"/></router-link>
                 </li>

@@ -12,7 +12,7 @@ import Login from '../views/Account/Login.vue'
 import Signup from '../views/Account/Signup.vue'
 import ChangePassword from '../views/Account/ChangePassword.vue'
 import ActivateAccount from '../views/Account/ActivateAccount.vue'
-import AccountSettings from '../views/Account/Account-settings.vue'
+// import AccountSettings from '../views/Account/Account-settings.vue'
 import WishList from '../views/Account/WishList.vue'
 // import Order from '../views/Account/Order.vue'
 
@@ -29,7 +29,7 @@ const routes = [
     {path: '/signup', component: Signup},
     {path: '/change-password/:Token', component: ChangePassword},
     {path: '/activate/:activatorToken', component: ActivateAccount},
-    {path: '/account/settings', component: AccountSettings},
+    // {path: '/account/settings', component: AccountSettings},
     {path: '/account/wishlist', component: WishList},
     // {path: '/account/order/:userId', component: Order},
     
