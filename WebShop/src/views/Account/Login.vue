@@ -4,7 +4,7 @@
     <div class="m-5">
                 <Dialog v-model:visible="this.showMessage" :breakpoints="{ '960px': '80vw' }" :style="{ width: '30vw' }" position="top">
                     <div class="flex align-items-center flex-column pt-6 px-3">
-                        <i class="pi pi-cog" :style="{fontSize: '5rem', color: messageColor }"></i>
+                        <i class="pi pi-sign-in" :style="{fontSize: '5rem', color: messageColor }"></i>
                         <h5>{{this.messageHeader}}</h5>
                         <p :style="{lineHeight: 1.5, textIndent: '1rem'}">
                             {{this.messageText}}
@@ -107,6 +107,7 @@ export default {
                 })
                 .catch(err => {
                     console.log(err.response.data.error)
+                    this.errorDialog(err.response.data.error)
                 })
             
         },
