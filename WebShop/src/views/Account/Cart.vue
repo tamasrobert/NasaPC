@@ -174,7 +174,8 @@ export default {
                 this.validation.vshipping_address == true
             ) {
                 AccountDataService.PlaceOrder(this.data).then(() => {
-                    this.$router.push('/account/order')
+                    localStorage.clear()
+                    this.$router.push('/products')
                 })
                 .catch((err) => {
                     console.log(err.response.data.error)
@@ -283,20 +284,20 @@ export default {
         // }
   },
   mounted() {
-            var locArr = JSON.parse(localStorage.getItem('cart'));
+            try {
+                var locArr = JSON.parse(localStorage.getItem('cart'));
 
-            locArr.forEach(product => {
-                DataService.getProductById(product._id).then((resp) => {
-                    this.cartItems.push({'product':{'name': resp.name,'category': resp.category,'price': resp.price,'_id':resp._id,'description':resp.description,'__v':0, 'quantity': product.quantity, "path": resp.path }})
-                })
-                .catch((err)=>{
-                    console.log(err.response.data.error)
-                })
-            });
-
-            //  this.cartItems.forEach(element => {
-            //     element.discount == "0"
-            // });
+                locArr.forEach(product => {
+                    DataService.getProductById(product._id).then((resp) => {
+                        this.cartItems.push({'product':{'name': resp.name,'category': resp.category,'price': resp.price,'_id':resp._id,'description':resp.description,'__v':0, 'quantity': product.quantity, "path": resp.path }})
+                    })
+                    .catch((err)=>{
+                        console.log(err.response.data.error)
+                    })
+                });
+            } catch (error) {
+                console.log("Your cart is empthy.")
+            }
   }
 
 }
