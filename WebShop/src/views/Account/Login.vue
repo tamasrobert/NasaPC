@@ -39,7 +39,7 @@
                             
                             <div class="mb-3 ">
                                 <h5>Password</h5>
-                                <Password v-model="this.UserData.password" toggleMask></Password>
+                                <Password v-model="this.UserData.password" toggleMask :feedback="false"></Password>
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-12">
@@ -103,7 +103,6 @@ export default {
         Login() {
             AccountDataService.Login(this.UserData)
                 .then(()=>{
-                    console.log("Login was succesfull")
                     this.$router.push('/')
                 })
                 .catch(err => {
@@ -147,7 +146,7 @@ export default {
             this.passwordReset = false
             this.showMessage = true
             this.messageHeader = "Success!"
-            this.messageText = "We sent you an email for further instructions."
+            this.messageText = "We sent you an email with further instructions."
             this.messageColor = "green"
         }
     },

@@ -32,13 +32,13 @@
                     <router-link class="btn navbar-link " to="/account/wishlist"><span class="pi pi-star-fill NavbarIcons"/></router-link>
                 </li>
                 <li v-if="this.rules.isLoggedIn == true" class="navbar-item">
-                    <button class="btn navbar-link" @click="Logout()"><span class="pi pi-sign-out NavbarIcons"/></button>
+                    <button class="btn navbar-link" @click="Logout()"><span style="margin-right:7px">Logout</span><span class="pi pi-sign-out NavbarIcons"/></button>
                 </li>
                  <!-- <li v-if="this.rules.isLoggedIn == true" class="navbar-item">
                     <router-link class="btn navbar-link " to="/account/settings"><span class="pi pi-cog NavbarIcons"/></router-link>
                 </li> -->
                 <li v-if="this.rules.isLoggedIn == false" class="navbar-item">
-                    <router-link class="btn navbar-link " to="/login"><span class="pi pi-sign-in NavbarIcons"/></router-link>
+                    <router-link class="btn navbar-link " to="/login"><span style="margin-right:7px">Login</span><span class="pi pi-sign-in NavbarIcons"/></router-link>
                 </li>
                 <li v-if="this.rules.isLoggedIn == false" class="navbar-item">
                     <router-link class="btn navbar-link" to="/signup">Signup</router-link>

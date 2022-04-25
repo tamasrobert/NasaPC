@@ -4,7 +4,7 @@
         <div class="m-5">
                 <Dialog v-model:visible="this.showMessage" :breakpoints="{ '960px': '80vw' }" :style="{ width: '30vw' }" position="top">
                     <div class="flex align-items-center flex-column pt-6 px-3">
-                        <i class="pi pi-check-circle" :style="{fontSize: '5rem', color: messageColor }"></i>
+                        <i class="pi pi-cog" :style="{fontSize: '5rem', color: messageColor }"></i>
                         <h5>{{this.messageHeader}}</h5>
                         <p :style="{lineHeight: 1.5, textIndent: '1rem'}">
                             {{this.messageText}}
@@ -22,50 +22,40 @@
 
 
 
-        <div class="row">
-            
-            <div class="col-4"></div>
-
-
-            <div class="col-4 form m-5">
-                
-                
-                
-                <div class="mb-3 ">
-                    <label class="form-label">Password:</label>
-                    <input type="text" class="form-control" v-model="UserData.newPassword">
+            <div class="row">      
+                <div class="col-xl-4 col-lg-2 col-md-2 col-sm-0"></div>
+                <div class="col-xl-4 col-lg-8 col-md-8 col-sm-12 form">
+                    <h4 style="text-align:center">Chose a new password.</h4>
+                    <div class="row">
+                        <div class="col 3"></div>
+                        <div class="col 6">
+                            <div class="mb-3 ">
+                                <label class="form-label">Password:</label>
+                                <Password v-model="this.UserData.newPassword"/>
+                            </div>
+                            <div class="mb-3 ">
+                                <label class="form-label">Password again:</label>
+                                <Password v-model="this.UserData.passwordagain" :feedback="false" />
+                            </div>
+                            <div class="mb-3">
+                                <button class="btn btn-primary" @click="sendForgotPasswordRequest()">Change my password</button>
+                            </div>
+                        </div>
+                        <div class="col-3"></div>
+                    </div>
+                    <div class="col-xl-4 col-lg-2 col-md-2 col-sm-0"></div>
                 </div>
-
-                <div class="mb-3 ">
-                    <label class="form-label">Password again:</label>
-                    <input type="text" class="form-control" v-model="UserData.passwordagain">
-                </div>
-
-                <div class="row">
-                    
-                  <button class="btn btn-primary" @click="sendForgotPasswordRequest()">Change my password</button>
-                    
-                    
-                    
-                </div>
+                
             </div>
-
-
-
-            <div class="col-4"></div>
-
-
-
-
-        </div>
         </div>
         <Footer/>
     </main>
 </template>
 
 <script>
-import Dialog from 'primevue/dialog'
+import Password from 'primevue/password';
 import Button from 'primevue/button'
+import Dialog from 'primevue/dialog'
 import Navbar from '../../components/Navbar.vue'
 import Footer from '../../components/Footer.vue'
 import AccountDataService from '../../services/AccountDataService.js'
@@ -75,6 +65,7 @@ export default {
      components: {
         Dialog,
         Button,
+        Password,
         Navbar,
         Footer
     },
