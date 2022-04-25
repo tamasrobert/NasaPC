@@ -161,15 +161,20 @@ export default {
     },
         mounted() {
             AccountDataService.GetSession().then((response) => {
-                this.rules.isLoggedIn = true
-                if (response.data[0].admin) {
-                    this.rules.admin = true
-                }
-                if (response.data[0].courier) {
-                    this.rules[0].courier = true
-                }
-            })
-            .catch(() => {})
+                    if (response.data == false) {
+                        null
+                    }
+                    else {
+                        this.rules.isLoggedIn = true
+                    }
+                    if (response.data[0].admin) {
+                        this.rules.admin = true
+                    }
+                    if (response.data[0].courier) {
+                        this.rules[0].courier = true
+                    }
+                }).catch(() => {})
+            
         }
 }
 </script>
