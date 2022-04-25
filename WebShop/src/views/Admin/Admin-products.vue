@@ -28,7 +28,7 @@
             <div class="card">
                 <Toolbar class="mb-4">
                     <template #start>
-                        <Button label="New" icon="pi pi-plus" class="p-button-success mr-2" @click="openNew" />
+                        <Button label="New" icon="pi pi-plus" class="p-button-success mr-2" @click="openNew" style="margin-right:15px"/>
                         <Button label="Delete" icon="pi pi-trash" class="p-button-danger" @click="confirmDeleteSelected" :disabled="!selectedProducts || !selectedProducts.length" />
                     </template>
 
@@ -77,7 +77,7 @@
                     </Column>
                     <Column :exportable="false" style="min-width:8rem">
                         <template #body="slotProps">
-                            <Button icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" @click="editProduct(slotProps.data)" />
+                            <Button icon="pi pi-pencil" class="p-button-rounded p-button-success" @click="editProduct(slotProps.data)" style="margin-right:15px" />
                             <Button icon="pi pi-trash" class="p-button-rounded p-button-warning" @click="confirmDeleteProduct(slotProps.data)" />
                         </template>
                     </Column>

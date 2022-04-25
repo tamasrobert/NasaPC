@@ -169,9 +169,7 @@ export default {
                     this.rules[0].courier = true
                 }
             })
-            .catch(() => {
-            console.log("An error might have accured during the loading of the navigationbar")
-            })
+            .catch(() => {})
         }
 }
 </script>
