@@ -92,11 +92,11 @@
                         </div>
                         <div class="product-list-action">
                             <h6 class="mb-2">{{slotProps.item.product.price}} HUF</h6>
-                            <h6 class="mb-2">Quantity: {{slotProps.item.product.quantity}}</h6>
+                            <h6 :id="slotProps.item.product._id+'quantityh6'" class="mb-2">Quantity: {{slotProps.item.product.quantity}}</h6>
                             
                             <div class="row">
-                                <Button class="p-button-rounded p-button-primary" icon="pi pi-plus" @click="addquantity(slotProps.item.product._id, 1)"></Button>
-                                <Button class="p-button-rounded p-button-danger" style="margin-left:20px" icon="pi pi-minus" @click="addquantity(slotProps.item.product._id, -1)"></Button>
+                                <Button :id="slotProps.item.product._id+'plus'" class="p-button-rounded p-button-primary" icon="pi pi-plus" @click="addquantity(slotProps.item.product._id, 1)"></Button>
+                                <Button :id="slotProps.item.product._id+'minus'" class="p-button-rounded p-button-danger" style="margin-left:20px" icon="pi pi-minus" @click="addquantity(slotProps.item.product._id, -1)"></Button>
                                  <!-- <Button label="log" class="p-button-rounded p-button-primary" icon="pi pi-plus" @click="log()"></Button> -->
                             </div>
                         </div>

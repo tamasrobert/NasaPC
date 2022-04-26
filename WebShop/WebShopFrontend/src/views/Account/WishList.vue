@@ -13,13 +13,13 @@
                             <img :src="'/image/'+slotProps.item.path" :alt="slotProps.item.path" />
                         </div>
                         <div class="product-list-detail">
-                            <h6 class="mb-2">{{slotProps.item.name}}</h6>
+                            <h6 class="mb-2" :id="slotProps.item._id+'name'">{{slotProps.item.name}}</h6>
                             <i class="pi pi-tag product-category-icon"></i>
                             <span class="product-category">{{slotProps.item.category}}</span>
                         </div>
                         <div class="product-list-action">
                             <h6 class="mb-2">{{slotProps.item.price}} HUF</h6>
-                            <Button icon="pi pi-minus" @click="removeFromWishlist(slotProps.item._id)" class="p-button-raised p-button-danger" />
+                            <Button :id="slotProps.item._id+'remove'" icon="pi pi-minus" @click="removeFromWishlist(slotProps.item._id)" class="p-button-raised p-button-danger" />
                         </div>
                     </div>
                 </template>

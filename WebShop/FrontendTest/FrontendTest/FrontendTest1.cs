@@ -12,7 +12,7 @@ namespace FrontendTest
         public FrontendTest1()
         {
             var x = new ChromeOptions();
-            x.AddArguments("headless");
+            //x.AddArguments("headless");
             this.driver = new ChromeDriver(x);
         }
         public void Dispose()
@@ -23,22 +23,23 @@ namespace FrontendTest
         [Fact]
         public void SignupTest()
         {
-            System.Threading.Thread.Sleep(3000);
+            System.Threading.Thread.Sleep(1000);
             driver.Navigate().GoToUrl("http://localhost:8080/signup");
-            var inputName = driver.FindElement(By.XPath("//InputText[@id='name']"));
+            var inputName = driver.FindElement(By.XPath("//input[@id='name']"));
             inputName.SendKeys("Test Name");
-            var inputEmail = driver.FindElement(By.XPath("//InputText[@id='email']"));
+            var inputEmail = driver.FindElement(By.XPath("//input[@id='email']"));
             inputEmail.SendKeys("raboczki.erik@students.jedlik.eu");
-            var inputPassword = driver.FindElement(By.XPath("//Password[@id='password']"));
+            var inputPassword = driver.FindElement(By.XPath("//input[@id='password']"));
             inputPassword.SendKeys("asd");
-            var inputDate = driver.FindElement(By.XPath("//Calendar[@id='date']"));
-            inputDate.SendKeys();
-            var inputAccept = driver.FindElement(By.XPath("//Checkbox[@id='accept']"));
+            var inputDate = driver.FindElement(By.XPath("//input[@id='date']"));
+            inputDate.SendKeys("04/03/2022");
+            var inputAccept = driver.FindElement(By.XPath("//div[@class='p-checkbox p-component']"));
             inputAccept.Click();
 
 
             var signupButton = driver.FindElement(By.XPath("//button[@id='signup']"));
             signupButton.Click();
+            System.Threading.Thread.Sleep(2000);
 
             string DialogHeader = driver.FindElement(By.XPath("//h5[@id='DialogHeader']")).Text;
 
@@ -86,12 +87,46 @@ namespace FrontendTest
         [Fact]
         public void ProductsTest()
         {
-            
+            System.Threading.Thread.Sleep(3000);
+            driver.Navigate().GoToUrl("http://localhost:8080/products");
 
+            var selectedItemCart = driver.FindElement(By.XPath("//button[@id='62615a5407b9781aa86fb5ebcart']"));
+            selectedItemCart.Click();
+            var selectedItemWishList = driver.FindElement(By.XPath("//button[@id='62615a5407b9781aa86fb5ebwish']"));
+            selectedItemWishList.Click();
 
-            string DialogHeader = driver.FindElement(By.XPath("//h5[@id='DialogHeader']")).Text;
+        }
 
-            Assert.Equal("Success!", DialogHeader);
+        [Fact]
+        public void CartTest()
+        {
+            System.Threading.Thread.Sleep(55000);
+            driver.Navigate().GoToUrl("http://localhost:8080/cart");
+
+            var buttonPlus = driver.FindElement(By.XPath("//button[@id='62615a5407b9781aa86fb5ebplus']"));
+            buttonPlus.Click();
+            buttonPlus.Click();
+            buttonPlus.Click();
+            var buttonMinus = driver.FindElement(By.XPath("//button[@id='62615a5407b9781aa86fb5ebminus']"));
+            buttonMinus.Click();
+
+            var quantityh6 = driver.FindElement(By.XPath("//h6[@id='62615a5407b9781aa86fb5ebquantityh6']")).Text;
+
+            Assert.Equal("Quantity: 2", quantityh6);
+        }
+
+        [Fact]
+        public void WishListTest()
+        {
+            System.Threading.Thread.Sleep(5000);
+            driver.Navigate().GoToUrl("http://localhost:8080/account/wishlist");
+
+            var wishListItem = driver.FindElement(By.XPath("//h6[@id='62615a5407b9781aa86fb5ebname']")).Text;
+
+            Assert.Equal("ASUS ROG STRIX B450-F GAMING II", wishListItem);
+
+            var buttonRemove = driver.FindElement(By.XPath("//button[@id='62615a5407b9781aa86fb5ebremove']"));
+            buttonRemove.Click();
         }
 
 

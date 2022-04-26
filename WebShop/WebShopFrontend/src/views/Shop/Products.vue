@@ -27,8 +27,8 @@
 							</div>
 							<div class="product-list-action">
 								<span class="product-price">{{slotProps.data.price}} HUF</span>
-								<Button icon="pi pi-shopping-cart" label="Add to Cart" @click="addToCart(slotProps.data._id)"></Button>
-								<Button icon="pi pi-star-fill" label="Add to WishList" @click="addToWishList(slotProps.data._id)"></Button>
+								<Button icon="pi pi-shopping-cart" :id="slotProps.data._id+'cart'" label="Add to Cart" @click="addToCart(slotProps.data._id)"></Button>
+								<Button icon="pi pi-star-fill" :id="slotProps.data._id+'wish'" label="Add to WishList" @click="addToWishList(slotProps.data._id)"></Button>
 							</div>
 						</div>
 					</div>
@@ -51,8 +51,8 @@
 							</div>
 							<div class="product-grid-item-bottom">
 								<span class="product-price">{{slotProps.data.price}} HUF</span>
-								<Button icon="pi pi-shopping-cart" @click="addToCart(slotProps.data._id)"></Button>
-								<Button icon="pi pi-star-fill" @click="addToWishList(slotProps.data._id)"></Button>
+								<Button :id="slotProps.data._id+'cart'" icon="pi pi-shopping-cart" label="Cart" @click="addToCart(slotProps.data._id)"></Button>
+								<Button :id="slotProps.data._id+'wish'" icon="pi pi-star-fill" @click="addToWishList(slotProps.data._id)"></Button>
 							</div>
 						</div>
 					</div>

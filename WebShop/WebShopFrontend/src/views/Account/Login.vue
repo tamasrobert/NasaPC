@@ -52,8 +52,8 @@
                         <div class="col-6">
                             <!-- <button @click="Login()" class="btn btn-primary">Login</button> -->
 
-                            <Button id="login" label="Login" class="p-button-raised p-button-success" @click="Login()"/>
-                            <Button label="Login" class="p-button-raised p-button-success" type="submit"/>
+                            <!-- <Button id="login" label="Login" class="p-button-raised p-button-success" @click="Login()"/> -->
+                            <Button id="login" label="Login" class="p-button-raised p-button-success" type="submit"/>
 
                         </div>
                         <div class="col-6">
