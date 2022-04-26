@@ -51,11 +51,10 @@
                     <div class="row mt-2">
                         <div class="col-6">
                             <!-- <button @click="Login()" class="btn btn-primary">Login</button> -->
-<<<<<<< HEAD
+
                             <Button id="login" label="Login" class="p-button-raised p-button-success" @click="Login()"/>
-=======
                             <Button label="Login" class="p-button-raised p-button-success" type="submit"/>
->>>>>>> 4b3a4582db2c8a7841e93908111fab24d26ca856
+
                         </div>
                         <div class="col-6">
                             <!-- <button class="btn btn-primary" @click="forgotPasswordForm()">Forgot password</button> -->
