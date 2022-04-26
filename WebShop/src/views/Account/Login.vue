@@ -5,15 +5,15 @@
                 <Dialog v-model:visible="this.showMessage" :breakpoints="{ '960px': '80vw' }" :style="{ width: '30vw' }" position="top">
                     <div class="flex align-items-center flex-column pt-6 px-3">
                         <i class="pi pi-sign-in" :style="{fontSize: '5rem', color: messageColor }"></i>
-                        <h5>{{this.messageHeader}}</h5>
+                        <h5 id="DialogHeader">{{this.messageHeader}}</h5>
                         <p :style="{lineHeight: 1.5, textIndent: '1rem'}">
                             {{this.messageText}}
                         </p>
-                        <input v-if="this.passwordReset" type="email" class="form-control" v-model="this.UserData.email">
+                        <input id="forgotpasswordemail" v-if="this.passwordReset" type="email" class="form-control" v-model="this.UserData.email">
                     </div>
                     <template #footer>
                         <div v-if="this.passwordReset" class="flex justify-content-center">
-                            <Button label="Send" @click="sendForgotPasswordRequest()" class="p-button-text" />
+                            <Button id="forgotPasswordSendRequest" label="Send" @click="sendForgotPasswordRequest()" class="p-button-text" />
                         </div>
                         <div class="flex justify-content-center">
                             <Button label="Cancel" @click="closeDialog()" class="p-button-text" />
@@ -39,7 +39,7 @@
                             
                             <div class="mb-3 ">
                                 <h5>Password</h5>
-                                <Password v-model="this.UserData.password" toggleMask :feedback="false"></Password>
+                                <Password id="password" v-model="this.UserData.password" toggleMask :feedback="false"></Password>
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-12">
@@ -51,11 +51,11 @@
                     <div class="row mt-2">
                         <div class="col-6">
                             <!-- <button @click="Login()" class="btn btn-primary">Login</button> -->
-                            <Button label="Login" class="p-button-raised p-button-success" @click="Login()"/>
+                            <Button id="login" label="Login" class="p-button-raised p-button-success" @click="Login()"/>
                         </div>
                         <div class="col-6">
                             <!-- <button class="btn btn-primary" @click="forgotPasswordForm()">Forgot password</button> -->
-                            <Button label="Forgot password" class="p-button-raised p-button-info" @click="forgotPasswordForm()"/>
+                            <Button id="forgetpassword" label="Forgot password" class="p-button-raised p-button-info" @click="forgotPasswordForm()"/>
                         </div>
                     </div>
                 </div>
