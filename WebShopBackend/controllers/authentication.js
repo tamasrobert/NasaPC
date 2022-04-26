@@ -112,7 +112,7 @@ exports.getSession = (req, res) => {
             if (response.admin) {
                 data = [{ ...data, admin: true }];
             }
-            else if (response.courier && response.admin == false) {
+            else if (response.courier && !response.admin) {
                 data = [{ ...data, admin: false, courier: true }];
             }
             else {
