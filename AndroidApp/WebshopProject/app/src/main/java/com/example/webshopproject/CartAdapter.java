@@ -59,6 +59,20 @@ public class CartAdapter extends ArrayAdapter<CartItem> {
                     Variables.cart.get(position).setQuantity(quint);
                 } else {
                     Variables.cart.remove(getItem(position));
+
+                    if(Variables.cart.size() == 0) {
+                        Cart.placeOrder.setVisibility(View.INVISIBLE);
+                        Cart.tc.setVisibility(View.INVISIBLE);
+
+                        Cart.cartImage.setVisibility(View.VISIBLE);
+                        Cart.cartText.setVisibility(View.VISIBLE);
+                    } else {
+                        Cart.placeOrder.setVisibility(View.VISIBLE);
+                        Cart.tc.setVisibility(View.VISIBLE);
+
+                        Cart.cartImage.setVisibility(View.INVISIBLE);
+                        Cart.cartText.setVisibility(View.INVISIBLE);
+                    }
                 }
                 CartAdapter productAdapter = new CartAdapter(mContext, R.layout.cart_row, Variables.cart);
                 Cart.listView.setAdapter(productAdapter);
@@ -82,7 +96,7 @@ public class CartAdapter extends ArrayAdapter<CartItem> {
         });
 
         //imageView.setImageResource(getItem(position));
-        imageView.setImageDrawable(LoadImageFromWebOperations( Variables.getServerAddress() + "/images/products/" + getItem(position).getPath()));
+        imageView.setImageDrawable(LoadImageFromWebOperations( Variables.getFrontendUrl() + "/image/" + getItem(position).getPath()));
 
         txtName.setText(getItem(position).getName());
         txtPrice.setText(String.valueOf(getItem(position).getPrice()) + " Ft");

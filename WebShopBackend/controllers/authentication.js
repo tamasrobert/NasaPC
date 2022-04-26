@@ -149,16 +149,17 @@ exports.login = (req, res) => {
                                     console.log(error);
                                 })
                             var data = {
-                                email: response.email
+                                email: response.email,
+                                session
                             }
                             if (response.admin) {
-                                data = [{ ...data, admin: true }];
+                                data = { ...data, admin: true };
                             }
                             else if (response.courier && response.admin == false) {
-                                data = [{ ...data, admin: false, courier: true }];
+                                data = { ...data, admin: false, courier: true };
                             }
                             else {
-                                data = [{ ...data, admin: false, courier: false }];
+                                data = { ...data, admin: false, courier: false };
                             }
                             return res.send(data)
                         } else {

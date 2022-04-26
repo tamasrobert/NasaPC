@@ -12,6 +12,7 @@
         android:src="@color/black"
         android:layout_width="80dp"
         android:layout_height="80dp"
+        app:srcCompat="@drawable/package_icon"
         />
 
     <TextView
@@ -30,14 +31,15 @@
 
 
     <TextView
-        android:id="@+id/txtPrice"
+        android:id="@+id/txtItems"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/txtName"
         android:layout_marginStart="8dp"
         android:layout_toRightOf="@id/imageView"
-        android:text="89.999 Ft"
-        android:textSize="24dp"
+        android:text="Items..."
+        android:textSize="16dp"
+        android:width="280dp"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/txtName" />
 

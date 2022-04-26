@@ -13,6 +13,9 @@
         android:theme="@style/Theme.WebshopProject"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".OrdersNotLoggedIn"
+            android:exported="false" />
+        <activity
             android:name=".OrderSuccess"
             android:exported="false" />
         <activity

@@ -8,30 +8,30 @@
                 <h1 class="text">About Us</h1>
 
                 <p class="text"> 
-                    Wellcome to our project! It is a pleasure to have you here, in our site.
+                    Welcome to our project! It is a pleasure to have you here, in our site.
                     We, the three founding developers of this project wish you to have a great time
-                    during your visit. But first let us tell a few things about ourselfs.
+                    during your visit. But first let us tell a few things about ourselves.
                 </p>
 
                 <p class="text">
                     This WebShopProject or project NASAPC in other names started out as a school project which
                     we turned in as a requirement for the last exam we had to complete in order to successfully
-                    finish the Software Developper and Tester educational course which we participated in.
+                    finish the Software Developer and Tester educational course which we participated in.
                 </p>
                 <p class="text"> 
-                    This course provided us a two year long educational training which is by the way fully recognised by
-                    the Hungarian government and hosted by the country's one of the most famous if not the most famous secondary technical school 
+                    This course provided us a two-year long educational training which is by the way fully recognised by
+                    the Hungarian government and hosted by the country's one of the most famous if not the most famous secondary technical schools
                     which is qualified to teach this subject.
                 </p>
                 <p class="text">
                     On this page we would like to give you some brief information about this site and about how it works.
                     Please note that the information showed here will only cover some of the most basic functions this site 
-                    can de, for further information and for more details please read the full documentation attached to it's 
-                    github repositry.
+                    can de, for further information and for more details please read the full documentation attached to its 
+                    github repository.
                 </p>
                 <p class="text">
                     In order to enjoy the services we provide fully, please consider creating an account by clicking at the 
-                    signup menu at the bavigation bar or click <router-link to="/signup">HERE</router-link>
+                    signup menu at the navigation bar or click <router-link to="/signup">HERE</router-link>
                 </p>
                 <p class="text">
                     If you already have an account then please log in and check out all of these awesome products we offer.

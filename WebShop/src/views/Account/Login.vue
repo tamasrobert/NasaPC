@@ -27,7 +27,7 @@
 
             <div class="row">
                 <div class="col-xl-4 col-lg-2 col-md-2 col-sm-0"></div>
-                <div class="col-xl-4 col-lg-8 col-md-8 col-sm-12 form m-2">
+                <form @submit.prevent="Login()" class="col-xl-4 col-lg-8 col-md-8 col-sm-12 form m-2">
                     <div class="row">
                         <div class="col-md-8 col-sm-12">
                             <div class="mb-3 ">
@@ -51,14 +51,18 @@
                     <div class="row mt-2">
                         <div class="col-6">
                             <!-- <button @click="Login()" class="btn btn-primary">Login</button> -->
+<<<<<<< HEAD
                             <Button id="login" label="Login" class="p-button-raised p-button-success" @click="Login()"/>
+=======
+                            <Button label="Login" class="p-button-raised p-button-success" type="submit"/>
+>>>>>>> 4b3a4582db2c8a7841e93908111fab24d26ca856
                         </div>
                         <div class="col-6">
                             <!-- <button class="btn btn-primary" @click="forgotPasswordForm()">Forgot password</button> -->
                             <Button id="forgetpassword" label="Forgot password" class="p-button-raised p-button-info" @click="forgotPasswordForm()"/>
                         </div>
                     </div>
-                </div>
+                </form>
                 <div class="col-xl-4 col-lg-2 col-md-2 col-sm-0"></div>
             </div>
         </div>
