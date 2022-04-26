@@ -19,7 +19,7 @@
           <div class="col-sm-12 col-lg-10">
             <div class="row">
               <div class="col-sm-12 col-lg-6">
-                <img class="img-fluid float-start" :src="promotion.picture">
+                <img class="img-fluid float-start" :src="'/image/'+promotion.picture">
               </div>
               <div class="col-sm-12 col-lg-6">
                 <h2 >{{promotion.title}}</h2>
@@ -41,7 +41,7 @@
                 <router-link to="/products" style="text-decoration:none"><Button class="p-button-secondary" style="width:175px; height: 75px; font-size: 25px; align-self:middle;" label="Let's go!"/></router-link>
             </div>
             <div class="col-sm-12 col-lg-6">
-                <img class="img-fluid float-end" :src="promotion.picture">
+                <img class="img-fluid float-end" :src="'/image/'+promotion.picture">
               </div>
           </div>
         </div>
@@ -75,9 +75,9 @@ export default {
   data(){
     return {
       promotions: [
-        {title:"Lorem valami asdasdasd", text:"Lorem valami asdasdasdasdasd  Lorem valami Lorem valami asdasdasdasdasd vLorem valami asdasdasdasdasd  Lorem valami asdasdasdasdasd  asdasdasdasdasd  Lorem valami asdasdasdasdasd", picture:"https://picsum.photos/350/350"},
-        {title:"Lorem valami asdasdasd", text:"Lorem valami asdasdasdasdasd  Lorem valami Lorem valami asdasdasdasdasd vLorem valami asdasdasdasdasd  Lorem valami asdasdasdasdasd  asdasdasdasdasd  Lorem valami asdasdasdasdasd", picture:"https://picsum.photos/350/350"},
-        {title:"Lorem valami asdasdasd", text:"Lorem valami asdasdasdasdasd  Lorem valami Lorem valami asdasdasdasdasd vLorem valami asdasdasdasdasd  Lorem valami asdasdasdasdasd  asdasdasdasdasd  Lorem valami asdasdasdasdasd", picture:"https://picsum.photos/350/350"},
+        {title:"EVGA GeForce RTX 3080 Ti XC3 ULTRA", text:"", picture:"EVGA-GeForce-RTX-3080-Ti-XC3-ULTRA.jpg"},
+        {title:"ASUS ROG STRIX B450-F GAMING II", text:"", picture:"asus-rog-strix-b450-f-gaming-ii.jpg"},
+        {title:"Rapture COBRA black", text:"", picture:"Rapture-COBRA-black.jpg"},
       ]
     }
   },

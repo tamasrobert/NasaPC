@@ -1,6 +1,6 @@
 <template>
-<div class="overflow-hidden row">
-  <div class="col-12">
+<div class="row" style="margin:0; padding:0">
+  <div class="col-12" style="padding:0">
 
     <button class="mobile-nav-toggle" @click="toggleNavBar"
         aria-controls="primary-navbar" aria-expanded="false">

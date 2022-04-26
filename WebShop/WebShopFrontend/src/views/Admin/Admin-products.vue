@@ -117,20 +117,48 @@
                     <label class="mb-3">Category</label>
                     <div class="formgrid grid">
                         <div class="field-radiobutton col-6">
-                            <RadioButton id="category1" name="category" value="Accessories" v-model="product.category" />
-                            <label for="category1">Accessories</label>
+                            <RadioButton id="category1" name="category" value="motherboard" v-model="product.category" />
+                            <label for="category1">motherboard</label>
                         </div>
                         <div class="field-radiobutton col-6">
-                            <RadioButton id="category2" name="category" value="Clothing" v-model="product.category" />
-                            <label for="category2">Clothing</label>
+                            <RadioButton id="category2" name="category" value="gpu" v-model="product.category" />
+                            <label for="category2">gpu</label>
                         </div>
                         <div class="field-radiobutton col-6">
-                            <RadioButton id="category3" name="category" value="Electronics" v-model="product.category" />
-                            <label for="category3">Electronics</label>
+                            <RadioButton id="category3" name="category" value="cpu" v-model="product.category" />
+                            <label for="category3">cpu</label>
                         </div>
                         <div class="field-radiobutton col-6">
-                            <RadioButton id="category4" name="category" value="Fitness" v-model="product.category" />
-                            <label for="category4">Fitness</label>
+                            <RadioButton id="category4" name="category" value="power-supply" v-model="product.category" />
+                            <label for="category4">power-supply</label>
+                        </div>
+                        <div class="field-radiobutton col-6">
+                            <RadioButton id="category5" name="category" value="RAM" v-model="product.category" />
+                            <label for="category5">RAM</label>
+                        </div>
+                        <div class="field-radiobutton col-6">
+                            <RadioButton id="category6" name="category" value="SSD" v-model="product.category" />
+                            <label for="category6">SSD</label>
+                        </div>
+                        <div class="field-radiobutton col-6">
+                            <RadioButton id="category7" name="category" value="HDD" v-model="product.category" />
+                            <label for="category7">HDD</label>
+                        </div>
+                        <div class="field-radiobutton col-6">
+                            <RadioButton id="category8" name="category" value="mouse" v-model="product.category" />
+                            <label for="category8">mouse</label>
+                        </div>
+                        <div class="field-radiobutton col-6">
+                            <RadioButton id="category9" name="category" value="keyboard" v-model="product.category" />
+                            <label for="category9">keyboard</label>
+                        </div>
+                        <div class="field-radiobutton col-6">
+                            <RadioButton id="category10" name="category" value="headset" v-model="product.category" />
+                            <label for="category10">headset</label>
+                        </div>
+                        <div class="field-radiobutton col-6">
+                            <RadioButton id="category11" name="category" value="phone" v-model="product.category" />
+                            <label for="category11">phone</label>
                         </div>
                     </div>
                 </div>
@@ -138,11 +166,21 @@
                 <div class="formgrid grid">
                     <div class="field col">
                         <label for="price">Price</label>
-                        <InputNumber id="price" v-model="product.price" mode="currency" currency="USD" locale="en-US" />
+                        <InputNumber id="price" v-model="product.price" mode="currency" currency="USD" locale="en-US"/>
                     </div>
                     <div class="field col">
                         <label for="quantity">Quantity</label>
                         <InputNumber id="quantity" v-model="product.quantity" integeronly />
+                    </div>
+                </div>
+                <div class="formgrid grid">
+                    <div class="field col">
+                        <label for="path">Path (picture)</label>
+                        <InputText id="path" v-model="product.path"/>
+                    </div>
+                    <div class="field col">
+                        <label for="discount">Discount</label>
+                        <InputNumber id="discount" v-model="product.discount" integeronly />
                     </div>
                 </div>
                 <template #footer>

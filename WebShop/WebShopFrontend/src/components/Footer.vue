@@ -1,88 +1,33 @@
 <template>
     <div class="FooterBackground" style="width:100%">
-      <div class="row">
-
-
-
-             <div class="col-xs-1 col-sm-1 col-lg-1 mt-3"/>
-            <div class="col-xs-10 col-sm-10 col-lg-2 mt-3">
-                <div class="row">
-                    <div class="col-sm-4 col-lg-1"/>
-                    <div class="col-sm-4 col-lg-10">
-                        <h3 class="mb-5 " style="color:white">Important note:</h3>
-                        <p>This project is the sole property of it's 3 founders, 
-                            with this being the case you are prohabited from useing it's
-                            source code for gaining profit or for turning it in as 
-                            your own.</p>
+        <div class="row" style="align-items:center; padding:0; margin:0">
+            <h3 class="col-12" style="color:white; text-align:center">Important note:</h3>
+            <div class="row">
+                <div class="col-xl-4 col-lg-4 col-md-2 col-sm-1"></div>
+                <div class="col-xl-4 col-lg-4 col-md-8 col-sm-10">
+                    <p class="col-12" style="color:white; text-align:center">
+                        This project is the sole property of it's 3 founders, 
+                        with this being the case you are prohabited from useing it's                        
+                        source code for gaining profit or for turning it in as 
+                        your own.
+                    </p>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-2 col-sm-1"></div>
+            </div>
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-10">
+                    <div class="row">
+                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 mb-2" v-for="(logo,i) in footerLogos" :key="i">
+                            <a target="blank" :href="logo.url">
+                                <img style="height:50px; width: auto" v-bind:src="logo.path" alt="">
+                            </a>
+                        </div>
                     </div>
-                    <div class="col-sm-4 col-lg-1"/>
                 </div>
+                <div class="col-2"></div>
             </div>
-            <div class="col-xs-1 col-sm-1 col-lg-1 mt-3"/>
-
-
-
-
-      
-            <div class="col-xs-10 col-sm-10 col-lg-2 mt-3">
-              <h3 class="mb-5">Shop</h3>
-              
-                <div class="row">
-
-                    <router-link v-for="(item,i) in footerProductLinks" :key="i"
-                        class=" FooterLinkSettings"
-                        :to="item.to">{{item.title}}
-                    </router-link>
-
-                </div>
-            </div>
-   
-
-
-           
-            <div class="col-sm-10 col-lg-2 mt-3">
-                <h3 class="mb-5">Log in now</h3>
-                <div class="row">
-
-                      <router-link v-for="(item,i) in footerAuthLinks" :key="i"
-                        class=" FooterLinkSettings"
-                        :to="item.to">{{item.title}}
-                      </router-link>
-
-                </div>
-            </div>
-           
-
-
-       
-            <div class="col-xs-10 col-sm-10 col-lg-2 mt-3">
-                <h3 class="mb-5">Used in project</h3>
-
-              <div class="row">
-                <div class="col-12 mb-5" v-for="(logo,i) in footerLogos" :key="i">
-                    <a target="blank" :href="logo.url">
-                        <img style="height:50px; width: auto" v-bind:src="logo.path" alt="">
-                    </a>
-                </div>
-            </div>
-            <div class="col-xs-1 col-sm-1 col-lg-0 mt-3"/>
-          </div>
-
-          
-          <div class="col-sm-0 col-lg-2 mt-3"></div>
-      </div>
-      
-      
-      
-      
-      
-      
-      <div class="row" >
-
-          <div class="col-12" style="text-align: center; text:white;">
-              <p>&copy; 2022 NasaPC all rights reserved</p>
-          </div>
-   
+            <p style="text-align: center; text:white;">&copy; 2022 NasaPC all rights reserved</p>
         </div>
     </div>  
 </template>
