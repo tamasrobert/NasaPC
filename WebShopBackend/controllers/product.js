@@ -48,6 +48,7 @@ exports.postReview = (req, res) => {
 
                                     let oneReview = {
                                         userId: user._id,
+                                        email: user.email,
                                         rating: req.body.rating,
                                         comment: req.body.comment
                                     }
