@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,8 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         TextView txtPrice = convertView.findViewById(R.id.txtPrice);
 
         //imageView.setImageResource(getItem(position));
-        imageView.setImageDrawable(LoadImageFromWebOperations( Variables.getServerAddress() + "/images/products/" + getItem(position).getPath()));
+        imageView.setImageDrawable(LoadImageFromWebOperations( Variables.getFrontendUrl() + "/image/" + getItem(position).getPath()));
+
 
         txtName.setText(getItem(position).getName());
         txtPrice.setText(String.valueOf(getItem(position).getPrice()) + " Ft");

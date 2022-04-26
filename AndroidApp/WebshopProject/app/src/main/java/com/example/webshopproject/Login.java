@@ -102,11 +102,11 @@ public class Login extends AppCompatActivity {
         HashMap<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json; charset=utf-8");
 
-        String url = Variables.getServerAddress() + "/api/login";
+        String url = Variables.getBackendUrl() + "/api/login";
         JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, url, jsonBody,
                 response -> {
                     try {
-                        Log.d("RESPONSE", response.getJSONObject("0").getString("session"));
+                        Log.d("BRESPONSE", response.getString("session"));
 
                         error_text.setVisibility(View.INVISIBLE);
 
@@ -116,14 +116,14 @@ public class Login extends AppCompatActivity {
                         prefEditor.commit();
 
                         Intent intent = new Intent(getApplicationContext(), Profile.class);
-                        intent.putExtra("email", response.getJSONObject("0").getString("email"));
+                        intent.putExtra("email", response.getString("email"));
                         startActivity(intent);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 },
                 error -> {
-                    //Log.d("RESPONSEERR", error.getMessage());
+                    Log.d("RESPONSEERR", error.getMessage());
                     error_text.setVisibility(View.VISIBLE);
                 }){
         };

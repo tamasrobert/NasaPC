@@ -43,7 +43,7 @@ public class SelectedProduct extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            imageView.setImageDrawable(LoadImageFromWebOperations(Variables.getServerAddress() + "/images/products/" + bundle.getString("path")));
+            imageView.setImageDrawable(LoadImageFromWebOperations(Variables.getFrontendUrl() + "/image/" + bundle.getString("path")));
 
             name.setText(bundle.getString("name"));
             description.setText(bundle.getString("description"));

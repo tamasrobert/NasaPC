@@ -7,7 +7,16 @@ import java.util.ArrayList;
 public class Variables {
 
     //DON'T USE LOCALHOST OR 127.0.0.1, USE PRIVATE IPv4 ADDRESS INSTEAD
-    private static String serverAddress = "http://192.168.1.120:3000";
+    private static String backendUrl = "http://10.0.13.3:3000";
+    private static String frontendUrl = "http://10.0.13.3:8080";
+
+    public static String getBackendUrl() {
+        return backendUrl;
+    }
+
+    public static String getFrontendUrl() {
+        return frontendUrl;
+    }
 
     public static ArrayList<Product> products;
     public static ArrayList<Product> filteredProducts;
@@ -34,10 +43,6 @@ public class Variables {
             sum += cart.get(i).price*cart.get(i).getQuantity();
         }
         return sum;
-    }
-
-    public static String getServerAddress() {
-        return serverAddress;
     }
 
 }

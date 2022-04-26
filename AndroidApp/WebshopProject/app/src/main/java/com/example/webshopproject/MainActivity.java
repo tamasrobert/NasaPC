@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
         bnv.setSelectedItemId(R.id.products);
 
-        String url =  Variables.getServerAddress() + "/api/products";
+        String url =  Variables.getBackendUrl() + "/api/products";
         Variables.products = new ArrayList<Product>();
         Variables.filteredProducts = new ArrayList<Product>();
 

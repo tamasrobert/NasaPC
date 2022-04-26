@@ -96,7 +96,7 @@ public class CartAdapter extends ArrayAdapter<CartItem> {
         });
 
         //imageView.setImageResource(getItem(position));
-        imageView.setImageDrawable(LoadImageFromWebOperations( Variables.getServerAddress() + "/images/products/" + getItem(position).getPath()));
+        imageView.setImageDrawable(LoadImageFromWebOperations( Variables.getFrontendUrl() + "/image/" + getItem(position).getPath()));
 
         txtName.setText(getItem(position).getName());
         txtPrice.setText(String.valueOf(getItem(position).getPrice()) + " Ft");
