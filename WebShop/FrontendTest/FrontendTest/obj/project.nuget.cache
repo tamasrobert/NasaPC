@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "V2m5A+9EEQ84MLvEXUc5dThsMdCFAan7N35NszAt4a/XY+mkYa8WT+wTpfKNUb2kz5HTe+UcHgGzQ3RYzTbVsQ==",
+  "dgSpecHash": "vXgoSdl8SGtF5OUvsPUTpYCFdg+6L/i90x0alcw4f0lUSubK6ua8XB/3ErQDW3dphjVuloXQ6KQ+wvfgWzIleA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\raboczki.erik\\Desktop\\FrontendTest\\FrontendTest\\FrontendTest.csproj",
+  "projectFilePath": "Z:\\WebShopProject\\WebShop\\FrontendTest\\FrontendTest\\FrontendTest.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\raboczki.erik\\.nuget\\packages\\coverlet.collector\\3.0.2\\coverlet.collector.3.0.2.nupkg.sha512",
     "C:\\Users\\raboczki.erik\\.nuget\\packages\\microsoft.codecoverage\\16.9.4\\microsoft.codecoverage.16.9.4.nupkg.sha512",

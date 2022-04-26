@@ -5,7 +5,7 @@
             <Dialog v-model:visible="this.showMessage" :breakpoints="{ '960px': '80vw' }" :style="{ width: '30vw' }" position="top">
                     <div class="flex align-items-center flex-column pt-6 px-3">
                         <i class="pi pi-sign-in" :style="{fontSize: '5rem', color: messageColor }"></i>
-                        <h5>{{this.messageHeader}}</h5>
+                        <h5 id="DialogHeader">{{this.messageHeader}}</h5>
                         <p :style="{lineHeight: 1.5, textIndent: '1rem'}">
                             {{this.messageText}}
                         </p>
@@ -70,7 +70,7 @@
                             <label for="accept">I agree to the terms and conditions!</label>
                         </div>
                         <small v-if="this.vaccept == false" class="p-error">You have to agree to our terms and conditions!</small>
-                        <Button  label="Signup" @click="Signup()" class="mt-2" />
+                        <Button id="signup" label="Signup" @click="Signup()" class="mt-2" />
                     </form>
                 </div>
             </div>
