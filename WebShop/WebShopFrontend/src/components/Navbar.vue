@@ -87,48 +87,21 @@ export default {
     },
     data(){
         return{
-            // menu: [
-            //     {title:'Home', to:'/', admin: false},
-            //     {title:'Products', dropdown: false, admin: false ,dropdowns: [
-            //         {ddTitle:'poroduct', to:'/products'}
-            //         ]},
-            //     {title:'Admin', dropdown: false, admin: true ,dropdowns: [
-            //         {ddTitle:'Add-product', to:'/admin/add-product'},
-            //         {ddTitle:'Edit-product', to:'/admin/edit-product'},
-            //         {ddTitle:'Products', to:'/admin/products'}
-            //         ]}
-            // ],
             rules: {isLoggedIn: false ,admin: false, courier: false},
         }
     },
     methods: {
         toggleNavBar() {
             const primaryNav = document.querySelector(".primary-navbar")
-            // const secondaryNav = document.querySelector(".secondary-navbar")
             const navToggle = document.querySelector(".mobile-nav-toggle")
             const visibility = primaryNav.getAttribute('data-visible')
             
             if (visibility === "false") {
                 primaryNav.setAttribute("data-visible", "true")
-                // secondaryNav.setAttribute("data-visible", "true")
                 navToggle.setAttribute("aria-expanded", "true")
-                
-                // this.menu.forEach(n => {
-                // if (n.dropdown == true) {
-                //     n.dropdown = false
-                // }
-                // })
-
             } else if (visibility === "true"){
                 primaryNav.setAttribute("data-visible", false)
-                // secondaryNav.setAttribute("data-visible", false)
                 navToggle.setAttribute("aria-expanded", "false")
-                
-                // this.menu.forEach(n => {
-                // if (n.dropdown == true) {
-                //     n.dropdown = false
-                // }
-                // })
             }
         },
         Logout() {
