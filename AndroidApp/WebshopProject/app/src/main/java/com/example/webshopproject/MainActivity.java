@@ -94,11 +94,11 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                SharedPreferences data = getSharedPreferences("webshop", MODE_PRIVATE);
                 switch (item.getItemId()) {
                     case R.id.products:
                         return true;
                     case R.id.profile:
-                        SharedPreferences data = getSharedPreferences("webshop", MODE_PRIVATE);
                         if(data.getBoolean("isLoggedIn", false)) {
                             startActivity(new Intent(getApplicationContext(), Profile.class));
                         } else {
@@ -107,7 +107,11 @@ public class MainActivity extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.orders:
-                        startActivity(new Intent(getApplicationContext(), Orders.class));
+                        if(data.getBoolean("isLoggedIn", false)) {
+                            startActivity(new Intent(getApplicationContext(), Orders.class));
+                        } else {
+                            startActivity(new Intent(getApplicationContext(), OrdersNotLoggedIn.class));
+                        }
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.cart:

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -31,11 +32,13 @@ public class Cart extends AppCompatActivity {
     BottomNavigationView bnv;
     public static TextView tc;
     public static ListView listView;
+    public static Button  placeOrder;
+
+    public static ImageView cartImage;
+    public static TextView cartText;
 
     public ArrayList<Product> products;
     public ArrayList<Product> filteredProducts;
-
-    Button placeOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,23 +51,40 @@ public class Cart extends AppCompatActivity {
         tc = findViewById(R.id.text_cost);
         placeOrder = findViewById(R.id.btn_place_order);
 
+        cartImage = findViewById(R.id.cartImage);
+        cartText = findViewById(R.id.cartText);
+
         products = new ArrayList<Product>();
         filteredProducts = new ArrayList<Product>();
 
         //Change the built in bottom nav color
         getWindow().setNavigationBarColor(getResources().getColor(R.color.primary));
 
+        if(Variables.cart.size() == 0) {
+            placeOrder.setVisibility(View.INVISIBLE);
+            tc.setVisibility(View.INVISIBLE);
+
+            cartImage.setVisibility(View.VISIBLE);
+            cartText.setVisibility(View.VISIBLE);
+        } else {
+            placeOrder.setVisibility(View.VISIBLE);
+            tc.setVisibility(View.VISIBLE);
+
+            cartImage.setVisibility(View.INVISIBLE);
+            cartText.setVisibility(View.INVISIBLE);
+        }
+
         bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                SharedPreferences data = getSharedPreferences("webshop", MODE_PRIVATE);
                 switch (item.getItemId()) {
                     case R.id.products:
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.profile:
-                        SharedPreferences data = getSharedPreferences("webshop", MODE_PRIVATE);
                         if(data.getBoolean("isLoggedIn", false)) {
                             startActivity(new Intent(getApplicationContext(), Profile.class));
                         } else {
@@ -73,7 +93,11 @@ public class Cart extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.orders:
-                        startActivity(new Intent(getApplicationContext(), Orders.class));
+                        if(data.getBoolean("isLoggedIn", false)) {
+                            startActivity(new Intent(getApplicationContext(), Orders.class));
+                        } else {
+                            startActivity(new Intent(getApplicationContext(), OrdersNotLoggedIn.class));
+                        }
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.cart:

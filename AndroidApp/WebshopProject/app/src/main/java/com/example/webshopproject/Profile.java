@@ -85,6 +85,7 @@ public class Profile extends AppCompatActivity {
 
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                SharedPreferences data = getSharedPreferences("webshop", MODE_PRIVATE);
                 switch (item.getItemId()) {
                     case R.id.products:
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
@@ -93,7 +94,11 @@ public class Profile extends AppCompatActivity {
                     case R.id.profile:
                         return true;
                     case R.id.orders:
-                        startActivity(new Intent(getApplicationContext(), Orders.class));
+                        if(data.getBoolean("isLoggedIn", false)) {
+                            startActivity(new Intent(getApplicationContext(), Orders.class));
+                        } else {
+                            startActivity(new Intent(getApplicationContext(), OrdersNotLoggedIn.class));
+                        }
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.cart:

@@ -30,6 +30,12 @@ public class PlaceOrder extends AppCompatActivity {
         placeOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ArrayList<String> products = new ArrayList<>();
+                for (int i = 0; i<Variables.cart.size(); i++) {
+                    products.add(Variables.cart.get(i).name);
+                }
+                Variables.orders.add(new Order("TEST", products));
+
                 startActivity(new Intent(PlaceOrder.this, OrderSuccess.class));
             }
         });

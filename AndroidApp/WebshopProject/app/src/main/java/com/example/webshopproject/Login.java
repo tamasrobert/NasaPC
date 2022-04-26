@@ -62,6 +62,7 @@ public class Login extends AppCompatActivity {
 
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                SharedPreferences data = getSharedPreferences("webshop", MODE_PRIVATE);
                 switch (item.getItemId()) {
                     case R.id.products:
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
@@ -70,7 +71,11 @@ public class Login extends AppCompatActivity {
                     case R.id.profile:
                         return true;
                     case R.id.orders:
-                        startActivity(new Intent(getApplicationContext(), Orders.class));
+                        if(data.getBoolean("isLoggedIn", false)) {
+                            startActivity(new Intent(getApplicationContext(), Orders.class));
+                        } else {
+                            startActivity(new Intent(getApplicationContext(), OrdersNotLoggedIn.class));
+                        }
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.cart:
@@ -92,7 +97,7 @@ public class Login extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        final String requestBody = jsonBody.toString();
+        //final String requestBody = jsonBody.toString();
 
         HashMap<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json; charset=utf-8");
@@ -118,6 +123,7 @@ public class Login extends AppCompatActivity {
                     }
                 },
                 error -> {
+                    //Log.d("RESPONSEERR", error.getMessage());
                     error_text.setVisibility(View.VISIBLE);
                 }){
         };

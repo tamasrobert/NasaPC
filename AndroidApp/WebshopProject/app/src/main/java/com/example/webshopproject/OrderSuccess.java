@@ -22,17 +22,20 @@ public class OrderSuccess extends AppCompatActivity {
         bnv = findViewById(R.id.bottom_navigation);
         bnv.setSelectedItemId(R.id.cart);
 
+        //Change the built in bottom nav color
+        getWindow().setNavigationBarColor(getResources().getColor(R.color.primary));
+
         bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                SharedPreferences data = getSharedPreferences("webshop", MODE_PRIVATE);
                 switch (item.getItemId()) {
                     case R.id.products:
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.profile:
-                        SharedPreferences data = getSharedPreferences("webshop", MODE_PRIVATE);
                         if(data.getBoolean("isLoggedIn", false)) {
                             startActivity(new Intent(getApplicationContext(), Profile.class));
                         } else {
@@ -41,7 +44,11 @@ public class OrderSuccess extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.orders:
-                        startActivity(new Intent(getApplicationContext(), Orders.class));
+                        if(data.getBoolean("isLoggedIn", false)) {
+                            startActivity(new Intent(getApplicationContext(), Orders.class));
+                        } else {
+                            startActivity(new Intent(getApplicationContext(), OrdersNotLoggedIn.class));
+                        }
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.cart:
