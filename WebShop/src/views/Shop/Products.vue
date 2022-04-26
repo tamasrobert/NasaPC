@@ -1,68 +1,64 @@
 <template>
-  <main class="mainContent">
-      <Navbar/>
+<main class="mainContent">
+    <Navbar/>
 	<div class="m-5">
-    <div class="card">
-        <DataView :value="products" :layout="layout" :paginator="true" :rows="9" :sortOrder="sortOrder" :sortField="sortField">
-			<template #header>
-                <div class="grid grid-nogutter">
-                    <div class="col-6" style="text-align: left">
-                        <Dropdown v-model="sortKey" :options="sortOptions" optionLabel="label" placeholder="Sort By Price" @change="onSortChange($event)"/>
-                    </div>
-                    <div class="col-6" style="text-align: right">
-                        <DataViewLayoutOptions v-model="layout" />
-                    </div>
-                </div>
-			</template>
-
-			<template #list="slotProps">
-				<div class="col-12">
-					<div class="product-list-item">
-						<img src="../../assets/image/asus-geforce-rtx-3070-ti-oc-8gb-gddr6x.jpg" :alt="slotProps.data.name"/>
-						<div class="product-list-detail">
-							<div class="product-name">{{slotProps.data.name}}</div>
-							<div class="product-description">{{slotProps.data.description}}</div>
-							<Rating :modelValue="slotProps.data.rating" :readonly="true" :cancel="false"></Rating>
-							<i class="pi pi-tag product-category-icon"></i><span class="product-category">{{slotProps.data.category}}</span>
+		<div class="card">
+			<DataView :value="products" :layout="layout" :paginator="true" :rows="9" :sortOrder="sortOrder" :sortField="sortField">
+				<template #header>
+					<div class="grid grid-nogutter">
+						<div class="col-6" style="text-align: left">
+							<Dropdown v-model="sortKey" :options="sortOptions" optionLabel="label" placeholder="Sort By Price" @change="onSortChange($event)"/>
 						</div>
-						<div class="product-list-action">
-							<span class="product-price">{{slotProps.data.price}} HUF</span>
-							<Button icon="pi pi-shopping-cart" label="Add to Cart" @click="addToCart(slotProps.data._id)" :disabled="slotProps.data.inventoryStatus === 'OUTOFSTOCK'"></Button>
-							<Button icon="pi pi-star-fill" label="Add to Wishlist" @click="addToWishList(slotProps.data._id)" :disabled="slotProps.data.inventoryStatus === 'OUTOFSTOCK'"></Button>
-							<span :class="'product-badge status-'+slotProps.data.inventoryStatus">{{slotProps.data.inventoryStatus}}</span>
+						<div class="col-6" style="text-align: right">
+							<DataViewLayoutOptions v-model="layout" />
 						</div>
 					</div>
-				</div>
-			</template>
+				</template>
 
-			<template #grid="slotProps">
-				<div class="col-lg-4 col-md-12">
-					<div class="product-grid-item card">
-						<div class="product-grid-item-top">
-							<div>
-								<i class="pi pi-tag product-category-icon"></i>
-								<span class="product-category">{{slotProps.data.category}}</span>
+				<template #list="slotProps">
+					<div class="col-12">
+						<div class="product-list-item">
+							<img :src="'/image/'+slotProps.data.path" :alt="slotProps.data.name"/>
+							<div class="product-list-detail">
+								<div class="product-name"><a class="LinkToDetails" :href="'/product-details/'+slotProps.data._id" target="blank">{{slotProps.data.name}}</a></div>
+								<div class="product-description">{{slotProps.data.description}}</div>
+								<Rating :modelValue="slotProps.data.rating" :readonly="true" :cancel="false"></Rating>
+								<i class="pi pi-tag product-category-icon"></i><span class="product-category">{{slotProps.data.category}}</span>
 							</div>
-							<span :class="'product-badge status-'+slotProps.data.inventoryStatus">{{slotProps.data.inventoryStatus}}</span>
-						</div>
-						<div class="product-grid-item-content">
-							<img src="../../assets/image/asus-rog-strix-b450-f-gaming-ii.jpg" :alt="slotProps.data.path"/>
-							<div class="product-name">{{slotProps.data.name}}</div>
-							<div class="product-description">{{slotProps.data.description}}</div>
-							<Rating :modelValue="slotProps.data.rating" :readonly="true" :cancel="false"></Rating>
-						</div>
-						<div class="product-grid-item-bottom">
-							<span class="product-price">{{slotProps.data.price}} HUF</span>
-							<Button icon="pi pi-shopping-cart" @click="addToCart(slotProps.data._id)" :disabled="slotProps.data.inventoryStatus === 'OUTOFSTOCK'"></Button>
-							<Button icon="pi pi-star-fill" @click="addToWishList(slotProps.data._id)" :disabled="slotProps.data.inventoryStatus === 'OUTOFSTOCK'"></Button>
+							<div class="product-list-action">
+								<span class="product-price">{{slotProps.data.price}} HUF</span>
+								<Button icon="pi pi-shopping-cart" label="Add to Cart" @click="addToCart(slotProps.data._id)"></Button>
+								<Button icon="pi pi-star-fill" label="Add to WishList" @click="addToWishList(slotProps.data._id)"></Button>
+							</div>
 						</div>
 					</div>
-				</div>
-			</template>
+				</template>
 
-			<template #empty>No records found.</template>
-		</DataView>
-	</div>
+				<template #grid="slotProps">
+					<div class=" xl:col-4 md:col-12">
+						<div class="product-grid-item card">
+							<div class="product-grid-item-top">
+								<div>
+									<i class="pi pi-tag product-category-icon"></i>
+									<span class="product-category">{{slotProps.data.category}}</span>
+								</div>
+							</div>
+							<div class="product-grid-item-content">
+								<img :src="'/image/'+slotProps.data.path" :alt="slotProps.data.name"/>
+								<div class="product-name"><a class="LinkToDetails" :href="'/product-details/'+slotProps.data._id" target="blank">{{slotProps.data.name}}</a></div>
+								<div class="product-description">{{slotProps.data.description}}</div>
+								<Rating :modelValue="slotProps.data.rating" :readonly="true" :cancel="false"></Rating>
+							</div>
+							<div class="product-grid-item-bottom">
+								<span class="product-price">{{slotProps.data.price}} HUF</span>
+								<Button icon="pi pi-shopping-cart" @click="addToCart(slotProps.data._id)"></Button>
+								<Button icon="pi pi-star-fill" @click="addToWishList(slotProps.data._id)"></Button>
+							</div>
+						</div>
+					</div>
+				</template>
+			</DataView>
+		</div>
 	</div>
     <Footer/>
 </main>
@@ -76,7 +72,6 @@ import Rating from 'primevue/rating'
 import Dropdown from 'primevue/dropdown'
 import Button from 'primevue/button'
 import DataViewLayoutOptions from 'primevue/dataviewlayoutoptions'
-import { ref, onMounted } from "vue";
 import DataService from '../../services/DataService.js';
 import AccountDataService from '../../services/AccountDataService.js'
 
@@ -93,11 +88,34 @@ export default {
     },
 	data() {
 		return {
-			imgtest: "../../assets/image/asus-rog-strix-b450-f-gaming-ii.jpg"
+			products: [],
+            layout: 'grid',
+            sortKey: null,
+            sortOrder: null,
+            sortField: null,
+            sortOptions: [
+                {label: 'Price High to Low', value: '!price'},
+                {label: 'Price Low to High', value: 'price'},
+            ]
 		}
 	},
 	methods: {
-		addToCart(_id) {
+        onSortChange(event){
+            const value = event.value.value;
+            const sortValue = event.value;
+
+            if (value.indexOf('!') === 0) {
+                this.sortOrder = -1;
+                this.sortField = value.substring(1, value.length);
+                this.sortKey = sortValue;
+            }
+            else {
+                this.sortOrder = 1;
+                this.sortField = value;
+                this.sortKey = sortValue;
+            }
+    },
+	addToCart(_id) {
 		var cartItem = {_id, quantity: 1};
 		var match = false;
 		if(!JSON.parse(localStorage.getItem('cart'))) {
@@ -120,51 +138,27 @@ export default {
 			.catch(err => {console.log(err.response.data.error)});
 		},
 	},
-    setup() {
-        onMounted(() => {
-            DataService.getAllProducts().then(data => products.value = data).then().catch(err => {console.log(err.response.data.error)});
-            
-        })
-
-        const products = ref();
-        // const Dataservice = ref(new DataService());
-        const layout = ref('grid');
-        const sortKey = ref();
-        const sortOrder = ref();
-        const sortField = ref();
-        const sortOptions = ref([
-            {label: 'Price High to Low', value: '!price'},
-            {label: 'Price Low to High', value: 'price'},
-        ]);
-        const onSortChange = (event) => {
-            const value = event.value.value;
-            const sortValue = event.value;
-
-            if (value.indexOf('!') === 0) {
-                sortOrder.value = -1;
-                sortField.value = value.substring(1, value.length);
-                sortKey.value = sortValue;
-            }
-            else {
-                sortOrder.value = 1;
-                sortField.value = value;
-                sortKey.value = sortValue;
-            }
-        };
-        return {
-            products, layout, sortKey, sortOrder, sortField, sortOptions, onSortChange
-        }
+	mounted() {
+    DataService.getAllProducts().then(data => this.products = data).then().catch(err => {console.log(err.response.data.error)});
     }
 }
 </script>
 
 <style lang="scss" scoped>
+@import "../../assets/css/CostumeVariables.scss";
 .card {
     background: #ffffff;
     padding: 2rem;
     box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
     border-radius: 4px;
     margin-bottom: 2rem;
+}
+.LinkToDetails{
+	text-decoration: none;
+	color: $darkblue;
+}
+.LinkToDetails:hover {
+	color: $lightestblue;
 }
 .p-dropdown {
     width: 14rem;
@@ -230,6 +224,13 @@ export default {
 ::v-deep(.product-grid-item) {
 	margin: .5rem;
 	border: 1px solid var(--surface-border);
+	width: 400px;
+
+	.product-description {
+		overflow: scroll;
+		height: 150px;
+	}
+
 
 	.product-grid-item-top,
 	.product-grid-item-bottom {
@@ -240,11 +241,13 @@ export default {
 
 	img {
 		box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-		margin: 2rem 0;
+		margin: 1rem 0;
+		width: 300px;
 	}
 
 	.product-grid-item-content {
 		text-align: center;
+		height: 700px;
 	}
 
 	.product-price {

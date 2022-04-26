@@ -99,12 +99,12 @@ exports.verifyRegistration = (req, res) => {
 exports.getSession = (req, res) => {
     const session = req.cookies['LOCAL_KEY'];
     if (!session) {
-        return res.status(401).json({ "error": "No session key found!" });
+        return res.status(401).send(false);
     }
     User.findOne({ session })
         .then((response) => {
             if (!response) {
-                return res.status(401).json({ "error": "No session key found!" });
+                return res.status(401).send(false);
             }
             var data = {
                 email: response.email

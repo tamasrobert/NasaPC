@@ -32,13 +32,13 @@
                     <router-link class="btn navbar-link " to="/account/wishlist"><span class="pi pi-star-fill NavbarIcons"/></router-link>
                 </li>
                 <li v-if="this.rules.isLoggedIn == true" class="navbar-item">
-                    <button class="btn navbar-link" @click="Logout()"><span class="pi pi-sign-out NavbarIcons"/></button>
+                    <button class="btn navbar-link" @click="Logout()"><span style="margin-right:7px">Logout</span><span class="pi pi-sign-out NavbarIcons"/></button>
                 </li>
-                 <li v-if="this.rules.isLoggedIn == true" class="navbar-item">
+                 <!-- <li v-if="this.rules.isLoggedIn == true" class="navbar-item">
                     <router-link class="btn navbar-link " to="/account/settings"><span class="pi pi-cog NavbarIcons"/></router-link>
-                </li>
+                </li> -->
                 <li v-if="this.rules.isLoggedIn == false" class="navbar-item">
-                    <router-link class="btn navbar-link " to="/login"><span class="pi pi-sign-in NavbarIcons"/></router-link>
+                    <router-link class="btn navbar-link " to="/login"><span style="margin-right:7px">Login</span><span class="pi pi-sign-in NavbarIcons"/></router-link>
                 </li>
                 <li v-if="this.rules.isLoggedIn == false" class="navbar-item">
                     <router-link class="btn navbar-link" to="/signup">Signup</router-link>
@@ -161,17 +161,20 @@ export default {
     },
         mounted() {
             AccountDataService.GetSession().then((response) => {
-                this.rules.isLoggedIn = true
-                if (response.data[0].admin) {
-                    this.rules.admin = true
-                }
-                if (response.data[0].courier) {
-                    this.rules[0].courier = true
-                }
-            })
-            .catch(() => {
-            console.log("An error might have accured during the loading of the navigationbar")
-            })
+                    if (response.data == false) {
+                        null
+                    }
+                    else {
+                        this.rules.isLoggedIn = true
+                    }
+                    if (response.data[0].admin) {
+                        this.rules.admin = true
+                    }
+                    if (response.data[0].courier) {
+                        this.rules[0].courier = true
+                    }
+                }).catch(() => {})
+            
         }
 }
 </script>

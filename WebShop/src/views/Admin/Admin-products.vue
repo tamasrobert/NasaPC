@@ -28,7 +28,7 @@
             <div class="card">
                 <Toolbar class="mb-4">
                     <template #start>
-                        <Button label="New" icon="pi pi-plus" class="p-button-success mr-2" @click="openNew" />
+                        <Button label="New" icon="pi pi-plus" class="p-button-success mr-2" @click="openNew" style="margin-right:15px"/>
                         <Button label="Delete" icon="pi pi-trash" class="p-button-danger" @click="confirmDeleteSelected" :disabled="!selectedProducts || !selectedProducts.length" />
                     </template>
 
@@ -56,7 +56,7 @@
                     <Column field="name" header="Name" :sortable="true" style="min-width:16rem"></Column>
                     <Column header="Image">
                         <template #body="slotProps">
-                            <img src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" :alt="slotProps.data.image" class="product-image" />
+                            <img :src="'/image/'+slotProps.data.path" :alt="slotProps.data.path" class="product-image" />
                         </template>
                     </Column>
                     <Column field="price" header="Price" :sortable="true" style="min-width:8rem">
@@ -77,7 +77,7 @@
                     </Column>
                     <Column :exportable="false" style="min-width:8rem">
                         <template #body="slotProps">
-                            <Button icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" @click="editProduct(slotProps.data)" />
+                            <Button icon="pi pi-pencil" class="p-button-rounded p-button-success" @click="editProduct(slotProps.data)" style="margin-right:15px" />
                             <Button icon="pi pi-trash" class="p-button-rounded p-button-warning" @click="confirmDeleteProduct(slotProps.data)" />
                         </template>
                     </Column>
@@ -85,7 +85,7 @@
             </div>
 
             <Dialog v-model:visible="productDialog" :style="{width: '450px'}" header="Product Details" :modal="true" class="p-fluid">
-                <img src="https://www.primefaces.org/wp-content/uploads/2020/05/placeholder.png" :alt="product.image" class="product-image" v-if="product.image" />
+                <img :src="'/image/'+product.path" :alt="product.image" class="product-image" v-if="product.path" />
                 <div class="field">
                     <label for="name">Name</label>
                     <InputText id="name" v-model.trim="product.name" required="true" autofocus :class="{'p-invalid': submitted && !product.name}" />

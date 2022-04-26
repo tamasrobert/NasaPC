@@ -4,7 +4,7 @@
     <div class="m-5">
                 <Dialog v-model:visible="this.showMessage" :breakpoints="{ '960px': '80vw' }" :style="{ width: '30vw' }" position="top">
                     <div class="flex align-items-center flex-column pt-6 px-3">
-                        <i class="pi pi-check-circle" :style="{fontSize: '5rem', color: messageColor }"></i>
+                        <i class="pi pi-sign-in" :style="{fontSize: '5rem', color: messageColor }"></i>
                         <h5>{{this.messageHeader}}</h5>
                         <p :style="{lineHeight: 1.5, textIndent: '1rem'}">
                             {{this.messageText}}
@@ -25,56 +25,51 @@
 
 
 
-        <div class="row">
-            
-            <div class="col-4"></div>
+            <div class="row">
+                <div class="col-xl-4 col-lg-2 col-md-2 col-sm-0"></div>
+                <div class="col-xl-4 col-lg-8 col-md-8 col-sm-12 form m-2">
+                    <div class="row">
+                        <div class="col-md-8 col-sm-12">
+                            <div class="mb-3 ">
+                                <span class="p-float-label">
+                                    <InputText id="email" type="text" v-model="this.UserData.email" />
+                                    <label for="email">Email</label>
+                                </span>
+                            </div>
+                            
+                            <div class="mb-3 ">
+                                <h5>Password</h5>
+                                <Password v-model="this.UserData.password" toggleMask :feedback="false"></Password>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <p style="font-weight:bold">Don't have an account yet?</p>
+                            <router-link to="/signup" class="btn btn-primary">Signup</router-link>
+                        </div>
+                    </div>
 
-
-            <div class="col-4 form m-5">
-                
-                <div class="mb-3 ">
-                    <label class="form-label">Email:</label>
-                    <input type="email" class="form-control" v-model="UserData.email">
-                </div>
-                
-                <div class="mb-3 ">
-                    <label class="form-label">Password:</label>
-                    <input type="text" class="form-control" v-model="UserData.password">
-                </div>
-
-                <div class="row">
-                    <div class="col-2">
-                        <button @click="Login()" class="btn btn-primary">Login</button>
-                    </div>
-                    <div class="col-3">
-                        <button class="btn btn-primary" @click="forgotPasswordForm()">Forgot password</button>
-                    </div>
-                    <div class="col-2"></div>
-                    <div class="col-3">
-                    <p>Don't have an account yet?</p>
-                    <p>Sign up today.</p>
-                    </div>
-                    <div class="col-2">
-                    <router-link to="/signup" class="btn btn-primary">signup</router-link>
+                    <div class="row mt-2">
+                        <div class="col-6">
+                            <!-- <button @click="Login()" class="btn btn-primary">Login</button> -->
+                            <Button label="Login" class="p-button-raised p-button-success" @click="Login()"/>
+                        </div>
+                        <div class="col-6">
+                            <!-- <button class="btn btn-primary" @click="forgotPasswordForm()">Forgot password</button> -->
+                            <Button label="Forgot password" class="p-button-raised p-button-info" @click="forgotPasswordForm()"/>
+                        </div>
                     </div>
                 </div>
+                <div class="col-xl-4 col-lg-2 col-md-2 col-sm-0"></div>
             </div>
-
-
-
-            <div class="col-4"></div>
-
-
-
-
-        </div>
         </div>
         <Footer/>
     </main>
 </template>
 
 <script>
+import InputText from 'primevue/inputtext';
 import Dialog from 'primevue/dialog'
+import Password from 'primevue/password';
 import Button from 'primevue/button'
 import Navbar from '../../components/Navbar.vue'
 import Footer from '../../components/Footer.vue'
@@ -86,7 +81,9 @@ export default {
         Dialog,
         Button,
         Navbar,
-        Footer
+        Footer,
+        Password,
+        InputText
     },
     data() {
         return {
@@ -106,11 +103,11 @@ export default {
         Login() {
             AccountDataService.Login(this.UserData)
                 .then(()=>{
-                    console.log("Login was succesfull")
                     this.$router.push('/')
                 })
                 .catch(err => {
                     console.log(err.response.data.error)
+                    this.errorDialog(err.response.data.error)
                 })
             
         },
@@ -150,7 +147,7 @@ export default {
             this.passwordReset = false
             this.showMessage = true
             this.messageHeader = "Success!"
-            this.messageText = "We sent you an email for further instructions."
+            this.messageText = "We sent you an email with further instructions."
             this.messageColor = "green"
         }
     },

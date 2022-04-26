@@ -6,7 +6,7 @@
                 <div class="flex align-items-center flex-column pt-6 px-3">
                     <i class="pi pi-user" :style="{fontSize: '5rem', color: 'blue' }"></i>
                     <h5>Personal information</h5>
-                    <h6>Please give us personal information for your order.</h6>
+                    <h6>Please give us some personal information for your order.</h6>
                     <!-- <p :style="{lineHeight: 1.5, textIndent: '1rem'}">
                     {{messageText}}
                     </p> -->
@@ -83,7 +83,7 @@
                 <template #item="slotProps">
                     <div class="product-item">
                         <div class="image-container">
-                            <img src="../../assets/image/asus-rog-strix-b450-f-gaming-ii.jpg" :alt="slotProps.item.product.name" />
+                            <img :src="'/image/'+slotProps.item.product.path" :alt="slotProps.item.product.path" />
                         </div>
                         <div class="product-list-detail">
                             <h6 class="mb-2">{{slotProps.item.product.name}}</h6>
@@ -174,7 +174,8 @@ export default {
                 this.validation.vshipping_address == true
             ) {
                 AccountDataService.PlaceOrder(this.data).then(() => {
-                    this.$router.push('/account/order')
+                    localStorage.clear()
+                    this.$router.push('/products')
                 })
                 .catch((err) => {
                     console.log(err.response.data.error)
@@ -217,9 +218,9 @@ export default {
         {
             this.showMessage = true
         },
-        isCartEmpty() {
-            return (JSON.parse(localStorage.getItem('cart')) == null || JSON.parse(localStorage.getItem('cart')) == undefined || JSON.parse(localStorage.getItem('cart')).length == 0);
-        },
+        // isCartEmpty() {
+        //     return (JSON.parse(localStorage.getItem('cart')) == null || JSON.parse(localStorage.getItem('cart')) == undefined || JSON.parse(localStorage.getItem('cart')).length == 0);
+        // },
         getTotalPrice() {
             let sum = 0;
             this.cartItems.forEach(product => {
@@ -230,11 +231,11 @@ export default {
         },
         addquantity(_id, num) {
             this.cartItems.forEach(product => {
-                if(_id === product._id) {
+                if(_id === product.product._id) {
                     let locArr = JSON.parse(localStorage.getItem('cart'));
                     if(num < 0) {
-                        if(product.quantity > 1) {
-                            product.quantity += num;
+                        if(product.product.quantity > 1) {
+                            product.product.quantity += num;
                             for (let i = 0; i < locArr.length; i++) {
                                 if(locArr[i]._id === _id) {
                                     locArr[i].quantity += num;
@@ -249,7 +250,7 @@ export default {
                             });
                         }
                     } else {
-                        product.quantity += num;
+                        product.product.quantity += num;
                         for (let i = 0; i < locArr.length; i++) {
                             if(locArr[i]._id === _id) {
                                 locArr[i].quantity += num;
@@ -257,7 +258,7 @@ export default {
                         }
                     }
                     localStorage.setItem('cart', JSON.stringify(locArr));
-                    this.isEmpty = this.isCartEmpty();
+                    // this.product.isEmpty = this.isCartEmpty();
                 }
             });
             // this.calculateCartquantity();
@@ -283,20 +284,20 @@ export default {
         // }
   },
   mounted() {
-            var locArr = JSON.parse(localStorage.getItem('cart'));
+            try {
+                var locArr = JSON.parse(localStorage.getItem('cart'));
 
-            locArr.forEach(product => {
-                DataService.getProductById(product._id).then((resp) => {
-                    this.cartItems.push({'product':{'name': resp.name,'category': resp.category,'price': resp.price,'_id':resp._id,'description':resp.description,'__v':0, 'quantity': product.quantity }})
-                })
-                .catch((err)=>{
-                    console.log(err.response.data.error)
-                })
-            });
-
-            //  this.cartItems.forEach(element => {
-            //     element.discount == "0"
-            // });
+                locArr.forEach(product => {
+                    DataService.getProductById(product._id).then((resp) => {
+                        this.cartItems.push({'product':{'name': resp.name,'category': resp.category,'price': resp.price,'_id':resp._id,'description':resp.description,'__v':0, 'quantity': product.quantity, "path": resp.path }})
+                    })
+                    .catch((err)=>{
+                        console.log(err.response.data.error)
+                    })
+                });
+            } catch (error) {
+                console.log("Your cart is empthy.")
+            }
   }
 
 }

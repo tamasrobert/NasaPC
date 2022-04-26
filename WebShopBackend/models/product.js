@@ -26,13 +26,19 @@ const productSchema = new Schema({
     discount: {
         type: Number,
         default: 0,
+        required: true,
         validate: {
             validator: function (d) {
                 return d >= 0 && d <= 100;
             },
             message: "Discount must be between 0 and 100 (including 0 and 100)",
         }
-    }
+    },
+    reviews: [
+        {
+            type: Object
+        }
+    ]
 }, { versionKey: false });
 
 module.exports = mongoose.model('Product', productSchema, 'products');

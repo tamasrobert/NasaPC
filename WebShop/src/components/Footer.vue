@@ -123,7 +123,7 @@ export default {
 <style lang="scss" scoped>
 @import "../assets/css/CostumeVariables.scss";
     .FooterBackground {
-        background-color: $mediumgray;
+        background-color: $darkblue;
         margin: 0;
         padding: 0;
         color: white;
