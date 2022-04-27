@@ -52,11 +52,15 @@ exports.postReview = (req, res) => {
                                         rating: req.body.rating,
                                         comment: req.body.comment
                                     }
+
                                     productReviews.push(oneReview);
 
                                     Product.updateOne({ _id }, { reviews: productReviews })
                                         .then(() => { return res.status(200).json({ "message": "Review posted!" }) })
-                                        .catch((error) => { return res.status(500).json({ "error": "Failed posting review!" }) })
+                                        .catch((error) => { console.log(error); return res.status(500).json({ "error": "Failed posting review!" }) })
+
+                                    updateReviews(_id, product, oneReview.rating)
+
                                 }
                                 else {
                                     return res.status(400).json({ "error": "Failed posting review! You have already review this product!" })
@@ -64,7 +68,8 @@ exports.postReview = (req, res) => {
                             }
                             else { res.status(404).json({ "error": "Product not found!" }) }
                         })
-                        .catch(err => { res.status(404).json({ "error": "Product not found!" }) });
+                        .catch(err => { console.log(err); res.status(404).json({ "error": "Product not found!" }) });
+
                 }
             })
             .catch((error) => {
@@ -109,10 +114,12 @@ exports.deleteReview = (req, res) => {
                                     return (String(value.userId) != String(user._id));
                                 });
 
-                                Product.updateOne({ _id }, { $set: { reviews: filteredReviews } }).then(response => {
-                                    return res.status(200).json({ "message": "Reviews have been updated." })
-                                })
+                                Product.updateOne({ _id }, { $set: { reviews: filteredReviews } })
+                                    .then(response => { return res.status(200).json({ "message": "Reviews have been updated." }) })
                                     .catch(error => { return res.status(500).json({ "message": "Unexpected error!" }) })
+
+                                updateReviews(_id, product, 0)
+
                             }
                             else {
 
@@ -124,7 +131,7 @@ exports.deleteReview = (req, res) => {
                             }
 
                         })
-                        .catch(error => {console.log(error); res.status(404).json({ "error": "Unexpected error!" }) })
+                        .catch(error => { console.log(error); res.status(404).json({ "error": "Unexpected error!" }) })
                 }
             })
             .catch((error) => {
@@ -133,4 +140,61 @@ exports.deleteReview = (req, res) => {
     } else {
         res.status(401).json({ "error": "No session!" });
     }
+};
+
+var int_try_parse = function (val, default_val, radix) {
+    try {
+        radix = radix || 10;
+        default_val = default_val || 0;
+
+        //validate this object is not null
+        if (val != null) {
+            //convert to string
+            var that = JSON.stringify(val);
+            if (that.length > 0) {
+                //check to see the string is not NaN, if not parse
+                if (!isNaN(that))
+                    return parseInt(that, radix);
+            }
+        }
+    }
+    catch (err) {
+        console.log(err);
+    }
+    //this is not a number
+    return default_val;
+};
+
+var updateReviews = function (_id, product, currentReview) {
+
+    let ratings = [];
+
+    product.reviews.forEach(oneReview => {
+        let result = int_try_parse(oneReview.rating, 1, 10);
+        ratings.push(result);
+    });
+
+    let sum = 0;
+    let helper = -1;
+
+    if (currentReview != 0) {
+        sum = Number(currentReview);
+        helper = 1;
+
+        for (let i = 0; i < ratings.length; i++) {
+            sum += ratings[i];
+        }
+    }
+    else {
+        for (let i = 0; i < ratings.length - 1; i++) {
+            sum += ratings[i];
+        }
+    }
+
+    let newRating = Math.round((sum / (ratings.length + helper)) * 10) / 10;
+
+    Product.updateOne({ _id }, { rating: newRating })
+        .then(() => { })
+        .catch((error) => { console.log(error) })
+
 };
