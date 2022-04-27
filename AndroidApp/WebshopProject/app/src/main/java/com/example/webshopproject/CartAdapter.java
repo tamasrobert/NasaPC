@@ -1,23 +1,18 @@
 package com.example.webshopproject;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -50,52 +45,45 @@ public class CartAdapter extends ArrayAdapter<CartItem> {
         TextView quantity = convertView.findViewById(R.id.quantity);
         Button add = convertView.findViewById(R.id.add);
 
-        subtract.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int quint = Integer.valueOf(quantity.getText().toString())-1;
-                if(quint != 0) {
-                    quantity.setText(String.valueOf(quint));
-                    Variables.cart.get(position).setQuantity(quint);
-                } else {
-                    Variables.cart.remove(getItem(position));
-
-                    if(Variables.cart.size() == 0) {
-                        Cart.placeOrder.setVisibility(View.INVISIBLE);
-                        Cart.tc.setVisibility(View.INVISIBLE);
-
-                        Cart.cartImage.setVisibility(View.VISIBLE);
-                        Cart.cartText.setVisibility(View.VISIBLE);
-                    } else {
-                        Cart.placeOrder.setVisibility(View.VISIBLE);
-                        Cart.tc.setVisibility(View.VISIBLE);
-
-                        Cart.cartImage.setVisibility(View.INVISIBLE);
-                        Cart.cartText.setVisibility(View.INVISIBLE);
-                    }
-                }
-                CartAdapter productAdapter = new CartAdapter(mContext, R.layout.cart_row, Variables.cart);
-                Cart.listView.setAdapter(productAdapter);
-
-                Cart.tc.setText("Fizetendő: " + String.valueOf(Variables.getCartItemsCost()) + " Ft");
-            }
-        });
-
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int quint = Integer.valueOf(quantity.getText().toString())+1;
-                quantity.setText(String.valueOf(Integer.valueOf(quantity.getText().toString())+1));
+        subtract.setOnClickListener(view -> {
+            int quint = Integer.valueOf(quantity.getText().toString())-1;
+            if(quint != 0) {
+                quantity.setText(String.valueOf(quint));
                 Variables.cart.get(position).setQuantity(quint);
+            } else {
+                Variables.cart.remove(getItem(position));
 
-                CartAdapter productAdapter = new CartAdapter(mContext, R.layout.cart_row, Variables.cart);
-                Cart.listView.setAdapter(productAdapter);
+                if(Variables.cart.size() == 0) {
+                    Cart.placeOrder.setVisibility(View.INVISIBLE);
+                    Cart.tc.setVisibility(View.INVISIBLE);
 
-                Cart.tc.setText("Fizetendő: " + String.valueOf(Variables.getCartItemsCost()) + " Ft");
+                    Cart.cartImage.setVisibility(View.VISIBLE);
+                    Cart.cartText.setVisibility(View.VISIBLE);
+                } else {
+                    Cart.placeOrder.setVisibility(View.VISIBLE);
+                    Cart.tc.setVisibility(View.VISIBLE);
+
+                    Cart.cartImage.setVisibility(View.INVISIBLE);
+                    Cart.cartText.setVisibility(View.INVISIBLE);
+                }
             }
+            CartAdapter productAdapter = new CartAdapter(mContext, R.layout.cart_row, Variables.cart);
+            Cart.listView.setAdapter(productAdapter);
+
+            Cart.tc.setText("Fizetendő: " + String.valueOf(Variables.getCartItemsCost()) + " Ft");
         });
 
-        //imageView.setImageResource(getItem(position));
+        add.setOnClickListener(view -> {
+            int quint = Integer.valueOf(quantity.getText().toString())+1;
+            quantity.setText(String.valueOf(Integer.valueOf(quantity.getText().toString())+1));
+            Variables.cart.get(position).setQuantity(quint);
+
+            CartAdapter productAdapter = new CartAdapter(mContext, R.layout.cart_row, Variables.cart);
+            Cart.listView.setAdapter(productAdapter);
+
+            Cart.tc.setText("Fizetendő: " + String.valueOf(Variables.getCartItemsCost()) + " Ft");
+        });
+
         imageView.setImageDrawable(LoadImageFromWebOperations( Variables.getFrontendUrl() + "/image/" + getItem(position).getPath()));
 
         txtName.setText(getItem(position).getName());
@@ -108,8 +96,7 @@ public class CartAdapter extends ArrayAdapter<CartItem> {
     public static Drawable LoadImageFromWebOperations(String url) {
         try {
             InputStream is = (InputStream) new URL(url).getContent();
-            Drawable d = Drawable.createFromStream(is, "src name");
-            return d;
+            return Drawable.createFromStream(is, "src name");
         } catch (Exception e) {
             return null;
         }

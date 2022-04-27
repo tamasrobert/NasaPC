@@ -1,7 +1,5 @@
 package com.example.webshopproject;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,11 +11,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -101,17 +98,17 @@ public class PlaceOrder extends AppCompatActivity {
 
         JSONObject jsonBody = new JSONObject();
         try {
-            jsonBody.put("last_name", "Gonda");
-            jsonBody.put("first_name", "Szabolcs");
-            jsonBody.put("shipping_address", "9200, Mosonmagyaróvár valami utca 123");
-            jsonBody.put("billing_address", "9200, Mosonmagyaróvár valami utca 123");
-            jsonBody.put("email", "gonda.szabolcs.krisztian@students.jedlik.eu");
-            jsonBody.put("phone_number", "+36301234567");
+            jsonBody.put("last_name", firstName);
+            jsonBody.put("first_name", lastName);
+            jsonBody.put("shipping_address", shippingAddress);
+            jsonBody.put("billing_address", shippingAddress);
+            jsonBody.put("email", email);
+            jsonBody.put("phone_number", phoneNumber);
             jsonBody.put("total_price", Variables.getCartItemsCost());
 
             JSONArray arr = new JSONArray();
-            JSONObject product2 = new JSONObject();
             for(int i = 0; i<Variables.cart.size(); i++) {
+                JSONObject product2 = new JSONObject();
                 JSONObject product = new JSONObject();
                 CartItem item = Variables.cart.get(i);
                 product.put("_id", item.get_id());
@@ -134,22 +131,10 @@ public class PlaceOrder extends AppCompatActivity {
         //final String requestBody = jsonBody.toString();
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.POST, Variables.getBackendUrl() + "/api/mobile/place-order/" + data.getString("session", "")  , jsonBody, new Response.Listener<JSONObject>() {
+                (Request.Method.POST, Variables.getBackendUrl() + "/api/mobile/place-order/" + data.getString("session", "")  , jsonBody, response -> {
 
-                    //Variables.getBackendUrl() + "/api/mobile/place-order/" + data.getString("session", "")
-                    //Variables.getBackendUrl() + "/api/mobile/test"
+                }, error -> {
 
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                    }
-                }, new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // TODO: Handle error
-                        //textView.setText("Response: " + error.toString());
-                    }
                 });
 
 

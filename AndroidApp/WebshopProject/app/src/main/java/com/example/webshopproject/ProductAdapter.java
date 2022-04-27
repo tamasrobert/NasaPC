@@ -1,11 +1,7 @@
 package com.example.webshopproject;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +11,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -42,7 +37,6 @@ public class ProductAdapter extends ArrayAdapter<Product> {
         TextView txtName = convertView.findViewById(R.id.txtName);
         TextView txtPrice = convertView.findViewById(R.id.txtPrice);
 
-        //imageView.setImageResource(getItem(position));
         imageView.setImageDrawable(LoadImageFromWebOperations( Variables.getFrontendUrl() + "/image/" + getItem(position).getPath()));
 
 
@@ -55,8 +49,7 @@ public class ProductAdapter extends ArrayAdapter<Product> {
     public static Drawable LoadImageFromWebOperations(String url) {
         try {
             InputStream is = (InputStream) new URL(url).getContent();
-            Drawable d = Drawable.createFromStream(is, "src name");
-            return d;
+            return Drawable.createFromStream(is, "src name");
         } catch (Exception e) {
             return null;
         }

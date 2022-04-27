@@ -82,38 +82,33 @@ public class Orders extends AppCompatActivity {
         SharedPreferences data = getSharedPreferences("webshop", MODE_PRIVATE);
 
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest
-                (Request.Method.GET, Variables.getBackendUrl() + "/api/mobile/getUserOrders/" + data.getString("userId", "") + "/" + data.getString("session", ""), null, new Response.Listener<JSONArray>() {
+                (Request.Method.GET, Variables.getBackendUrl() + "/api/mobile/getUserOrders/" + data.getString("userId", "") + "/" + data.getString("session", ""), null, response -> {
+                    try {
+                        Variables.orders.clear();
+                        for(int i = 0; i<response.length(); i++) {
+                            JSONObject jsonObj = response.getJSONObject(i);
 
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        try {
-                            Variables.orders.clear();
-                            for(int i = 0; i<response.length(); i++) {
-                                JSONObject jsonObj = response.getJSONObject(i);
+                            ArrayList<String> products = new ArrayList<>();
 
-                                ArrayList<String> products = new ArrayList<>();
-
-                                for(int j = 0; j<jsonObj.getJSONArray("items").length(); j++) {
-                                    JSONObject jsonProds = jsonObj.getJSONArray("items").getJSONObject(j).getJSONObject("product");
-                                    products.add(jsonProds.getString("quantity") + "x " + jsonProds.getString("name"));
-
-                                }
-                                Variables.orders.add(new Order(jsonObj.getString("id"), products, jsonObj.getInt("total_price")));
+                            for(int j = 0; j<jsonObj.getJSONArray("items").length(); j++) {
+                                JSONObject jsonProds = jsonObj.getJSONArray("items").getJSONObject(j).getJSONObject("product");
+                                products.add(jsonProds.getString("quantity") + "x " + jsonProds.getString("name"));
 
                             }
+                            Variables.orders.add(new Order(jsonObj.getString("id"), products, jsonObj.getInt("total_price")));
 
-                            OrderAdapter orderAdapter = new OrderAdapter(Orders.this, R.layout.order_row, Variables.orders);
-                            listView.setAdapter(orderAdapter);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
+
+                        OrderAdapter orderAdapter = new OrderAdapter(Orders.this, R.layout.order_row, Variables.orders);
+                        listView.setAdapter(orderAdapter);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
                 }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // TODO: Handle error
-                        //textView.setText("Response: " + error.toString());
+
                     }
                 });
 
