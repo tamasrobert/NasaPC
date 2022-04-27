@@ -104,7 +104,7 @@ exports.getUserOrders = (req, res) => {
                 let id = user._id;
                 if (!user.courier && !user.admin) {
                     console.log("logged in as user")
-                    Order.find({ id }).then(result => { return res.status(200).json(result) }).catch(err => res.status(404).json({ "error": "Unexpected error!" }))
+                    Order.find({ userId:id }).then(result => { return res.status(200).json(result) }).catch(err => res.status(404).json({ "error": "Unexpected error!" }))
                 }
                 else {
                     console.log("logged in as courier or admin")
