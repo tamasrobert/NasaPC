@@ -1,18 +1,15 @@
 package com.example.webshopproject;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -35,38 +32,19 @@ public class Profile extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             email.setText("Email címed: " + bundle.getString("email"));
+        } else {
+            SharedPreferences data = getSharedPreferences("webshop", MODE_PRIVATE);
+            if(!data.getString("email", "").equals("")) {
+                email.setText("Email címed: " + data.getString("email", ""));
+            } else {
+                email.setText("");
+            }
+
         }
 
 
         //Change the built in bottom nav color
         getWindow().setNavigationBarColor(getResources().getColor(R.color.primary));
-
-        SharedPreferences data = getSharedPreferences("webshop", MODE_PRIVATE);
-        //SharedPreferences.Editor prefEditor = data.edit();
-        //prefEditor.putBoolean("isLoggedIn", true);
-        //prefEditor.commit();
-
-        Log.d("ABC", String.valueOf(data.getBoolean("isLoggedIn", false)));
-
-        /*
-
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        if(data.getBoolean("isLoggedIn", false)) {
-            ft.replace(R.id.framelayout, new ProfileDetails());
-        } else {
-            ft.replace(R.id.framelayout, new Authentication());
-        }
-        ft.commit();
-
-         */
-
-        /*
-        SharedPreferences gameSettings = getSharedPreferences("MyGamePreferences", MODE_PRIVATE);
-        SharedPreferences.Editor prefEditor = gameSettings.edit();
-        prefEditor.putString("UserName", "Guest123");
-        prefEditor.commit();
-         */
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +67,7 @@ public class Profile extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.products:
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        finish();
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.profile:
@@ -99,10 +78,12 @@ public class Profile extends AppCompatActivity {
                         } else {
                             startActivity(new Intent(getApplicationContext(), OrdersNotLoggedIn.class));
                         }
+                        finish();
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.cart:
                         startActivity(new Intent(getApplicationContext(), Cart.class));
+                        finish();
                         overridePendingTransition(0,0);
                         return true;
                 }

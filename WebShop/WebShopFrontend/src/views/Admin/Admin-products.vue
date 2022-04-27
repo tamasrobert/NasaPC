@@ -3,26 +3,31 @@
         <Navbar/>
 
 
-            <!-- <Toast />
-                <Toast position="top-right" group="bc">
-                    <template #message="slotProps">
-                        <div class="flex flex-column">
-                            <div class="text-center">
-                                <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
-                                <h4>{{slotProps.message.summary}}</h4>
-                                <p>{{slotProps.message.detail}}</p>
-                            </div>
-                            <div class="grid p-fluid">
-                                <div class="col-6">
-                                    <Button class="p-button-success" label="Yes" @click="onConfirm"></Button>
-                                </div>
-                                <div class="col-6">
-                                    <Button class="p-button-secondary" label="No" @click="onReject"></Button>
-                                </div>
-                            </div>
+        <Toast />
+        <Toast position="top-left" group="tl" />
+        <Toast position="bottom-left" group="bl" />
+        <Toast position="bottom-right" group="br" />
+
+        <Toast position="bottom-center" group="bc">
+            <template #message="slotProps">
+                <div class="flex flex-column">
+                    <div class="text-center">
+                        <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
+                        <h4>{{slotProps.message.summary}}</h4>
+                        <p>{{slotProps.message.detail}}</p>
+                    </div>
+                    <div class="grid p-fluid">
+                        <div class="col-6">
+                            <Button class="p-button-success" label="Yes" @click="onConfirm"></Button>
                         </div>
-                    </template>
-            </Toast> -->
+                        <div class="col-6">
+                            <Button class="p-button-secondary" label="No" @click="onReject"></Button>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </Toast>
+        <Button label="Success" class="p-button-success" @click="showSuccess" />
 
         <div class="m-5 mainContent">
             <div class="card">
@@ -222,8 +227,9 @@ import AdminDataService from '../../services/AdminDataService.js'
 import AccountDataService from '../../services/AccountDataService.js'
 import DataService from '../../services/DataService.js'
 import { ref, onMounted } from 'vue';
+// import { defineComponent } from "vue";
 import { FilterMatchMode } from 'primevue/api';
-import { useToast } from 'primevue/usetoast';
+// import { useToast } from 'primevue/usetoast';
 import Dialog from 'primevue/dialog'
 import Toolbar from 'primevue/toolbar'
 import InputText from 'primevue/inputtext'
@@ -264,12 +270,17 @@ export default {
                 this.$router.push('/')
             })
     },
+    methods: {
+        showSuccess() {
+            this.$toast.add({severity:'success', summary: 'Success Message', detail:'Message Content', life: 3000});
+        },
+    },
     setup() {
         onMounted(() => {
             DataService.getAllProducts().then(data => products.value = data);
         })
 
-        const toast = useToast();
+        // const toast = useToast();
         const dt = ref();
         const products = ref();
         const productDialog = ref(false);
@@ -302,13 +313,13 @@ export default {
 			if (product.value.name.trim()) {
                 if (product.value._id) {
                     AdminDataService.modifyProduct(product.value._id, product.value)
-                    toast.add({severity:'success', summary: 'Successful', detail: 'Product Updated', life: 3000});
+                    // toast.add({severity:'success', summary: 'Successful', detail: 'Product Updated', life: 3000});
                 }
                 else {
                     product.value.path = 'product-placeholder.svg';
                     console.log(product.value)
                     AdminDataService.addProduct(product.value)
-                    toast.add({severity:'success', summary: 'Successful', detail: 'Product Created', life: 3000});
+                    // toast.add({severity:'success', summary: 'Successful', detail: 'Product Created', life: 3000});
                 }
 
                 productDialog.value = false;
@@ -327,7 +338,7 @@ export default {
             AdminDataService.deleteProduct(product.value._id)
             deleteProductDialog.value = false;
             product.value = {};
-            toast.add({severity:'success', summary: 'Successful', detail: 'Product Deleted', life: 3000});
+            // toast.add({severity:'success', summary: 'Successful', detail: 'Product Deleted', life: 3000});
         };
         const exportCSV = () => {
             dt.value.exportCSV();
@@ -341,7 +352,7 @@ export default {
             });
             deleteProductsDialog.value = false;
             selectedProducts.value = null;
-            toast.add({severity:'success', summary: 'Successful', detail: 'Products Deleted', life: 3000});
+            // toast.add({severity:'success', summary: 'Successful', detail: 'Products Deleted', life: 3000});
         };
 
         return { dt, products, productDialog, deleteProductDialog, deleteProductsDialog, product, 

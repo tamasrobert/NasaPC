@@ -40,6 +40,7 @@ const authenticationRoutes = require('./routes/authentication');
 const productRoutes = require('./routes/product');
 const orderRoutes = require('./routes/order');
 const userRoutes = require('./routes/user');
+const mobileRoutes = require('./routes/mobile');
 
 // middlewares -> routes
 app.use(adminRoutes);
@@ -47,6 +48,7 @@ app.use(authenticationRoutes);
 app.use(productRoutes);
 app.use(orderRoutes);
 app.use(userRoutes);
+app.use(mobileRoutes);
 
 // mongodb base
 const CONNECTION_STRING = process.env.CONNECTION_STRING;

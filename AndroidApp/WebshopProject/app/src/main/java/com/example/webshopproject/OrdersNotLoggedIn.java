@@ -1,22 +1,18 @@
 package com.example.webshopproject;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class OrdersNotLoggedIn extends AppCompatActivity {
 
     BottomNavigationView bnv;
-    ListView listView;
     Button login;
 
     @Override
@@ -44,34 +40,30 @@ public class OrdersNotLoggedIn extends AppCompatActivity {
             }
         });
 
-        bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.products:
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.profile:
-                        SharedPreferences data = getSharedPreferences("webshop", MODE_PRIVATE);
-                        if(data.getBoolean("isLoggedIn", false)) {
-                            startActivity(new Intent(getApplicationContext(), Profile.class));
-                        } else {
-                            startActivity(new Intent(getApplicationContext(), Login.class));
-                        }
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.orders:
-                        return true;
-                    case R.id.cart:
-                        startActivity(new Intent(getApplicationContext(), Cart.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                }
-
-                return false;
+        bnv.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.products:
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                case R.id.profile:
+                    SharedPreferences data = getSharedPreferences("webshop", MODE_PRIVATE);
+                    if(data.getBoolean("isLoggedIn", false)) {
+                        startActivity(new Intent(getApplicationContext(), Profile.class));
+                    } else {
+                        startActivity(new Intent(getApplicationContext(), Login.class));
+                    }
+                    overridePendingTransition(0,0);
+                    return true;
+                case R.id.orders:
+                    return true;
+                case R.id.cart:
+                    startActivity(new Intent(getApplicationContext(), Cart.class));
+                    overridePendingTransition(0,0);
+                    return true;
             }
+
+            return false;
         });
     }
 }

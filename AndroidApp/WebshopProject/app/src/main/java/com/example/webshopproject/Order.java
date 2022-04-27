@@ -5,11 +5,13 @@ import java.util.ArrayList;
 public class Order {
 
     private String ID;
-    private ArrayList<String> products; //It only stores the name
+    private ArrayList<String> products; //It only stores the quantity and name as String
+    private int cost;
 
-    public Order(String ID, ArrayList<String> products) {
+    public Order(String ID, ArrayList<String> products, int cost) {
         this.ID = ID;
         this.products = products;
+        this.cost = cost;
     }
 
     public String getID() {
@@ -26,5 +28,13 @@ public class Order {
 
     public void setProducts(ArrayList<String> products) {
         this.products = products;
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
     }
 }

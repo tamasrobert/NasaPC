@@ -150,7 +150,8 @@ exports.login = (req, res) => {
                                 })
                             var data = {
                                 email: response.email,
-                                session
+                                session,
+                                userId: response._id
                             }
                             if (response.admin) {
                                 data = { ...data, admin: true };

@@ -1,26 +1,17 @@
 package com.example.webshopproject;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 
 public class OrderAdapter extends ArrayAdapter<Order> {
@@ -45,6 +36,7 @@ public class OrderAdapter extends ArrayAdapter<Order> {
         ImageView imageView = convertView.findViewById(R.id.imageView);
         TextView txtName = convertView.findViewById(R.id.txtName);
         TextView txtItems = convertView.findViewById(R.id.txtItems);
+        TextView txtTotalCost = convertView.findViewById(R.id.total_cost);
 
         imageView.setImageResource(R.drawable.package_icon);
         txtName.setText(getItem(position).getID());
@@ -57,6 +49,7 @@ public class OrderAdapter extends ArrayAdapter<Order> {
             }
         }
         txtItems.setText(prodStr);
+        txtTotalCost.setText("Összesen: " + String.valueOf(getItem(position).getCost()) + " Ft");
 
         return convertView;
     }
