@@ -1,9 +1,5 @@
 package com.example.webshopproject;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -14,17 +10,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
 public class Login extends AppCompatActivity {
@@ -46,7 +43,6 @@ public class Login extends AppCompatActivity {
         login = findViewById(R.id.btn_login);
         bnv = findViewById(R.id.bottom_navigation);
         bnv.setSelectedItemId(R.id.profile);
-
         username = findViewById(R.id.text_username);
         password = findViewById(R.id.text_password);
         error_text = findViewById(R.id.error);
@@ -97,7 +93,6 @@ public class Login extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        //final String requestBody = jsonBody.toString();
 
         HashMap<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json; charset=utf-8");
@@ -106,8 +101,6 @@ public class Login extends AppCompatActivity {
         JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, url, jsonBody,
                 response -> {
                     try {
-                        Log.d("BRESPONSE", response.getString("session"));
-
                         error_text.setVisibility(View.INVISIBLE);
 
                         SharedPreferences data = getSharedPreferences("webshop", MODE_PRIVATE);

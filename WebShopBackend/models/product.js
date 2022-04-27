@@ -38,7 +38,11 @@ const productSchema = new Schema({
         {
             type: Object
         }
-    ]
+    ],
+    rating : {
+        type: Number,
+        default: 0
+    }
 }, { versionKey: false });
 
 module.exports = mongoose.model('Product', productSchema, 'products');

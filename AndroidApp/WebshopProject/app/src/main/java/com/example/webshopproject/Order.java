@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Order {
 
     private String ID;
-    private ArrayList<String> products; //It only stores the name
+    private ArrayList<String> products; //It only stores the quantity and name as String
     private int cost;
 
     public Order(String ID, ArrayList<String> products, int cost) {

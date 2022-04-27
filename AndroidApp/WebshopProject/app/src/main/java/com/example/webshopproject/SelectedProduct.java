@@ -1,7 +1,5 @@
 package com.example.webshopproject;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
@@ -11,9 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.io.InputStream;
 import java.net.URL;
-import java.util.regex.Pattern;
 
 public class SelectedProduct extends AppCompatActivity {
 
@@ -64,8 +63,7 @@ public class SelectedProduct extends AppCompatActivity {
     public static Drawable LoadImageFromWebOperations(String url) {
         try {
             InputStream is = (InputStream) new URL(url).getContent();
-            Drawable d = Drawable.createFromStream(is, "src name");
-            return d;
+            return Drawable.createFromStream(is, "src name");
         } catch (Exception e) {
             return null;
         }
