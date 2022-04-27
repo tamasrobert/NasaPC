@@ -9,20 +9,28 @@
         <div class="carousel-inner">
 
             <div class="carousel-item active" data-bs-interval="10000">
-                <img src="https://picsum.photos/600/300" class="d-block w-100">
+                <img src="/image/Kingston-FURY-16GB-KIT-DDR4-3200MHz-CL16-Beast-Black.jpg" class="d-block w-100" style="height:800px">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>Wellcome</h5>
+                    <h4>Kingston-FURY-16GB-KIT-DDR4-3200MHz-CL16-Beast-Black</h4>
                     <p></p>
                 </div>
             </div>
 
-            <div v-for="(item,i) in carousel_items" :key="i" class="carousel-item" data-bs-interval="10000" >
+            <!-- <div class="carousel-item" data-bs-interval="10000">
+                <img src="/image/Samsung-870-EVO-500GB.jpg" class="d-block w-100" style="height:800px">
+                <div class="carousel-caption d-none d-md-block">
+                    <h4>Samsung-870-EVO-500GB</h4>
+                    <p></p>
+                </div>
+            </div> -->
+
+            <!-- <div v-for="(item,i) in carousel_items" :key="i" class="carousel-item" data-bs-interval="10000" >
                 <img :src="item.imageURl" class="d-block w-100" >
                 <div class="carousel-caption d-none d-md-block">
                     <h4>{{item.title}}</h4>
                     <p>{{item.text}}</p>
                 </div>
-            </div>
+            </div> -->
         </div>
 
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselMainPage" data-bs-slide="prev">
@@ -40,16 +48,16 @@
 <script>
 export default {
     name: 'Carousel',
-    data() {
-        return{
-            carousel_items: [
-                {title: "Wellcome", text: "", imageURl: "https://picsum.photos/id/1/600/300"},
-                {title: "Carousel item 2", text: "Some placeholder text to fill the space. Enjoy!", imageURl: "https://picsum.photos/id/101/600/300"},
-                {title: "Carousel item 3", text: "Some placeholder text to fill the space. Enjoy!", imageURl: "https://picsum.photos/id/103/600/300"},
-                {title: "Carousel item 4", text: "Some placeholder text to fill the space. Enjoy!", imageURl: "https://picsum.photos/id/106/600/300"}
-            ]
-        }
-    }
+    // data() {
+    //     return{
+    //         carousel_items: [
+    //             {title: "Wellcome", text: "", imageURl: "https://picsum.photos/id/1/600/300"},
+    //             {title: "Carousel item 2", text: "Some placeholder text to fill the space. Enjoy!", imageURl: "https://picsum.photos/id/101/600/300"},
+    //             {title: "Carousel item 3", text: "Some placeholder text to fill the space. Enjoy!", imageURl: "https://picsum.photos/id/103/600/300"},
+    //             {title: "Carousel item 4", text: "Some placeholder text to fill the space. Enjoy!", imageURl: "https://picsum.photos/id/106/600/300"}
+    //         ]
+    //     }
+    // }
 }
 </script>
 

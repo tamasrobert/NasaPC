@@ -3,7 +3,7 @@
         <Navbar/>
 
 
-        <Toast />
+        <!-- <Toast />
         <Toast position="top-left" group="tl" />
         <Toast position="bottom-left" group="bl" />
         <Toast position="bottom-right" group="br" />
@@ -27,7 +27,7 @@
                 </div>
             </template>
         </Toast>
-        <Button label="Success" class="p-button-success" @click="showSuccess" />
+        <Button label="Success" class="p-button-success" @click="showSuccess" /> -->
 
         <div class="m-5 mainContent">
             <div class="card">
@@ -270,11 +270,11 @@ export default {
                 this.$router.push('/')
             })
     },
-    methods: {
-        showSuccess() {
-            this.$toast.add({severity:'success', summary: 'Success Message', detail:'Message Content', life: 3000});
-        },
-    },
+    // methods: {
+    //     showSuccess() {
+    //         this.$toast.add({severity:'success', summary: 'Success Message', detail:'Message Content', life: 3000});
+    //     },
+    // },
     setup() {
         onMounted(() => {
             DataService.getAllProducts().then(data => products.value = data);

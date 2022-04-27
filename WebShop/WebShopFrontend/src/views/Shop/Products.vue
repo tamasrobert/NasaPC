@@ -39,7 +39,7 @@
 				</template>
 
 				<template #grid="slotProps">
-					<div class=" xl:col-4 md:col-12">
+					<div class=" xl:col-4 lg:col-6 md:col-12 sm:col-12">
 						<div class="product-grid-item card">
 							<div class="product-grid-item-top">
 								<div>
@@ -167,7 +167,7 @@ export default {
 @import "../../assets/css/CostumeVariables.scss";
 .card {
     background: #ffffff;
-    padding: 2rem;
+    padding: 0.5rem;
     box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
     border-radius: 4px;
     margin-bottom: 2rem;
