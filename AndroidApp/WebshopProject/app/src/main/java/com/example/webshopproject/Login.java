@@ -113,6 +113,9 @@ public class Login extends AppCompatActivity {
                         SharedPreferences data = getSharedPreferences("webshop", MODE_PRIVATE);
                         SharedPreferences.Editor prefEditor = data.edit();
                         prefEditor.putBoolean("isLoggedIn", true);
+                        prefEditor.putString("session", response.getString("session"));
+                        prefEditor.putString("userId", response.getString("userId"));
+                        prefEditor.putString("email", response.getString("email"));
                         prefEditor.commit();
 
                         Intent intent = new Intent(getApplicationContext(), Profile.class);
