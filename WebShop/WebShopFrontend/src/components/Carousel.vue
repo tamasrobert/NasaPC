@@ -9,20 +9,20 @@
         <div class="carousel-inner">
 
             <div class="carousel-item active" data-bs-interval="10000">
-                <img src="/image/Kingston-FURY-16GB-KIT-DDR4-3200MHz-CL16-Beast-Black.jpg" class="d-block w-100" style="height:800px">
+                <img src="/image/Cooler Master MasterLiquid ML240L RGB V2.jpg" class="d-block w-100">
                 <div class="carousel-caption d-none d-md-block">
-                    <h4>Kingston-FURY-16GB-KIT-DDR4-3200MHz-CL16-Beast-Black</h4>
+                    <h4>Cooler Master MasterLiquid ML240L RGB V2</h4>
                     <p></p>
                 </div>
             </div>
 
-            <!-- <div class="carousel-item" data-bs-interval="10000">
-                <img src="/image/Samsung-870-EVO-500GB.jpg" class="d-block w-100" style="height:800px">
+            <div v-for="(item,i) in carousel_items" :key="i" class="carousel-item" data-bs-interval="10000" >
+                <img :src="item.imageURl" class="d-block w-100" >
                 <div class="carousel-caption d-none d-md-block">
-                    <h4>Samsung-870-EVO-500GB</h4>
-                    <p></p>
+                    <h4>{{item.title}}</h4>
+                    <p>{{item.text}}</p>
                 </div>
-            </div> -->
+            </div>
 
             <!-- <div v-for="(item,i) in carousel_items" :key="i" class="carousel-item" data-bs-interval="10000" >
                 <img :src="item.imageURl" class="d-block w-100" >
@@ -48,16 +48,13 @@
 <script>
 export default {
     name: 'Carousel',
-    // data() {
-    //     return{
-    //         carousel_items: [
-    //             {title: "Wellcome", text: "", imageURl: "https://picsum.photos/id/1/600/300"},
-    //             {title: "Carousel item 2", text: "Some placeholder text to fill the space. Enjoy!", imageURl: "https://picsum.photos/id/101/600/300"},
-    //             {title: "Carousel item 3", text: "Some placeholder text to fill the space. Enjoy!", imageURl: "https://picsum.photos/id/103/600/300"},
-    //             {title: "Carousel item 4", text: "Some placeholder text to fill the space. Enjoy!", imageURl: "https://picsum.photos/id/106/600/300"}
-    //         ]
-    //     }
-    // }
+    data() {
+        return{
+            carousel_items: [
+                {title: "ASUS ROG Strix NVIDIA GeForce RTX 3070 V2 OC Edition Gaming Graphics Card", text: "", imageURl: "/image/ASUS ROG Strix NVIDIA GeForce RTX 3070 V2 OC Edition.jpg"},
+            ]
+        }
+    }
 }
 </script>
 

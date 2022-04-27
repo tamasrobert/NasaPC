@@ -1,7 +1,7 @@
 <template>
 <main class="mainContent">
   <Navbar/>
-  <div class="mainContent" style="margin:5%">
+  <div class="mainContent" style="margin-top:5%; margin-left:20%; margin-right:20%">
     <Carousel/>
     <div class="line"></div>
   </div>
@@ -76,9 +76,10 @@ export default {
   data(){
     return {
       promotions: [
-        {title:"EVGA GeForce RTX 3080 Ti XC3 ULTRA", text:"Don't miss out on this check it out now!", picture:"EVGA-GeForce-RTX-3080-Ti-XC3-ULTRA.jpg"},
-        {title:"ASUS ROG STRIX B450-F GAMING II", text:"This already has your name on it, take a look at this beast.", picture:"asus-rog-strix-b450-f-gaming-ii.jpg"},
-        {title:"Rapture COBRA black", text:"You will regret it later if you don't check this out, I warned you.", picture:"Rapture-COBRA-black.jpg"},
+        {title:"ZOTAC Gaming GeForce RTX 3060 Twin Edge OC 12GB GDDR6 192-bit 15 Gbps PCIE 4.0 Gaming Graphics Card", link: "http://localhost:8080/product-details/6269b3c1764b955a18307168", text:"Don't miss out on this check it out now!", picture:"ZOTAC Gaming GeForce RTX 3060 Twin Edge OC.jpg"},
+        {title:"Intel Core i9-12900K Desktop Processor 16 (8P+8E) Cores up to 5.2 GHz Unlocked LGA1700 600 Series Chipset 125W", link: "http://localhost:8080/product-details/6269b42c764b955a18307171", text:"This CPU practicly has your name on it, claim it!", picture:"Intel Core i9-12900K Desktop Processor 16 (8P+8E).jpg"},
+        {title:"ASUS ROG Strix B550-F Gaming (WiFi 6) AMD AM4 Zen 3 Ryzen 5000 & 3rd Gen Ryzen ATX Gaming Motherboard", link: "http://localhost:8080/product-details/6269b598764b955a18307194", text:"Check out this beast, use it well.", picture:"ASUS ROG Strix B550-F Gaming (WiFi 6) AMD AM4 Zen 3 Ryzen 5000.jpg"},
+        {title:"Corsair Vengeance RGB PRO 16GB (2x8GB) DDR4 3200MHz C16 LED Desktop Memory - Black", link: "http://localhost:8080/product-details/6269b26f764b955a1830714d", text:"Sooo much memory, wish I had that much.", picture:"Corsair Vengeance RGB PRO 16GB.jpg"},
       ]
     }
   },

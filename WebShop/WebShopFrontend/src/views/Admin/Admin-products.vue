@@ -165,6 +165,10 @@
                             <RadioButton id="category11" name="category" value="phone" v-model="product.category" />
                             <label for="category11">phone</label>
                         </div>
+                        <div class="field-radiobutton col-6">
+                            <RadioButton id="category12" name="category" value="cooler" v-model="product.category" />
+                            <label for="category12">cooler</label>
+                        </div>
                     </div>
                 </div>
 
@@ -316,8 +320,6 @@ export default {
                     // toast.add({severity:'success', summary: 'Successful', detail: 'Product Updated', life: 3000});
                 }
                 else {
-                    product.value.path = 'product-placeholder.svg';
-                    console.log(product.value)
                     AdminDataService.addProduct(product.value)
                     // toast.add({severity:'success', summary: 'Successful', detail: 'Product Created', life: 3000});
                 }
