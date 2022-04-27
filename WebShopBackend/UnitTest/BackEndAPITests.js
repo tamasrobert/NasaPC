@@ -1,16 +1,16 @@
+// required modules
 let app = require('../app');
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 var _ = require('lodash');
-
 const Product = require('../models/product');
-
 const { expect } = require('chai');
-// let should = chai.should();
 
+// create a new test-agent
 chai.use(chaiHttp);
 const agent = chai.request.agent(app);
 
+// dummy-data for add-product
 const product = new Product({
   "name": "test name",
   "category": "phone",
@@ -20,6 +20,7 @@ const product = new Product({
   "discount": 100
 });
 
+// dummy-data for modify-product
 const updatedProduct = new Product({
   "name": "test name updated",
   "category": "phone",
@@ -29,6 +30,7 @@ const updatedProduct = new Product({
   "discount": 80
 });
 
+// error storage
 let error = product.validateSync();
 let errorCount = 0;
 if (error) { errorCount = _.size(error.errors) }
@@ -41,6 +43,19 @@ describe('--------------------------------------\n  \tWebShopBackend API Tests:\
       .send({ email: 'admin@nasapc.com', password: 'admin' })
       .end(function (err, res) {
         expect(res).to.have.status(200);
+        expect(agent).to.have.cookie('LOCAL_KEY');
+        done();
+      });
+  });
+
+  it('Should be able to get a session', function (done) {
+    agent
+      .get('/api/session')
+      .end(function (err, res) {
+        expect(res).to.have.status(200);
+        expect(res.body[0]).to.have.property('email');
+        expect(res.body[0].email).to.equal('admin@nasapc.com');
+        expect(res.body[0].admin).to.equal(true);
         expect(agent).to.have.cookie('LOCAL_KEY');
         done();
       });
@@ -77,16 +92,6 @@ describe('--------------------------------------\n  \tWebShopBackend API Tests:\
       });
   });
 
-  it('Should be able to get wishlist', function (done) {
-    agent
-      .get('/api/wishlist')
-      .end(function (err, res) {
-        expect(res).to.have.status(200);
-        expect(res.body).to.be.an.instanceOf(Object);
-        done();
-      });
-  });
-
   it('Should be able to add a product to wishlist', function (done) {
     agent
       .post('/api/add-to-wishlist/626853cefcffd060e07c6791')
@@ -98,6 +103,16 @@ describe('--------------------------------------\n  \tWebShopBackend API Tests:\
       });
   });
 
+  it('Should be able to get wishlist', function (done) {
+    agent
+      .get('/api/wishlist')
+      .end(function (err, res) {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an.instanceOf(Object);
+        done();
+      });
+  });
+
   it('Should be able to remove a product from wishlist', function (done) {
     agent
       .post('/api/remove-from-wishlist/626853cefcffd060e07c6791')
@@ -105,19 +120,6 @@ describe('--------------------------------------\n  \tWebShopBackend API Tests:\
         expect(res).to.have.status(200);
         expect(res.body).to.have.property('message');
         expect(res.body.message).to.equal('Your WishList has been updated.')
-        done();
-      });
-  });
-
-  it('Should be able to get a session', function (done) {
-    agent
-      .get('/api/session')
-      .end(function (err, res) {
-        expect(res).to.have.status(200);
-        expect(res.body[0]).to.have.property('email');
-        expect(res.body[0].email).to.equal('admin@nasapc.com');
-        expect(res.body[0].admin).to.equal(true);
-        expect(agent).to.have.cookie('LOCAL_KEY');
         done();
       });
   });
@@ -136,7 +138,7 @@ describe('--------------------------------------\n  \tWebShopBackend API Tests:\
         expect(res).to.have.status(201);
         expect(res.body)
           .to.be.an.instanceof(Object)
-          .that.includes.all.keys(['_id', 'name', 'price', 'description', 'category', 'path', 'discount', 'quantity','reviews']);
+          .that.includes.all.keys(['_id', 'name', 'price', 'description', 'category', 'path', 'discount', 'quantity', 'reviews']);
         expect(agent).to.have.cookie('LOCAL_KEY');
         done();
       });
@@ -196,7 +198,7 @@ describe('--------------------------------------\n  \tWebShopBackend API Tests:\
   it('Should be able to request password change', function (done) {
     agent
       .post('/api/request-password-change')
-      .send({ email: 'admin@nasapc.com'})
+      .send({ email: 'admin@nasapc.com' })
       .end(function (err, res) {
         expect(res).to.have.status(200);
         expect(res.body).to.have.property('message');
