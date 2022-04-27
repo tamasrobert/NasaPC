@@ -45,6 +45,7 @@ public class OrderAdapter extends ArrayAdapter<Order> {
         ImageView imageView = convertView.findViewById(R.id.imageView);
         TextView txtName = convertView.findViewById(R.id.txtName);
         TextView txtItems = convertView.findViewById(R.id.txtItems);
+        TextView txtTotalCost = convertView.findViewById(R.id.total_cost);
 
         imageView.setImageResource(R.drawable.package_icon);
         txtName.setText(getItem(position).getID());
@@ -57,6 +58,7 @@ public class OrderAdapter extends ArrayAdapter<Order> {
             }
         }
         txtItems.setText(prodStr);
+        txtTotalCost.setText("Összesen: " + String.valueOf(getItem(position).getCost()) + " Ft");
 
         return convertView;
     }

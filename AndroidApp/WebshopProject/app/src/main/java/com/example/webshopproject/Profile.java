@@ -35,6 +35,14 @@ public class Profile extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             email.setText("Email címed: " + bundle.getString("email"));
+        } else {
+            SharedPreferences data = getSharedPreferences("webshop", MODE_PRIVATE);
+            if(!data.getString("email", "").equals("")) {
+                email.setText("Email címed: " + data.getString("email", ""));
+            } else {
+                email.setText("");
+            }
+
         }
 
 
@@ -89,6 +97,7 @@ public class Profile extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.products:
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        finish();
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.profile:
@@ -99,10 +108,12 @@ public class Profile extends AppCompatActivity {
                         } else {
                             startActivity(new Intent(getApplicationContext(), OrdersNotLoggedIn.class));
                         }
+                        finish();
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.cart:
                         startActivity(new Intent(getApplicationContext(), Cart.class));
+                        finish();
                         overridePendingTransition(0,0);
                         return true;
                 }

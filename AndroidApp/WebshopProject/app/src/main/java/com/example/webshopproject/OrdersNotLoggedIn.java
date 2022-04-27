@@ -6,12 +6,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.io.IOException;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class OrdersNotLoggedIn extends AppCompatActivity {
 
@@ -74,4 +81,19 @@ public class OrdersNotLoggedIn extends AppCompatActivity {
             }
         });
     }
+
+    /*
+    private void sendRequest() {
+        OkHttpClient client = new OkHttpClient();
+        Request newRequest = new Request.Builder()
+                .url(Variables.getBackendUrl() + "/api/getUserOrders/6261a4ce952f491b9ccb3c56")
+                .header("Cookie", "LOCAL_KEY=jPUUpQ8W94RaPIet6lbR83NJvmrUiGHx")
+                .build();
+        try {
+            Response response = client.newCall(newRequest).execute();
+            Log.d("OKHTTP", response.body().string());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }*/
 }
