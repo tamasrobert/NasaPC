@@ -56,6 +56,7 @@ describe('--------------------------------------\n  \tWebShopBackend API Tests:\
         expect(res.body[0]).to.have.property('description');
         expect(res.body[0]).to.have.property('category');
         expect(res.body[0]).to.have.property('price');
+        expect(res.body[0]).to.have.property('reviews');
         done();
       });
   });
@@ -63,7 +64,7 @@ describe('--------------------------------------\n  \tWebShopBackend API Tests:\
 
   it('Should be able to get a product by id', function (done) {
     agent
-      .get('/api/product/62615b4807b9781aa86fb5ee')
+      .get('/api/product/626853cefcffd060e07c6791')
       .end(function (err, res) {
         expect(res).to.have.status(200);
         expect(res.body).to.have.property('_id');
@@ -71,6 +72,7 @@ describe('--------------------------------------\n  \tWebShopBackend API Tests:\
         expect(res.body).to.have.property('description');
         expect(res.body).to.have.property('category');
         expect(res.body).to.have.property('price');
+        expect(res.body).to.have.property('reviews');
         done();
       });
   });
@@ -87,7 +89,7 @@ describe('--------------------------------------\n  \tWebShopBackend API Tests:\
 
   it('Should be able to add a product to wishlist', function (done) {
     agent
-      .post('/api/add-to-wishlist/62615b4807b9781aa86fb5ee')
+      .post('/api/add-to-wishlist/626853cefcffd060e07c6791')
       .end(function (err, res) {
         expect(res).to.have.status(200);
         expect(res.body).to.have.property('message');
@@ -98,7 +100,7 @@ describe('--------------------------------------\n  \tWebShopBackend API Tests:\
 
   it('Should be able to remove a product from wishlist', function (done) {
     agent
-      .post('/api/remove-from-wishlist/62615b4807b9781aa86fb5ee')
+      .post('/api/remove-from-wishlist/626853cefcffd060e07c6791')
       .end(function (err, res) {
         expect(res).to.have.status(200);
         expect(res.body).to.have.property('message');
@@ -130,11 +132,11 @@ describe('--------------------------------------\n  \tWebShopBackend API Tests:\
       .post('/api/admin/add-product')
       .send(product)
       .end(function (err, res) {
-        expect(Object.keys(res.body).length).to.equal(8)
+        expect(Object.keys(res.body).length).to.equal(9)
         expect(res).to.have.status(201);
         expect(res.body)
           .to.be.an.instanceof(Object)
-          .that.includes.all.keys(['_id', 'name', 'price', 'description', 'category', 'path', 'discount', 'quantity']);
+          .that.includes.all.keys(['_id', 'name', 'price', 'description', 'category', 'path', 'discount', 'quantity','reviews']);
         expect(agent).to.have.cookie('LOCAL_KEY');
         done();
       });
