@@ -3,11 +3,15 @@
     <Navbar/>
 	<div class="m-5">
 		<div class="card">
-			<DataView :value="products" :layout="layout" :paginator="true" :rows="9" :sortOrder="sortOrder" :sortField="sortField">
+			<DataView :value="filteredProducts" :layout="layout" :paginator="true" :rows="9" :sortOrder="sortOrder" :sortField="sortField">
 				<template #header>
 					<div class="grid grid-nogutter">
-						<div class="col-6" style="text-align: left">
+						<div class="col-6 d-flex" style="text-align: left">
 							<Dropdown v-model="sortKey" :options="sortOptions" optionLabel="label" placeholder="Sort By Price" @change="onSortChange($event)"/>
+							<span class="p-input-icon-left" style="margin-left:20px">
+								<i class="pi pi-search" />
+								<InputText type="text" v-model="this.searchName" placeholder="Search" @change="searchByName()"/>
+							</span>
 						</div>
 						<div class="col-6" style="text-align: right">
 							<DataViewLayoutOptions v-model="layout" />
@@ -71,6 +75,7 @@ import DataView from 'primevue/dataview';
 import Rating from 'primevue/rating'
 import Dropdown from 'primevue/dropdown'
 import Button from 'primevue/button'
+import InputText from 'primevue/inputtext';
 import DataViewLayoutOptions from 'primevue/dataviewlayoutoptions'
 import DataService from '../../services/DataService.js';
 import AccountDataService from '../../services/AccountDataService.js'
@@ -84,11 +89,13 @@ export default {
         Rating,
         Dropdown,
         Button,
-        DataViewLayoutOptions
+        DataViewLayoutOptions,
+		InputText
     },
 	data() {
 		return {
 			products: [],
+			filteredProducts: [],
             layout: 'grid',
             sortKey: null,
             sortOrder: null,
@@ -96,10 +103,22 @@ export default {
             sortOptions: [
                 {label: 'Price High to Low', value: '!price'},
                 {label: 'Price Low to High', value: 'price'},
-            ]
+            ],
+			searchName: ""
 		}
 	},
 	methods: {
+		searchByName() {
+			this.filteredProducts= [],
+			this.products.forEach(element => {
+				if (element.name.includes(this.searchName)) {
+					this.filteredProducts.push(element)
+				}
+			});
+			if (this.searchName === "") {
+				this.filteredProducts = this.products
+			}
+		},
         onSortChange(event){
             const value = event.value.value;
             const sortValue = event.value;
@@ -139,7 +158,7 @@ export default {
 		},
 	},
 	mounted() {
-    DataService.getAllProducts().then(data => this.products = data).then().catch(err => {console.log(err.response.data.error)});
+    DataService.getAllProducts().then(data => this.products = data).then(data => this.filteredProducts = data).catch(err => {console.log(err.response.data.error)});
     }
 }
 </script>
