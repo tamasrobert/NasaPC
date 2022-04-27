@@ -118,5 +118,23 @@ export default {
         })
     },
 
+    postReview(userId, data) {
+        return Axios.post('/post-review/'+userId, data)
+        .then(() => {})
+        .catch(err => {
+            console.log(err)
+            return Promise.reject(err)
+        })
+    },
+
+    postDeleteReview(userId) {
+        return Axios.post('/delete-review/'+userId)
+        .then(() => {})
+        .catch(err => {
+            console.log(err)
+            return Promise.reject(err)
+        })
+    },
+
 
 }

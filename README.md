@@ -20,6 +20,20 @@ A Weboldal elindításához a következőkre van szükség:
 
 -----------------------------------------------------------------------------
 
+## █ FrontendTest █
+
+A frontend test futtatásához a következőre van szükség:
+
+-- 1. Győződjön meg róla hogy a Selenium IDE böngésző kiegészítő telepítve van.
+        -https://chrome.google.com/webstore/detail/selenium-ide/mooikfkahbdckldjjndioackbalphokd
+
+-- 2. Importálja be a FrontEndSeleniumTest.side fájlt az új extension segítségével :
+        - Fontos információ, egyes tesztek feltételezik hogy a felhasználó bevan jelentkezve,
+        egyes tesztek pedig az ellenkezőjét továbbá a tesztek feltételezhetik hogy egy előző teszt által már 
+        például a kosár vagy a kívánságlista tartalmaz elemeket.
+
+-----------------------------------------------------------------------------
+
 ## █ Backend █
 
 A backend elindításához a következőkre van szükség:
