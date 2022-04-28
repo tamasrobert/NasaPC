@@ -6,12 +6,7 @@
     <div class="line"></div>
   </div>
   <div class="mainContent container ">
-    <div class="row" style="margin-bottom: 3%">
-    <!-- <div class="col-lg-12 col-xl-12">
-      
-    </div> -->
-    </div>
-
+    <div class="row" style="margin-bottom: 3%"></div>
     <div v-for="(promotion,i) in promotions" :key="i" style="color:white">
       <div class="row mb-1 promotionOne" style="padding: 5px;" v-if="i%2==0">
 

@@ -1,8 +1,6 @@
 <template>
     <main>
         <Navbar/>
-
-
         <!-- <Toast />
         <Toast position="top-left" group="tl" />
         <Toast position="bottom-left" group="bl" />

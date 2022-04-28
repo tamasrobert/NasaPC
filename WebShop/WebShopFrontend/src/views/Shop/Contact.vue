@@ -6,7 +6,6 @@
             <div class="col-3"></div>
             <div class="col-6">
                 <h1 class="text">About Us</h1>
-
                 <p class="text"> 
                     Welcome to our project! It is a pleasure to have you here, in our site.
                     We, the three founding developers of this project wish you to have a great time
@@ -40,10 +39,8 @@
             </div>
             <div class="col-3"></div>
         </div>
-        
-
     </div>
-        <Footer/>
+    <Footer/>
     </main>
 </template>
 

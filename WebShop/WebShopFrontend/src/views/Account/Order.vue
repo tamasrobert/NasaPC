@@ -1,7 +1,6 @@
 <template>
     <main class="mainContent">
     <Navbar/>
-
         <div class="m-5">
             <DataTable :value="products" responsiveLayout="scroll" >
                 <template #header>
@@ -33,8 +32,6 @@
             </DataTable>
         </div>
    
-
-       
             <!-- <div class="form-demo m-5">
              <div class="flex justify-content-center">
                 <div class="card">
@@ -139,14 +136,6 @@ export default {
     // },
     setup() {
         onMounted(() => {
-        //     products.value = [
-        //       {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 1},
-        //       {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 2},
-        //       {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 3},
-        //       {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 4},
-        //       {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 5},
-        //       {name: "1Cartitem", price: "1500", description: "A very good product!", path: "https://picsum.photos/200/300", category: "toothbrush", _id: 6},
-        //   ],
           AccountDataService.getUserOrders(this.$route.params.userId)
           .then((data) => {products.value = data})
           .catch((err) => {console.log(err.response.data)})

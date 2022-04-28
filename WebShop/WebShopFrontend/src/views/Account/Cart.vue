@@ -7,9 +7,6 @@
                     <i class="pi pi-user" :style="{fontSize: '5rem', color: 'blue' }"></i>
                     <h5>Personal information</h5>
                     <h6>Please give us some personal information for your order.</h6>
-                    <!-- <p :style="{lineHeight: 1.5, textIndent: '1rem'}">
-                    {{messageText}}
-                    </p> -->
                         <div class="m-3">
                             <div class="p-float-label">
                                 <InputText id="first_name" v-model="this.data.first_name"/>
@@ -52,6 +49,12 @@
                             </div>
                             <small v-if="this.validation.vbilling_address == false" style="color:red">Invalid data!</small>
                         </div>
+                        <div class="m-3">
+                            <div class="p-float-label">
+                                <Dropdown id="payment_method" v-model="this.data.payment_method" :options="payment_methods" optionLabel="method" optionValue="method" placeholder="Select a payment methode" />
+                            </div>
+                            <small v-if="this.validation.vpayment_method == false" style="color:red">No payment method was selected!</small>
+                        </div>
                 </div>
                 <template #footer>
                     <div class="flex justify-content-center">
@@ -60,50 +63,45 @@
                 </template>
             </Dialog>
 
-
-
-
-
         <div class="m-5">
-        <div class="card">
-            <OrderList v-model="this.cartItems" listStyle="height:auto" dataKey="product._id">
-                <template #header>
-                    <div class="row">
-                        <div class="col-md-4 col-sm-12">
-                            <span style="font-size:1.5rem">This is your Cart:</span>
-                        </div>
-                        <div class="col-md-6 col-sm-12">
-                            <span style="font-size:1.5rem">The total price is: {{getTotalPrice()}} HUF</span>
-                        </div>
-                        <div class="col-md-2 col-sm-12">
-                             <Button label="Order" class="p-button-raised p-button-success p-button-lg" @click="personalInformationForm()"/>
-                        </div>
-                    </div>
-                </template>
-                <template #item="slotProps">
-                    <div class="product-item">
-                        <div class="image-container">
-                            <img :src="'/image/'+slotProps.item.product.path" :alt="slotProps.item.product.path" />
-                        </div>
-                        <div class="product-list-detail">
-                            <h6 class="mb-2">{{slotProps.item.product.name}}</h6>
-                            <i class="pi pi-tag product-category-icon"></i>
-                            <span class="product-category">{{slotProps.item.product.category}}</span>
-                        </div>
-                        <div class="product-list-action">
-                            <h6 class="mb-2">{{slotProps.item.product.price}} HUF</h6>
-                            <h6 :id="slotProps.item.product._id+'quantityh6'" class="mb-2">Quantity: {{slotProps.item.product.quantity}}</h6>
-                            
-                            <div class="row">
-                                <Button :id="slotProps.item.product._id+'plus'" class="p-button-rounded p-button-primary" icon="pi pi-plus" @click="addquantity(slotProps.item.product._id, 1)"></Button>
-                                <Button :id="slotProps.item.product._id+'minus'" class="p-button-rounded p-button-danger" style="margin-left:20px" icon="pi pi-minus" @click="addquantity(slotProps.item.product._id, -1)"></Button>
-                                 <!-- <Button label="log" class="p-button-rounded p-button-primary" icon="pi pi-plus" @click="log()"></Button> -->
+            <div class="card">
+                <OrderList v-model="this.cartItems" listStyle="height:auto" dataKey="product._id">
+                    <template #header>
+                        <div class="row">
+                            <div class="col-md-4 col-sm-12">
+                                <span style="font-size:1.5rem">This is your Cart:</span>
+                            </div>
+                            <div class="col-md-6 col-sm-12">
+                                <span style="font-size:1.5rem">The total price is: {{getTotalPrice()}} HUF</span>
+                            </div>
+                            <div class="col-md-2 col-sm-12">
+                                <Button label="Order" class="p-button-raised p-button-success p-button-lg" @click="personalInformationForm()"/>
                             </div>
                         </div>
-                    </div>
-                </template>
-            </OrderList>
-        </div>
+                    </template>
+                    <template #item="slotProps">
+                        <div class="product-item">
+                            <div class="image-container">
+                                <img :src="'/image/'+slotProps.item.product.path" :alt="slotProps.item.product.path" />
+                            </div>
+                            <div class="product-list-detail">
+                                <h6 class="mb-2">{{slotProps.item.product.name}}</h6>
+                                <i class="pi pi-tag product-category-icon"></i>
+                                <span class="product-category">{{slotProps.item.product.category}}</span>
+                            </div>
+                            <div class="product-list-action">
+                                <h6 class="mb-2">{{slotProps.item.product.price}} HUF</h6>
+                                <h6 :id="slotProps.item.product._id+'quantityh6'" class="mb-2">Quantity: {{slotProps.item.product.quantity}}</h6>
+                                
+                                <div class="row">
+                                    <Button :id="slotProps.item.product._id+'plus'" class="p-button-rounded p-button-primary" icon="pi pi-plus" @click="addquantity(slotProps.item.product._id, 1)"></Button>
+                                    <Button :id="slotProps.item.product._id+'minus'" class="p-button-rounded p-button-danger" style="margin-left:20px" icon="pi pi-minus" @click="addquantity(slotProps.item.product._id, -1)"></Button>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </OrderList>
+            </div>
         </div>
         <Footer/>
     </main>
@@ -118,7 +116,7 @@ import OrderList from 'primevue/orderlist'
 import Dialog from 'primevue/dialog'
 import InputText from 'primevue/inputtext'
 import Button from 'primevue/button'
-// import { ref,  } from 'vue';
+import Dropdown from 'primevue/dropdown';
 export default {
   name: 'Cart',
   components: {
@@ -127,36 +125,38 @@ export default {
     OrderList,
     Button,
     Dialog,
-    InputText
+    InputText,
+    Dropdown
   },
   data(){
       return {
           cartItems: [],
+          payment_methods: [
+              {method: "Bankcard/Creditcard"},
+              {method: "Pay on delivery"},
+              {method: "Pay overtime"}
+          ],
           isEmpty: true,
           data: {
                 last_name: "",
                 first_name: "",
-                // birthday_place: "",
-                // birthday: "",
                 email: "",
                 phone_number: "",
                 billing_address: "",
                 shipping_address: "",
                 total_price: "",
-                items: ""
-                // payment_method: "",
+                items: "",
+                payment_method: "",
             },
             validation: {
                 vlast_name: false,
                 vfirst_name: false,
-                // birthday_place: "",
-                // birthday: "",
                 vemail: false,
                 vphone_number: false,
                 vbilling_address: false,
                 vshipping_address: false,
+                vpayment_method: false,
             },
-
             isLoggedIn: false,
             showMessage: false
       }
@@ -171,7 +171,8 @@ export default {
                 this.validation.vemail == true &&
                 this.validation.vphone_number == true &&
                 this.validation.vbilling_address == true &&
-                this.validation.vshipping_address == true
+                this.validation.vshipping_address == true &&
+                this.validation.vpayment_method == true
             ) {
                 AccountDataService.PlaceOrder(this.data).then(() => {
                     localStorage.clear()
@@ -188,32 +189,31 @@ export default {
         },
         validationFunction()
         {
-            if (this.validation.vlast_name != null) {
+            if (this.data.last_name != null) {
                 this.validation.vlast_name = true
             }
-            if (this.validation.vfirst_name != null) {
+            if (this.data.first_name != null) {
                 this.validation.vfirst_name = true
             }
-            if (this.validation.vemail != null) {
+            if (this.data.email != null) {
                 this.validation.vemail = true
             }
-            if (this.validation.vphone_number != null) {
+            if (this.data.phone_number != null) {
                 this.validation.vphone_number = true
             }
-            if (this.validation.vbilling_address != null) {
+            if (this.data.billing_address != null) {
                 this.validation.vbilling_address = true
             }
-            if (this.validation.vshipping_address != null) {
+            if (this.data.shipping_address != null) {
                 this.validation.vshipping_address = true
             }
-            
+            if (this.data.payment_method != null) {
+                this.validation.vpayment_method = true
+            }
            
             this.data.items = this.cartItems
 
         },
-        // log(){
-        //     console.log(this.data)
-        // },
         personalInformationForm()
         {
             this.showMessage = true
@@ -284,17 +284,17 @@ export default {
         // }
   },
   mounted() {
-            try {
-                var locArr = JSON.parse(localStorage.getItem('cart'));
-
-                locArr.forEach(product => {
-                    DataService.getProductById(product._id).then((resp) => {
-                        this.cartItems.push({'product':{'name': resp.name,'category': resp.category,'price': resp.price,'_id':resp._id,'description':resp.description,'__v':0, 'quantity': product.quantity, "path": resp.path }})
-                    })
-                    .catch((err)=>{
-                        console.log(err.response.data.error)
-                    })
-                });
+     try {
+        var locArr = JSON.parse(localStorage.getItem('cart'));   
+            locArr.forEach(product => {
+                    DataService.getProductById(product._id).then((resp) => 
+                    {this.cartItems.push({'product':{'name': resp.name,'category': resp.category,'price': resp.price,
+                    '_id':resp._id,'description':resp.description,'__v':0, 'quantity': product.quantity, "path": resp.path }})
+                })
+                .catch((err)=>{
+                    console.log(err.response.data.error)
+                })
+            });
             } catch (error) {
                 console.log("Your cart is empthy.")
             }

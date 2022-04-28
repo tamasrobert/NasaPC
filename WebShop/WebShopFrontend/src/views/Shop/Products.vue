@@ -1,21 +1,25 @@
 <template>
 <main class="mainContent">
     <Navbar/>
-	<div class="m-5">
+	<div class="m-3">
 		<div class="card">
 			<DataView :value="filteredProducts" :layout="layout" :paginator="true" :rows="9" :sortOrder="sortOrder" :sortField="sortField">
 				<template #header>
 					<div class="grid grid-nogutter">
-						<div class="col-6 d-flex" style="text-align: left">
-							<Dropdown v-model="sortKey" :options="sortOptions" optionLabel="label" placeholder="Sort By Price" @change="onSortChange($event)"/>
-							<span class="p-input-icon-left" style="margin-left:20px">
-								<i class="pi pi-search" />
-								<InputText type="text" v-model="this.searchName" placeholder="Search" @change="searchByName()"/>
-							</span>
-						</div>
-						<div class="col-6" style="text-align: right">
-							<DataViewLayoutOptions v-model="layout" />
-						</div>
+
+							<div class="col-xl-3 col-md-12 d-flex" style="text-align: left">
+								<Dropdown v-model="sortKey" :options="sortOptions" optionLabel="label" placeholder="Sort By Price" @change="onSortChange($event)"/>
+							</div>
+							<div class="col-xl-3 col-md-12" style="text-align: left">
+								<span class="p-input-icon-left">
+									<i class="pi pi-search" />
+									<InputText type="text" v-model="this.searchName" placeholder="Search" @change="searchByName()"/>
+								</span>
+							</div>
+							<div class="col-xl-3 col-md-12 d-flex" style="text-align: right">
+								<DataViewLayoutOptions v-model="layout" />
+							</div>
+						
 					</div>
 				</template>
 
@@ -134,31 +138,31 @@ export default {
                 this.sortKey = sortValue;
             }
 		},
-	addToCart(_id) {
-		var cartItem = {_id, quantity: 1};
-		var match = false;
-		if(!JSON.parse(localStorage.getItem('cart'))) {
-			localStorage.setItem('cart', JSON.stringify([cartItem]));
-		} else {
-			var locArr = JSON.parse(localStorage.getItem('cart'));
-			for (let i = 0; i < locArr.length; i++) {
-			if(locArr[i]._id == cartItem._id) {
-				match = true;
-				locArr[i] = ({_id: cartItem._id, quantity: (locArr[i].quantity+1)});
+		addToCart(_id) {
+			var cartItem = {_id, quantity: 1};
+			var match = false;
+			if(!JSON.parse(localStorage.getItem('cart'))) {
+				localStorage.setItem('cart', JSON.stringify([cartItem]));
+			} else {
+				var locArr = JSON.parse(localStorage.getItem('cart'));
+				for (let i = 0; i < locArr.length; i++) {
+				if(locArr[i]._id == cartItem._id) {
+					match = true;
+					locArr[i] = ({_id: cartItem._id, quantity: (locArr[i].quantity+1)});
+				}
+				}
+				if(!match) locArr.push({_id: cartItem._id, quantity: 1});
+				localStorage.setItem('cart', JSON.stringify(locArr));
 			}
-			}
-			if(!match) locArr.push({_id: cartItem._id, quantity: 1});
-			localStorage.setItem('cart', JSON.stringify(locArr));
-		}
 		},
 		addToWishList(_id) {
 			AccountDataService.addToWishList(_id)
 			.then(()=>{})
 			.catch(err => {console.log(err.response.data.error)});
 		},
-	priceConverter(num) {
-    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-	},
+		priceConverter(num) {
+		return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+		},
 	},
 	mounted() {
     DataService.getAllProducts().then(data => this.products = data).then(data => this.filteredProducts = data).catch(err => {console.log(err.response.data.error)});
@@ -252,9 +256,14 @@ export default {
 	.product-description {
 		overflow-x: hidden;
 		overflow-y: auto;
-		height: 150px;
+		height: 100px;
 	}
 
+	.product-name {
+		overflow-x: hidden;
+		overflow-y: auto;
+		height: 150px;
+	}
 
 	.product-grid-item-top,
 	.product-grid-item-bottom {
@@ -266,7 +275,8 @@ export default {
 	img {
 		box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 		margin: 1rem 0;
-		width: 300px;
+		width: 250px;
+		max-height: 250px;
 	}
 
 	.product-grid-item-content {

@@ -2,29 +2,29 @@
     <main class="mainContent">
         <Navbar/>
         <div class="m-5">
-        <div class="card">
-            <OrderList v-model="this.wishList" listStyle="height:auto" dataKey="_id">
-                <template #header>
-                    This is your WishList:
-                </template>
-                <template #item="slotProps">
-                    <div class="product-item">
-                        <div class="image-container">
-                            <img :src="'/image/'+slotProps.item.path" :alt="slotProps.item.path" />
+            <div class="card">
+                <OrderList v-model="this.wishList" listStyle="height:auto" dataKey="_id">
+                    <template #header>
+                        This is your WishList:
+                    </template>
+                    <template #item="slotProps">
+                        <div class="product-item">
+                            <div class="image-container">
+                                <img :src="'/image/'+slotProps.item.path" :alt="slotProps.item.path" />
+                            </div>
+                            <div class="product-list-detail">
+                                <h6 class="mb-2" :id="slotProps.item._id+'name'">{{slotProps.item.name}}</h6>
+                                <i class="pi pi-tag product-category-icon"></i>
+                                <span class="product-category">{{slotProps.item.category}}</span>
+                            </div>
+                            <div class="product-list-action">
+                                <h6 class="mb-2">{{slotProps.item.price}} HUF</h6>
+                                <Button :id="slotProps.item._id+'remove'" icon="pi pi-minus" @click="removeFromWishlist(slotProps.item._id)" class="p-button-raised p-button-danger" />
+                            </div>
                         </div>
-                        <div class="product-list-detail">
-                            <h6 class="mb-2" :id="slotProps.item._id+'name'">{{slotProps.item.name}}</h6>
-                            <i class="pi pi-tag product-category-icon"></i>
-                            <span class="product-category">{{slotProps.item.category}}</span>
-                        </div>
-                        <div class="product-list-action">
-                            <h6 class="mb-2">{{slotProps.item.price}} HUF</h6>
-                            <Button :id="slotProps.item._id+'remove'" icon="pi pi-minus" @click="removeFromWishlist(slotProps.item._id)" class="p-button-raised p-button-danger" />
-                        </div>
-                    </div>
-                </template>
-            </OrderList>
-        </div>
+                    </template>
+                </OrderList>
+            </div>
         </div>
         <Footer/>
     </main>
