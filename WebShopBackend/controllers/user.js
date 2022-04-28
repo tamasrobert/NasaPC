@@ -53,7 +53,7 @@ exports.requestPasswordChange = (req, res) => {
     } catch (error) {
         return res.status(500).json({ "error": "Unexpected error!" });
     }
-}
+};
 
 exports.changePassword = (req, res) => {
     try {
@@ -89,7 +89,7 @@ exports.changePassword = (req, res) => {
     } catch (error) {
         return res.status(500).json({ "error": "Unexpected error!" });
     }
-}
+};
 
 exports.getWishList = (req, res) => {
     const session = req.cookies['LOCAL_KEY'];
@@ -110,7 +110,7 @@ exports.getWishList = (req, res) => {
     } else {
         res.status(401).json({ "error": "No session!" });
     }
-}
+};
 
 exports.addToWishList = (req, res) => {
 
@@ -158,7 +158,7 @@ exports.addToWishList = (req, res) => {
     } else {
         res.status(401).json({ "error": "No session!" });
     }
-}
+};
 
 exports.removeFromWishList = (req, res) => {
 
@@ -220,4 +220,4 @@ exports.removeFromWishList = (req, res) => {
         res.status(401).json({ "error": "No session!" });
     }
 
-}
+};
