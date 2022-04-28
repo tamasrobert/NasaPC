@@ -271,7 +271,7 @@ export default {
 
 	.product-grid-item-content {
 		text-align: center;
-		height: 700px;
+		height: 600px;
 	}
 
 	.product-price {
