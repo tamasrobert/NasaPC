@@ -102,7 +102,7 @@ export default {
                 .catch(err => {
                     console.log(err.response.data.error)
                     this.errorDialog(err.response.data.error)
-                });
+                }).then(this.$router.go())
             }
             else
             {
@@ -111,14 +111,15 @@ export default {
                 .catch(err => {
                     console.log(err.response.data.error)
                     this.errorDialog(err.response.data.error)
-                });
+                }).then(this.$router.go())
             }
             
         },
         removeReview() {
             AccountDataService.postDeleteReview(this.product._id)
             .then(() => {})
-            .catch(err => {console.log(err.response.data.error)});
+            .catch(err => {console.log(err.response.data.error)})
+            .then(this.$router.go())
         },
         closeDialog() {
             this.showMessage = false
