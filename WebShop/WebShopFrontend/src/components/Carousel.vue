@@ -4,8 +4,6 @@
             <button type="button" data-bs-target="#carouselMainPage" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
             <button type="button" v-for="(item,i) in carousel_items" :key="i" data-bs-target="#carouselMainPage" :data-bs-slide-to='i+1' :aria-label="'Slide' + i+2"/>
         </div>
-        
-        
         <div class="carousel-inner">
 
             <div class="carousel-item active" data-bs-interval="10000">
@@ -15,7 +13,6 @@
                     <p></p>
                 </div>
             </div>
-
             <div v-for="(item,i) in carousel_items" :key="i" class="carousel-item" data-bs-interval="10000" >
                 <img :src="item.imageURl" class="d-block w-100" >
                 <div class="carousel-caption d-none d-md-block">
@@ -23,7 +20,6 @@
                     <p>{{item.text}}</p>
                 </div>
             </div>
-
             <!-- <div v-for="(item,i) in carousel_items" :key="i" class="carousel-item" data-bs-interval="10000" >
                 <img :src="item.imageURl" class="d-block w-100" >
                 <div class="carousel-caption d-none d-md-block">
@@ -32,7 +28,6 @@
                 </div>
             </div> -->
         </div>
-
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselMainPage" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
@@ -42,7 +37,6 @@
             <span class="visually-hidden">Next</span>
         </button>
     </div>
-
 </template>
 
 <script>

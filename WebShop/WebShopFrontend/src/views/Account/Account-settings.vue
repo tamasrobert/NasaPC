@@ -1,11 +1,8 @@
 <template>
     <Navbar/>
     <div class="row formAndInfobox">
-        
         <div style="margin-bottom: 2em">
             <div class="form-demo">
-                
-
                 <div class="flex justify-content-center">
                     <div class="col-xs-12 col-lg-8 card">
                         <h5 class="text-center">Personal Information</h5>
@@ -96,8 +93,6 @@ export default {
             UserDate: ''
         }
     }
-    
-    
 }
 </script>
 
@@ -109,7 +104,6 @@ export default {
         form {
             margin-top: 2rem;
         }
-
         .field {
             margin-bottom: 1.5rem;
         }

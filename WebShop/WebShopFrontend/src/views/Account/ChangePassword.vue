@@ -18,10 +18,6 @@
                     </template>
                 </Dialog>
 
-
-
-
-
             <div class="row">      
                 <div class="col-xl-4 col-lg-2 col-md-2 col-sm-0"></div>
                 <div class="col-xl-4 col-lg-8 col-md-8 col-sm-12 form">

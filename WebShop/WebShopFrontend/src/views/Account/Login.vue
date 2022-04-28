@@ -21,10 +21,6 @@
                     </template>
                 </Dialog>
 
-
-
-
-
             <div class="row">
                 <div class="col-xl-4 col-lg-2 col-md-2 col-sm-0"></div>
                 <form @submit.prevent="Login()" class="col-xl-4 col-lg-8 col-md-8 col-sm-12 form m-2">
@@ -50,14 +46,9 @@
 
                     <div class="row mt-2">
                         <div class="col-6">
-                            <!-- <button @click="Login()" class="btn btn-primary">Login</button> -->
-
-                            <!-- <Button id="login" label="Login" class="p-button-raised p-button-success" @click="Login()"/> -->
                             <Button id="login" label="Login" class="p-button-raised p-button-success" type="submit"/>
-
                         </div>
                         <div class="col-6">
-                            <!-- <button class="btn btn-primary" @click="forgotPasswordForm()">Forgot password</button> -->
                             <Button id="forgetpassword" label="Forgot password" class="p-button-raised p-button-info" @click="forgotPasswordForm()"/>
                         </div>
                     </div>
