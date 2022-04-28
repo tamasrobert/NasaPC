@@ -119,7 +119,6 @@ public class Login extends AppCompatActivity {
                     }
                 },
                 error -> {
-                    Log.d("RESPONSEERR", error.getMessage());
                     error_text.setVisibility(View.VISIBLE);
                 }){
         };

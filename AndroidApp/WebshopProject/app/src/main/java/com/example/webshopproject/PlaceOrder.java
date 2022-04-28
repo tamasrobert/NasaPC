@@ -57,11 +57,6 @@ public class PlaceOrder extends AppCompatActivity {
         placeOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ArrayList<String> products = new ArrayList<>();
-                for (int i = 0; i<Variables.cart.size(); i++) {
-                    products.add(Variables.cart.get(i).name);
-                }
-                Variables.orders.add(new Order("TEST", products, 999));
 
                 if(realName.getText().toString().split(" ").length <= 1) {
                     errorMessage.setText("Hiba: Kérem valós nevet adjon meg!");

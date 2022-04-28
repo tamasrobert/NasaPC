@@ -25,6 +25,8 @@ public class OrderSuccess extends AppCompatActivity {
         //Change the built in bottom nav color
         getWindow().setNavigationBarColor(getResources().getColor(R.color.primary));
 
+        Variables.cart.clear();
+
         bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 
             @Override
@@ -52,6 +54,8 @@ public class OrderSuccess extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         return true;
                     case R.id.cart:
+                        startActivity(new Intent(getApplicationContext(), Cart.class));
+                        overridePendingTransition(0,0);
                         return true;
                 }
 
