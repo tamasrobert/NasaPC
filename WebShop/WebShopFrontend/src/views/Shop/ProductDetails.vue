@@ -96,12 +96,24 @@ export default {
     },
     methods: {
         postReview() {
-            AccountDataService.postReview(this.product._id,{"rating": this.rating, "comment": this.comment})
-            .then(() => {this.successDialog()})
-            .catch(err => {
-                console.log(err.response.data.error)
-                this.errorDialog(err.response.data.error)
+            if (this.rating > 0) {
+                AccountDataService.postReview(this.product._id,{"rating": this.rating, "comment": this.comment})
+                .then(() => {this.successDialog()})
+                .catch(err => {
+                    console.log(err.response.data.error)
+                    this.errorDialog(err.response.data.error)
                 });
+            }
+            else
+            {
+                AccountDataService.postReview(this.product._id,{"rating": "5", "comment": this.comment})
+                .then(() => {this.successDialog()})
+                .catch(err => {
+                    console.log(err.response.data.error)
+                    this.errorDialog(err.response.data.error)
+                });
+            }
+            
         },
         removeReview() {
             AccountDataService.postDeleteReview(this.product._id)
