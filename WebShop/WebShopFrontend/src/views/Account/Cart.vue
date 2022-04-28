@@ -90,7 +90,7 @@
                                 <span class="product-category">{{slotProps.item.product.category}}</span>
                             </div>
                             <div class="product-list-action">
-                                <h6 class="mb-2">{{slotProps.item.product.price}} HUF</h6>
+                                <h6 class="mb-2">{{this.priceConverter(slotProps.item.product.price)}} HUF</h6>
                                 <h6 :id="slotProps.item.product._id+'quantityh6'" class="mb-2">Quantity: {{slotProps.item.product.quantity}}</h6>
                                 
                                 <div class="row">
@@ -133,8 +133,8 @@ export default {
           cartItems: [],
           payment_methods: [
               {method: "Bankcard/Creditcard"},
-              {method: "Pay on delivery"},
-              {method: "Pay overtime"}
+              {method: "Pay_on_delivery"},
+              {method: "Pay_overtime"}
           ],
           isEmpty: true,
           data: {
@@ -227,7 +227,7 @@ export default {
                 sum += (product.product.price * product.product.quantity);
             });
             this.data.total_price = sum
-            return sum;
+            return this.priceConverter(sum);
         },
         addquantity(_id, num) {
             this.cartItems.forEach(product => {
@@ -270,6 +270,9 @@ export default {
             }
             return arr;
         },
+        priceConverter(num) {
+		return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+		},
         // calculateCartquantity() {
         //     if(!JSON.parse(localStorage.getItem('cart'))) {
         //         this.$store.state.cartItemsLength = 0;
