@@ -54,4 +54,9 @@ public class OrderAdapter extends ArrayAdapter<Order> {
         return convertView;
     }
 
+    @Override
+    public boolean isEnabled(int position) {
+        return false;
+    }
+
 }
