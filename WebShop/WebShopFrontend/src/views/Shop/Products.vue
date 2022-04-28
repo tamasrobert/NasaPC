@@ -245,8 +245,10 @@ export default {
 	border: 1px solid var(--surface-border);
 	width: 400px;
 
+
 	.product-description {
-		overflow: scroll;
+		overflow-x: hidden;
+		overflow-y: auto;
 		height: 150px;
 	}
 
