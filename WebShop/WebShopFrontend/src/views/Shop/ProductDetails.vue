@@ -201,7 +201,7 @@ export default {
     .comment-box {
         margin-top: 15px;
         // margin-left: 15px;
-        background-color: $lightestblue;
+        background-color: transparent;
         width: 100%;
         align-content: flex-start;
         border-radius: 15px;
