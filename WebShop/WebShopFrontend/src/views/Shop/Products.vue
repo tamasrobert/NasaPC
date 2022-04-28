@@ -30,7 +30,7 @@
 								<i class="pi pi-tag product-category-icon"></i><span class="product-category">{{slotProps.data.category}}</span>
 							</div>
 							<div class="product-list-action">
-								<span class="product-price">{{slotProps.data.price}} HUF</span>
+								<span class="product-price">{{this.priceConverter(slotProps.data.price)}} HUF</span>
 								<Button icon="pi pi-shopping-cart" :id="slotProps.data._id+'cart'" label="Add to Cart" @click="addToCart(slotProps.data._id)"></Button>
 								<Button icon="pi pi-star-fill" :id="slotProps.data._id+'wish'" label="Add to WishList" @click="addToWishList(slotProps.data._id)"></Button>
 							</div>
@@ -54,7 +54,7 @@
 								<Rating :modelValue="slotProps.data.rating" :readonly="true" :cancel="false"></Rating>
 							</div>
 							<div class="product-grid-item-bottom">
-								<span class="product-price">{{slotProps.data.price}} HUF</span>
+								<span class="product-price">{{this.priceConverter(slotProps.data.price)}} HUF</span>
 								<Button :id="slotProps.data._id+'cart'" icon="pi pi-shopping-cart" label="Cart" @click="addToCart(slotProps.data._id)"></Button>
 								<Button :id="slotProps.data._id+'wish'" icon="pi pi-star-fill" @click="addToWishList(slotProps.data._id)"></Button>
 							</div>
@@ -133,7 +133,7 @@ export default {
                 this.sortField = value;
                 this.sortKey = sortValue;
             }
-    },
+		},
 	addToCart(_id) {
 		var cartItem = {_id, quantity: 1};
 		var match = false;
@@ -156,6 +156,9 @@ export default {
 			.then(()=>{})
 			.catch(err => {console.log(err.response.data.error)});
 		},
+	priceConverter(num) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+	},
 	},
 	mounted() {
     DataService.getAllProducts().then(data => this.products = data).then(data => this.filteredProducts = data).catch(err => {console.log(err.response.data.error)});
