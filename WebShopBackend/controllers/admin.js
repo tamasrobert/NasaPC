@@ -1,4 +1,4 @@
-// import models
+// models
 const User = require('../models/user');
 const Product = require('../models/product');
 

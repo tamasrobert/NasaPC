@@ -1,3 +1,4 @@
+// models
 const Product = require('../models/product');
 const User = require('../models/user');
 
@@ -7,7 +8,7 @@ exports.getAllProducts = (req, res) => {
         .then(products => res.json(products))
         .catch(() => res.status(500).json({ "error": "Unexpected error!" }))
 
-};
+}
 
 exports.getProductById = (req, res) => {
 
@@ -20,7 +21,7 @@ exports.getProductById = (req, res) => {
         })
         .catch(() => res.status(404).json({ "error": "Product not found!" }))
 
-};
+}
 
 exports.postReview = (req, res) => {
 
@@ -78,7 +79,7 @@ exports.postReview = (req, res) => {
     } else {
         res.status(401).json({ "error": "No session!" });
     }
-};
+}
 
 exports.deleteReview = (req, res) => {
 
@@ -140,7 +141,7 @@ exports.deleteReview = (req, res) => {
     } else {
         res.status(401).json({ "error": "No session!" });
     }
-};
+}
 
 var int_try_parse = function (val, default_val, radix) {
     try {
@@ -163,7 +164,7 @@ var int_try_parse = function (val, default_val, radix) {
     }
     //this is not a number
     return default_val;
-};
+}
 
 var updateReviews = function (_id, product, currentReview) {
 
@@ -197,4 +198,4 @@ var updateReviews = function (_id, product, currentReview) {
         .then(() => { })
         .catch((error) => { console.log(error) })
 
-};
+}

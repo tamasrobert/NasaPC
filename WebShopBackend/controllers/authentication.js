@@ -1,4 +1,4 @@
-// model(s)
+// model
 const User = require('../models/user');
 
 // nodemailer to send emails
@@ -62,7 +62,7 @@ exports.register = (req, res) => {
     } catch (e) {
         res.statusCode(500);
     }
-};
+}
 
 exports.verifyRegistration = (req, res) => {
     try {
@@ -94,7 +94,7 @@ exports.verifyRegistration = (req, res) => {
     } catch (e) {
         res.statusCode(500);
     }
-};
+}
 
 exports.getSession = (req, res) => {
     const session = req.cookies['LOCAL_KEY'];
@@ -123,7 +123,7 @@ exports.getSession = (req, res) => {
         .catch((err) => {
             console.log(err)
         })
-};
+}
 
 exports.login = (req, res) => {
     try {
@@ -181,7 +181,7 @@ exports.login = (req, res) => {
     } catch (e) {
         res.statusCode(500);
     }
-};
+}
 
 exports.logout = (req, res) => {
 
@@ -208,4 +208,4 @@ exports.logout = (req, res) => {
     } else {
         res.status(401).json({ "error": "No session key found!" });
     }
-};
+}
