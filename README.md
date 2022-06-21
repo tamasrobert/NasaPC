@@ -1,5 +1,10 @@
 # WebShopProject
-Vizsgaremek
+Projektmunka
+
+## █ Függőségek █
+
+Sendgrid API key
+MongoDB connection string
 
 ## █ Frontend █
 
