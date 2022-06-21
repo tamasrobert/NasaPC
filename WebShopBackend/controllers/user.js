@@ -33,7 +33,7 @@ exports.requestPasswordChange = (req, res) => {
                             .catch((error) => { console.log(error) })
 
                         transport.sendMail({
-                            from: "tamas.robert1@students.jedlik.eu",
+                            from: "SENDGRID_EMAIL",
                             to: user.email,
                             subject: "NasaPC - Requested password change",
                             html: "<h3>New password</h3><br><p>Click this link to change your password: http://localhost:8080/change-password/" + generatedToken + " </p>"

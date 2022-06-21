@@ -39,7 +39,7 @@ exports.register = (req, res) => {
                             .then((response2) => {
 
                                 transport.sendMail({
-                                    from: 'tamas.robert1@students.jedlik.eu',
+                                    from: 'SENDGRID_EMAIL',
                                     to: email,
                                     subject: 'NasaPC - Account activation',
                                     html: '<h3>Account activation</h3><br><p>Click on this link to activate your account: http://localhost:8080/activate/' + activatorToken + ' </p>'
